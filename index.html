@@ -1,13 +1,23 @@
 ---
 layout: default
-title: Your New Jekyll Site
+title: Rich Grundy
 ---
 
-<div id="home">
-  <h1>Blog Posts</h1>
-  <ul class="posts">
-    {% for post in site.posts %}
-      <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></li>
-    {% endfor %}
-  </ul>
+<div class="about-blurb">
+  <h1>Hello. I'm Rich.</h1>
+  <p>I'm a software developer living in south Birmingham, UK. I love ruby, bikes and gaming. I work for <a href="http://www.stinkyinkshop.co.uk/">Stinkyink.com</a> as IT manager.</p>
+
+  <p class="about-blurb__icons">
+    <a rel="nofollow" href="http://github.com/RichGuk/"><i class="icon-github"></i></a>
+    <a rel="nofollow" href="http://twitter.com/RichGuk/"><i class="icon-twitter"></i></a>
+    <a rel="nofollow" href="http://gplus.to/richguk/"><i class="icon-googleplus"></i>
+    <a rel="nofollow" href="mailto:&#114;&#105;&#099;&#104;&#064;&#114;&#105;&#099;&#104;&#103;&#114;&#117;&#110;&#100;&#121;&#046;&#099;&#111;&#109;"><i class="icon-mail"></i></a>
+  </p>
 </div>
+
+<hr>
+<ul class="posts">
+  {% for post in site.posts limit:5 %}
+    <li><span class="posts__date">{{ post.date | date_to_string }}</span> <a href="{{ post.url }}">{{ post.title }}</a></li>
+  {% endfor %}
+</ul>

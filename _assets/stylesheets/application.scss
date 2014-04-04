@@ -1,5 +1,6 @@
 //= require normalize
 //= require syntax
+//= require fonts
 
 $base-line-height: 24px;
 $base-font-size: 16px;
@@ -23,7 +24,7 @@ $desktop-min: 640px;
   box-sizing: border-box;
 }
 
-.cf{
+.cf {
   &:after{
     content:"";
     display:table;
@@ -39,6 +40,15 @@ html {
   @media screen and (min-width: $desktop-min) {
     font-size: 125%;
   }
+}
+
+h1,h2,h3,h4,h5,h6,pre,ul,ol {
+  margin-top: 0;
+}
+
+hr {
+  border: 0;
+  border-bottom: 1px solid #E6E6E6;
 }
 
 pre {
@@ -73,6 +83,18 @@ a {
 
   &:hover {
     text-decoration: underline;
+  }
+}
+
+.dark-link {
+  color: #444;
+  -moz-transition:color .2s ease-in;
+  -webkit-transition:color .2s ease-in;
+  transition:color .2s ease-out;
+
+  &:hover {
+    color: $link-color;
+    text-decoration: none;
   }
 }
 
@@ -146,15 +168,7 @@ p {
   }
 
   a {
-    color: #444;
-    -moz-transition:color .2s ease-in;
-    -webkit-transition:color .2s ease-in;
-    transition:color .2s ease-out;
-
-    &:hover {
-      color: $link-color;
-      text-decoration: none;
-    }
+    @extend .dark-link;
   }
 }
 
@@ -185,4 +199,41 @@ p {
 
 .post-title {
   margin-bottom: 0;
+}
+
+.about-blurb {
+  text-align: center;
+  padding-bottom: $base-spacing-unit;
+}
+.about-blurb__icons {
+  font-size: 2.25rem;
+
+  a {
+    @extend .dark-link;
+  }
+}
+
+.posts {
+  @extend %sass-margin-bottom;
+
+  list-style:none;
+  margin-left: 0;
+  padding-left: 0;
+
+  li {
+    margin: 0;
+    margin-bottom: $base-spacing-unit / 4;
+  }
+}
+.posts__date {
+  font-size: 0.8em;
+  color: #999;
+  text-transform: uppercase;
+
+  &:after {
+    content: ' : ';
+    font-size: 1.5em;
+    margin-left: .5rem;
+    margin-right: .5rem;
+  }
 }
