@@ -1,44 +1,44 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>{{ page.title }}</title>
-        <meta name="viewport" content="width=device-width">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>{{ page.title }}</title>
+    <meta name="description" content="Personal space of Rich Grundy. A Birmingham based Ruby on Rails developer.">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    {% stylesheet application %}
+  </head>
 
-        <!-- syntax highlighting CSS -->
-        <link rel="stylesheet" href="/css/syntax.css">
+  <body>
+  <header class="site-header" role="banner">
+      <div class="container">
+        <a href="/" class="logo"><img src="{% asset_path logo.png %}" alt="Rich Grundy" class="site-logo"></a>
 
-        <!-- Custom CSS -->
-        <link rel="stylesheet" href="/css/main.css">
+        <nav role="navigiation">
+          <ul class="site-nav">
+            <li><a href="/about/">About</a>
+            <li><a href="/archives">Blog</a>
+            <li><a href="/bikes">Bikes</a>
+          </ul>
+        </nav>
+      </div>
+    </header>
 
-    </head>
-    <body>
+    {% if page.hero %}
+      <div class="hero" style="background-image: url({{ page.hero }});"></div>
+    {% endif %}
 
-        <div class="site">
-          <div class="header">
-            <h1 class="title"><a href="/">{{ site.name }}</a></h1>
-            <a class="extra" href="/">home</a>
-          </div>
+    <div class="site-content">
+      <div class="container">
+        {{ content }}
+      </div>
+    </div>
 
-          {{ content }}
-
-          <div class="footer">
-            <div class="contact">
-              <p>
-                Your Name<br />
-                What You Are<br />
-                you@example.com
-              </p>
-            </div>
-            <div class="contact">
-              <p>
-                <a href="https://github.com/yourusername">github.com/yourusername</a><br />
-                <a href="https://twitter.com/yourusername">twitter.com/yourusername</a><br />
-              </p>
-            </div>
-          </div>
-        </div>
-
-    </body>
+    <footer class="site-footer">
+      <div class="container">
+        &copy; Rich Grundy 2014.
+      </div>
+    </footer>
+  </body>
 </html>

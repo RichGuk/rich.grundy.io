@@ -3,6 +3,7 @@ layout: post
 title:  "Welcome to Jekyll!"
 date:   2014-04-02 13:33:15
 categories: jekyll update
+hero: http://cl.ly/image/3V0P3e2D0Z1V/content
 ---
 
 You'll find this post in your `_posts` directory - edit this post and re-build (or run with the `-w` switch) to see your changes!

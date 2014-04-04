@@ -1,0 +1,188 @@
+//= require normalize
+//= require syntax
+
+$base-line-height: 24px;
+$base-font-size: 16px;
+$line-height-ratio: 1.5;
+$base-spacing-unit: $line-height-ratio * 1rem;
+
+$link-color: #0c84c5;
+
+$desktop-min: 640px;
+
+@import "bourbon";
+@import "mixins";
+
+%sass-margin-bottom {
+  margin-bottom: $base-spacing-unit;
+}
+
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.cf{
+  &:after{
+    content:"";
+    display:table;
+    clear:both;
+  }
+}
+
+html {
+  font: #{$base-font-size}/#{$line-height-ratio} 'Open Sans', sans-serif;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+
+  @media screen and (min-width: $desktop-min) {
+    font-size: 125%;
+  }
+}
+
+pre {
+  @extend %sass-margin-bottom;
+
+  -webkit-box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
+  -moz-box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
+  box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
+  overflow: auto;
+  white-space: pre;
+  padding: 0.5em 1em;
+  border: 1px solid #e4e4e4;
+  border-radius: 3px;
+  background: #fafafa;
+
+  font-size: 0.87rem;
+  line-height: 1.71;
+}
+
+body {
+  background: #fff;
+  color: #333;
+  // background-image: -webkit-linear-gradient(hsla(200,100%,70%,.5) 1px, transparent 1px);
+  // background-image: -moz-linear-gradient(hsla(200,100%,70%,.5) 1px, transparent 1px);
+  // background-image: linear-gradient(hsla(200,100%,70%,.5) 1px, transparent 1px);
+  // background-size: 1.5em 1.5em;
+}
+
+a {
+  color: $link-color;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+h1,h2,h3,h4,h5,h6 {
+  @extend %sass-margin-bottom;
+  margin-top: 0;
+}
+h1 {
+  font-size: 2.31rem;
+  line-height: 1.29;
+}
+h2 {
+  font-size: 1.75rem;
+  line-height: 1.71;
+}
+h3 {
+  font-size: 1.31rem;
+  line-height: 1.14;
+}
+
+p {
+  @extend %sass-margin-bottom;
+  margin-top: 0;
+}
+
+.container {
+  width: 90%;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+
+.site-header {
+  @extend .cf;
+  margin-top: $base-spacing-unit;
+  margin-bottom: $base-spacing-unit * 2;
+  padding-bottom: $base-spacing-unit;
+}
+
+.logo {
+  float: left;
+  display: inline-block;
+  height: 48px;
+  margin: 0;
+  padding: 0;
+
+  @media screen and (min-width: $desktop-min) {
+    height: 60px;
+  }
+}
+.site-logo {
+  height: 48px;
+
+  @media screen and (min-width: $desktop-min) {
+    height: 60px;
+  }
+}
+
+.site-nav {
+  float: right;
+  list-style: none;
+  margin: 0;
+  margin-top: $base-spacing-unit / 2;
+
+  li {
+    display: inline;
+    font-size: 0.8rem;
+    font-weight: bold;
+    padding-left: $base-font-size;
+    text-transform: uppercase;
+  }
+
+  a {
+    color: #444;
+    -moz-transition:color .2s ease-in;
+    -webkit-transition:color .2s ease-in;
+    transition:color .2s ease-out;
+
+    &:hover {
+      color: $link-color;
+      text-decoration: none;
+    }
+  }
+}
+
+/*
+ * [1] Negative margin to cater for margin on site-header.
+ */
+.hero {
+  -moz-background-size: cover;
+  -webkit-background-size: cover;
+  background-size: cover;
+  height: 200px;
+  overflow: hidden;
+  margin-top: -$base-spacing-unit * 2; // [1]
+  margin-bottom: $base-spacing-unit * 2;
+}
+
+.site-content {
+  margin-bottom: $base-spacing-unit * 2;
+}
+
+.site-footer {
+  color: #666;
+  padding-top: $base-spacing-unit;
+  padding-bottom: $base-spacing-unit;
+  text-align: center;
+}
+
+
+.post-title {
+  margin-bottom: 0;
+}
