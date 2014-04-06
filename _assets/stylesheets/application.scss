@@ -266,3 +266,12 @@ p {
   text-align: center;
   margin-bottom: $base-spacing-unit * 2;
 }
+
+.gravatar {
+  margin-bottom: 1.5rem;
+  text-align: center;
+
+  img {
+    border-radius: 50%;
+  }
+}
