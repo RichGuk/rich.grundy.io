@@ -257,3 +257,12 @@ p {
   display: block;
   color: #999;
 }
+
+.post-title {
+  text-align: center;
+}
+.post-meta {
+  color: #999;
+  text-align: center;
+  margin-bottom: $base-spacing-unit * 2;
+}
