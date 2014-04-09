@@ -4,8 +4,6 @@ title: Tinymce Syntaxhighlighter Plugin
 categories:
   - projects
   - open source
-redirect_from:
-  - /2008/04/07/tinymce-syntaxhighlighter-plugin
 ---
 I went to integrate [Syntaxhighlighter](http://code.google.com/p/syntaxhighlighter/) into the site tonight, something I'd forgotten to do in the redesign and I thought it would be nice if I could just click a button in [tinymce](http://tinymce.moxiecode.com/) and paste in the code, select a few options and click insert. Which of course is entirely possible so I've written a tinymce plugin to do just that.
 

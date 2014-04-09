@@ -3,6 +3,4 @@ url: http://richgrundy.com
 description: Personal space of Rich Grundy. A Birmingham based Ruby on Rails developer.
 markdown: redcarpet
 pygments: true
-permalink: /blog/:title
-gems:
-  - jekyll-redirect-from
+permalink: /blog/:title/
