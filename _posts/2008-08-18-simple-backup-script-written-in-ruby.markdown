@@ -1,6 +1,9 @@
 ---
 layout: post
 title: Simple backup script written in Ruby
+description:
+  Simple Ruby backup script that interfaces with Rsync to for weekly
+  incremental backups.
 categories:
   - projects
   - open source

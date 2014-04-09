@@ -1,6 +1,9 @@
 ---
 layout: post
 title: Securely backup your VPS using Duplicity &amp; GnuPG
+description:
+  Duplicity is a backup solution that you can use to backup your VPS. This howto
+  shows how to get this setup for simple automatic encrypted backups.
 categories:
   - how-to
 ---

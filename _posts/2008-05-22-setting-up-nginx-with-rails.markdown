@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Setting up Nginx with Rails
+description: How to setup Ruby on Rails application with Nginx.
 categories:
   - how-to
 ---

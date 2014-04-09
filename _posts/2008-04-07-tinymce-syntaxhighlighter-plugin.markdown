@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Tinymce Syntaxhighlighter Plugin
+description: A simple plugin for tinymce that provides syntax highlighting.
 categories:
   - projects
   - open source
