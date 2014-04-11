@@ -235,7 +235,8 @@ p {
   width: auto;
 
   @media screen and (min-width: $desktop-min) {
-    display: inline-block;
+    /* Not working when using inline/inline-block, maybe https://bugs.webkit.org/show_bug.cgi?id=53166 */
+    display:inline-table;
     float: left;
     line-height: 1.8;
     vertical-align: middle;
