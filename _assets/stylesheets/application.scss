@@ -221,20 +221,25 @@ p {
   padding-left: 0;
 
   li {
+    @extend .cf;
     margin: 0;
     margin-bottom: $base-spacing-unit / 4;
   }
 }
 .posts__date {
-  font-size: 0.8em;
   color: #999;
+  display: block;
   text-transform: uppercase;
+  font-size: 0.8em;
+  float:none;
+  width: auto;
 
-  &:after {
-    content: ' : ';
-    font-size: 1.5em;
-    margin-left: .5rem;
-    margin-right: .5rem;
+  @media screen and (min-width: $desktop-min) {
+    display: inline-block;
+    float: left;
+    line-height: 1.8;
+    vertical-align: middle;
+    width: 150px;
   }
 }
 
