@@ -8,7 +8,7 @@ hero: http://cl.ly/image/1T392x2I2q2i/content
 Due to the recent OpenSSL issues ([Heartbleed][heartbleed]) I've been rekeying my
 SSL certificates and as part of that I've needed to update the [Subsonic][subsonic]
 key. I never remember the steps for this, luckily they were still in my ZSH
-history. To save myself in future, and to help others I've written the
+history. To save myself in future and to help others I've written the
 process down.
 
 ## Prerequisites
