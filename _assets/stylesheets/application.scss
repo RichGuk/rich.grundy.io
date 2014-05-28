@@ -120,6 +120,25 @@ p {
   margin-top: 0;
 }
 
+img {
+  max-width: 100%;
+}
+
+a.fluidbox {
+  cursor: -webkit-zoom-in;
+  cursor: -moz-zoom-in;
+}
+a.fluidbox-opened {
+  cursor: -webkit-zoom-out;
+  cursor: -moz-zoom-out;
+}
+
+img.figure {
+  max-width: 100%;
+  border: 3px solid #eee;
+  border-radius: 10px;
+}
+
 .container {
   width: 90%;
   max-width: 640px;

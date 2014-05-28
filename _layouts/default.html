@@ -15,7 +15,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="alternate" type="application/rss+xml" title="{{ site.name }}" href="{{ site.url }}/feed.xml">
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fluidbox/1.3.1/jquery.fluidbox.css">
     {% stylesheet application %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fluidbox/1.3.1/jquery.fluidbox.min.js"></script>
   </head>
 
   <body>
@@ -55,6 +58,12 @@
 
       ga('create', 'UA-2160161-2', 'richgrundy.com');
       ga('send', 'pageview');
+    </script>
+
+    <script>
+    $(function() {
+        $('a[data-fluidbox]').fluidbox();
+    });
     </script>
   </body>
 </html>
