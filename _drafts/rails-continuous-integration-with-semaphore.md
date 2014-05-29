@@ -31,9 +31,9 @@ repositories. It automatically runs a build script, which you can customise,
 with every commit you push and branch you create. Our script runs things like
 db:test:prepare, rspec, etc..
 
-For us, Semaphore offered private repositories at an affordable price with basic
-plans that handle 5 projects, at the time of writing this, for $39/pm; compare
-that to Travis CI's base private package at $129/pm.
+For us, Semaphore offered private repositories at an affordable price with
+basic plans that handle 5 projects for $39/pm - compare that to Travis CI's base
+private package at $129/pm.
 
 Getting notified of build failures is important and Semaphore fully supports
 this. By default this is via email but we have our notifications sent to
@@ -62,11 +62,11 @@ We have been rocking Semaphore for well over a year now, and have loved our
 experience so far. It's reasonably priced, fast, had very little issues, the
 creators are lovely folk and their UI is sexy to boot.
 
-If you haven't already setup a CI server for your team, and your team is small,
-then I can highly recommend Semaphore. Even if you don't go with Semaphore I
-recommend running a CI server. It takes the integration headache away from your
-developers, and ensures they're not distracted with having to remember to run a
-test suite.
+If you haven't already setup a CI server for your team, especially if your team
+is small, then I can highly recommend Semaphore. Even if you don't go with
+Semaphore I recommend running a CI server as it takes the integration headache
+away from your developers and ensures they're not distracted with having to
+remember to run a test suite.
 
 [Stinkyink]: http://www.stinkyinkshop.co.uk
 [Jenkins]:http://jenkins-ci.org/
