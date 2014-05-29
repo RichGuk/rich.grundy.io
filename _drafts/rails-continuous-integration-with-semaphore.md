@@ -23,26 +23,50 @@ called [Semaphore].
 
 ## Semaphore
 
-<a href="http://cl.ly/image/1S0e2d3n2r01/content" data-fluidbox><img src="http://cl.ly/image/1S0e2d3n2r01/content" class="figure"></a>
+<a href="http://cl.ly/image/1S0e2d3n2r01/content" data-fluidbox><img
+src="http://cl.ly/image/1S0e2d3n2r01/content" class="figure"></a>
 
 Semaphore is a hosted CI solution that links directly to your [Github]
 repositories. It automatically runs a build script, which you can customise,
-with every commit you push or branch you create (our script runs things like
-db:test:prepare, rspec, etc..). For us, Semaphore offered private repositories
-at an affordable price. You can, at the time of writing this, get a basic plan
-which handles 5 projects for $39/pm; compare that to Travis CI's base private
-package at $129/pm.
+with every commit you push and branch you create. Our script runs things like
+db:test:prepare, rspec, etc..
 
-Semaphore has several options for build failure notifications. We have our
-notifications sent to [HipChat]  _(saving HipChat for a later post)_.
-It also supports Github's commit status API, which means you get build statuses
-directly in a Github pull request.
+For us, Semaphore offered private repositories at an affordable price with basic
+plans that handle 5 projects, at the time of writing this, for $39/pm; compare
+that to Travis CI's base private package at $129/pm.
+
+Getting notified of build failures is important and Semaphore fully supports
+this. By default this is via email but we have our notifications sent to
+[HipChat] _(saving HipChat for a later post)_. It also supports Github's commit
+status API, which means you get build statuses directly in a Github pull
+request.
 
 <a href="http://cl.ly/image/3o1c1i1T1G2U/content" data-fluidbox><img
 src="http://cl.ly/image/3o1c1i1T1G2U/content" class="figure"></a>
 
 <a href="http://cl.ly/image/3e0q3q2h2o24/content" data-fluidbox><img
 src="http://cl.ly/image/3e0q3q2h2o24/content" class="figure"></a>
+
+Semaphore also allows you to exercise automatic deployment for successful
+builds. This is something we haven't yet taken advantage of but I would very
+much like to in future. It allows you to deploy via Capistrano, Heroku, Cloud66
+_(something else we want to look at)_ or a generic deployment script (bash
+script run in the root of the application).
+
+<a href="http://cl.ly/image/2T2n0b21363P/content" data-fluidbox><img
+src="http://cl.ly/image/2T2n0b21363P/content" class="figure"></a>
+
+## Conclusion
+
+We have been rocking Semaphore for well over a year now, and have loved our
+experience so far. It's reasonably priced, fast, had very little issues, the
+creators are lovely folk and their UI is sexy to boot.
+
+If you haven't already setup a CI server for your team, and your team is small,
+then I can highly recommend Semaphore. Even if you don't go with Semaphore I
+recommend running a CI server. It takes the integration headache away from your
+developers, and ensures they're not distracted with having to remember to run a
+test suite.
 
 [Stinkyink]: http://www.stinkyinkshop.co.uk
 [Jenkins]:http://jenkins-ci.org/
