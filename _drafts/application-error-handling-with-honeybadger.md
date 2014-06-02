@@ -28,22 +28,21 @@ third-party bug tracking and notification systems - all terribly important
 things.
 
 At [Stinkyink] we went with [Honeybadger] and get by with the micro plan which
-is $19/pm for 3 apps and 7 days retention. Honeybadger is very Ruby focused so
-if you need other language support then [Sentry] is often recommended. I think
-their base plan is $24/pm (if you need teams, or $9/pm if you don't), but if
-you're looking to spend very little then [errbit] looks good. It's a self hosted
-open source project. Regardless of which one you choose the important thing
-is you pick one.
+is $19/pm for 3 apps and 7 days retention. A nice feature of Honeybadger is
+that it knows about Rails' stack trace and it attempts to tidy it for you. When
+you dig into the exception you also get useful information like environment
+variables, session data, cookie data and the query params.
 
 <a href="http://cl.ly/image/0g0W2g0H0Y0G/content" data-fluidbox><img
 src="http://cl.ly/image/0g0W2g0H0Y0G/content" class="figure"></a>
 
-A nice feature of Honeybadger is that it knows about Rails' stack trace and it
-attempts to tidy it for you. When you dig into the exception you also get useful
-information like environment variables, session data, cookie data and the query
-params.
+Honeybadger is very Ruby focused so if you need other language support then
+[Sentry] is often recommended. I think their base plan is $24/pm (if you need
+teams, or $9/pm if you don't). If you're looking to spend very little then
+[errbit] looks good - it's a self hosted open source project. Regardless of
+which one you choose the important thing is you pick one.
 
-## Getting setup (in Rails)
+## Honeybadger setup for Rails
 
 Setting up Honeybadger is dead simple for Rails.
 
