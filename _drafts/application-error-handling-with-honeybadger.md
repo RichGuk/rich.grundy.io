@@ -1,47 +1,53 @@
 ---
 layout: post
 title: "Application error handling with Honeybadger"
+description: "How we use Honeybadger to efficiently handle our application
+              errors. Gone are the days of tons of exception emails and hard to
+              read log files!"
 hero: http://cl.ly/image/0d1Z0H2j363Z/content
 ---
 
-Part two in a series of posts detailing the services used at [work][Stinkyink].
-This post covers how we handle errors in our application. Part one covered
-[continuous integration][Part1].
+Part two in a series of posts detailing the services we use at
+[work][Stinkyink]. This post covers how we handle errors in our application.
+Part one covered [continuous integration][Part1].
 
 
 ## Errors?
 
 Error handling is very important for any application; you want to know when
 things break right? Traditionally applications have used log files or emails,
-however, monitoring a log file is cumbersome, and suddenly getting thousands of
+however, monitoring a log file is cumbersome and suddenly getting thousands of
 emails is overwhelming.
 
 There are plenty of services that make error handling easier; [Honeybadger],
 [Airbrake], [Sentry], [Raygun], the list goes on... They all essentially do
-the same thing just with the odd USP and price difference. These services
-provide a central place for errors, smartly notify you when they occur, combine
-duplicates, and allow team members to comment and mark as resolved - all
-terribly important.
+the same thing just with the odd unique selling point or price difference.
+These services provide a central place for errors, smartly notify you when they
+occur, combine duplicates, allow team members to comment, and integrate with
+third-party bug tracking and notification systems - all terribly important
+things.
 
-At [Stinkyink] we went with [Honeybadger], which is very Ruby focused so if you
-need to support other platforms then apparently [Sentry] is good fit. You should
-pick whichever one suites you, the important thing is you pick one. If you're
-looking to spend £0 then [errbit] looks interesting, a self hosted open source
-alternative.
+At [Stinkyink] we went with [Honeybadger] and get by with the micro plan which
+is $19/pm for 3 apps and 7 days retention. Honeybadger is very Ruby focused so
+if you need other language support then [Sentry] is often recommended. I think
+their base plan is $24/pm (if you need teams, or $9/pm if you don't), but if
+you're looking to spend very little then [errbit] looks good. It's a self hosted
+open source project. Regardless of which one you choose the important thing
+is you pick one.
 
 <a href="http://cl.ly/image/0g0W2g0H0Y0G/content" data-fluidbox><img
 src="http://cl.ly/image/0g0W2g0H0Y0G/content" class="figure"></a>
 
 A nice feature of Honeybadger is that it knows about Rails' stack trace and it
 attempts to tidy it for you. When you dig into the exception you also get useful
-information like environment variables, session and cookie data and the query
+information like environment variables, session data, cookie data and the query
 params.
 
 ## Getting setup (in Rails)
 
 Setting up Honeybadger is dead simple for Rails.
 
-Add the following to your Gemfile
+Add the following to your Gemfile.
 
 {% highlight ruby %}
 gem 'honeybadger'
@@ -54,7 +60,7 @@ rails generate honeybadger --api-key your-api-key
 </pre>
 
 That _should_ be all you need to do. Honeybadger will now send any exceptions
-that happen within Rails to your account, and it should of set a test when you
+that happen within Rails to your account, and it should have sent a test when you
 ran the generate command.
 
 Honeybadger allows you to manually send exceptions to your account. This is
@@ -83,10 +89,21 @@ end
 
 ## Getting notifications
 
-Honeybadger will notify you via email by default, however, who the hell reads
-email? Like with out [continuous integration][Part1] setup we like to send our
-notifications to [HipChat], which is fully supported.
+Honeybadger will notify you via email by default, but who reads email? Like
+with our [continuous integration][Part1] we like to send our notifications to
+[HipChat]. This can be setup in the project's settings.
 
+<img
+src="http://cl.ly/image/44392D0N1r3m/content" class="figure center">
+
+## Conclusion
+
+We have been using Honeybadger for over a year now and having a service handle
+our error reporting has been incredibly useful. The HipChat integration provides
+enough of a nag factor that developers are reminded of issues without being
+overwhelmed so much as to ignore them entirely. I highly recommend going down
+this route with your applications right from day one. The costs are small enough
+to be a no-brainer for any business.
 
 [Stinkyink]:http://www.stinkyinkshop.co.uk
 [Part1]:/blog/rails-continuous-integration-with-semaphore/
