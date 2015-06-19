@@ -23,8 +23,8 @@ called [Semaphore].
 
 ## Semaphore
 
-<a href="http://cl.ly/image/1S0e2d3n2r01/content" data-fluidbox><img
-src="http://cl.ly/image/1S0e2d3n2r01/content" class="figure"></a>
+<a href="//i.imgur.com/cfmJjm1.png" data-fluidbox><img
+src="//i.imgur.com/cfmJjm1.png" class="figure"></a>
 
 Semaphore is a hosted CI solution that links directly to your [Github]
 repositories. It automatically runs a build script, which you can customise,
@@ -41,11 +41,11 @@ this. By default this is via email but we have our notifications sent to
 status API, which means you get build statuses directly in a Github pull
 request.
 
-<a href="http://cl.ly/image/3o1c1i1T1G2U/content" data-fluidbox><img
-src="http://cl.ly/image/3o1c1i1T1G2U/content" class="figure"></a>
+<a href="//i.imgur.com/GiBcCm6.png" data-fluidbox><img
+src="//i.imgur.com/GiBcCm6.png" class="figure"></a>
 
-<a href="http://cl.ly/image/3e0q3q2h2o24/content" data-fluidbox><img
-src="http://cl.ly/image/3e0q3q2h2o24/content" class="figure"></a>
+<a href="//i.imgur.com/Mlf69Tp.png" data-fluidbox><img
+src="//i.imgur.com/Mlf69Tp.png" class="figure"></a>
 
 Semaphore also allows you to exercise automatic deployment for successful
 builds. This is something we haven't yet taken advantage of but I would very
@@ -53,8 +53,8 @@ much like to in future. It allows you to deploy via Capistrano, Heroku, Cloud66
 _(something else we want to look at)_ or a generic deployment script (bash
 script run in the root of the application).
 
-<a href="http://cl.ly/image/2T2n0b21363P/content" data-fluidbox><img
-src="http://cl.ly/image/2T2n0b21363P/content" class="figure"></a>
+<a href="//i.imgur.com/hLFRhkE.png" data-fluidbox><img
+src="//i.imgur.com/hLFRhkE.png" class="figure"></a>
 
 ## Conclusion
 

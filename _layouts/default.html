@@ -14,7 +14,7 @@
     <link href="{{ site.url }}{{ page.url | remove: "index.html" }}" rel="canonical">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="alternate" type="application/rss+xml" title="{{ site.name }}" href="{{ site.url }}/feed.xml">
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fluidbox/1.3.1/jquery.fluidbox.css">
     {% stylesheet application %}
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -36,7 +36,7 @@
     </header>
 
     {% if page.hero %}
-      <div class="hero" style="background-image: url({{ page.hero }});"></div>
+      <div class="hero {% if page.big_hero %}big-hero{% endif %}" style="background-image: url({{ page.hero }});"></div>
     {% endif %}
 
     <div class="site-content">

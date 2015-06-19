@@ -202,6 +202,10 @@ img.figure {
   overflow: hidden;
   margin-top: -$base-spacing-unit * 2; // [1]
   margin-bottom: $base-spacing-unit * 2;
+
+  &.big-hero {
+    height: 400px;
+  }
 }
 
 .site-content {

@@ -4,7 +4,7 @@ title: "Application error handling with Honeybadger"
 description: "How we use Honeybadger to efficiently handle our application
               errors. Gone are the days of tons of exception emails and hard to
               read log files!"
-hero: http://cl.ly/image/0d1Z0H2j363Z/content
+hero: //i.imgur.com/JY0MJvn.png
 ---
 
 Part two in a series of posts detailing the services we use at
@@ -33,8 +33,8 @@ that it knows about Rails' stack trace and it attempts to tidy it for you. When
 you dig into the exception you also get useful information like environment
 variables, session data, cookie data and the query params.
 
-<a href="http://cl.ly/image/0g0W2g0H0Y0G/content" data-fluidbox><img
-src="http://cl.ly/image/0g0W2g0H0Y0G/content" class="figure"></a>
+<a href="//i.imgur.com/FnV1vMy.png" data-fluidbox><img
+src="//i.imgur.com/FnV1vMy.png" class="figure"></a>
 
 Honeybadger is very Ruby focused so if you need other language support then
 [Sentry] is often recommended. I think their base plan is $24/pm (if you need
@@ -93,7 +93,7 @@ with our [continuous integration][Part1] we like to send our notifications to
 [HipChat]. This can be setup in the project's settings.
 
 <img
-src="http://cl.ly/image/44392D0N1r3m/content" class="figure center">
+src="//i.imgur.com/Aq8ooC9.png" class="figure center">
 
 ## Conclusion
 
