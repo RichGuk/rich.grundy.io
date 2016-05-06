@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Setting up Nginx with Rails</title>
+    
+    <meta name="description" content="How to setup Ruby on Rails application with Nginx.">
+    
+    <meta name="author" content="Richard Grundy">
+    <link rel="author" href="https://plus.google.com/u/0/115833423324756942653/posts">
+    <link href="http://www.richgrundy.com/blog/setting-up-nginx-with-rails/" rel="canonical">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="alternate" type="application/rss+xml" title="Rich Grundy" href="http://www.richgrundy.com/feed.xml">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fluidbox/1.3.1/jquery.fluidbox.css">
+    <link rel="stylesheet" href="/assets/application-9884be0a4e0e433a81e4b80dc1d36b65.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fluidbox/1.3.1/jquery.fluidbox.min.js"></script>
+  </head>
+
+  <body>
+  <header class="site-header" role="banner">
+      <div class="container">
+        <a href="/" class="logo"><img src="/assets/logo-0bfb51528a70dbc5915d936bd925f070.png" alt="Rich Grundy" class="site-logo"></a>
+
+        <nav role="navigiation">
+          <ul class="site-nav">
+            <li><a href="/about/">About</a>
+            <li><a href="/blog/">Blog</a>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    
+
+    <div class="site-content">
+      <div class="container">
+        <h1 class="post-title">Setting up Nginx with Rails</h1>
+<p class="post-meta">22 May 2008</p>
+
+<div class="post">
+<p>So the other day I decided to switch from using Apache to <a href="http://nginx.net/">Nginx</a> not because apache isn&#39;t any good, far from it. Nginx just uses much less ram and when you&#39;re on a fairly small slice, using up more ram just isn&#39;t good. I was going to benchmark speed and things between apache and nginx but I forgot to take some readings before stopping the apache service and installing nginx so we&#39;ll skip over that idea like the thought never came into my head.</p>
+
+<p>I&#39;ll mention a few things I like about nginx first:</p>
+
+<ol>
+<li><strong>It&#39;s Russian</strong> - Being Russian means it&#39;s build to take some shit.</li>
+<li><strong>It uses a lot less memory</strong> - As I said before, not really done much benchmarks so these were some quick figures from &#39;top&#39; but I had apache running with about 5 instances each using 2-3% of ram even at 2% each that&#39;s still 10% of ram being used just for apache... with nginx I appear to have 2 instances running both using 0.2% of ram, so 0.4% in total - which is a nice difference.</li>
+<li><strong>Faster page serving</strong> - Nginx is meant to be better at serving static content fast and I&#39;ve certainly noticed a speed up some with things.</li>
+</ol>
+
+<h2>Installing nginx</h2>
+
+<p>I follow pretty much most of these from <a href="http://articles.slicehost.com">slicehost&#39;s articles</a> but I didn&#39;t find an article on how to setup the sites-available and sites-enabled type directories for Debian (if you compile from source), so I&#39;ll cover that here.</p>
+
+<p>On Debian the package manager contains a rather outdated version of nginx so I&#39;d recommend installing it from the latest source. we&#39;ll start by making sure you have all the required library&#39;s:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo apt-get install build-essential libpcre3 libpcre3-dev libpcrecpp0 libssl-dev zlib1g-de
+sudo apt-get build-dep nginx</code></pre></div>
+
+<p>When you&#39;re ready you need to obtain the latest source from the nginx website, the latest stable when writing this was 0.6.31.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cd</span> ~
+mkdir sources
+<span class="nb">cd </span>sources
+wget http://sysoev.ru/nginx/nginx-0.6.31.tar.gz
+tar xvzf nginx-0.6.31.tar.gz
+<span class="nb">cd </span>nginx-0.6.31</code></pre></div>
+
+<p>There are a few options we need to set when compiling from source. I wanted my nginx configuration files in <strong>/etc/nginx</strong> instead of the default, so you may ignore this option (--conf-path) if you prefer the defaults.</p>
+
+<p>We also need to change the location of where nginx puts it&#39;s binary files using the <strong>--sbin-path</strong> option because by default this path is set to <strong>/usr/local/nginx</strong> meaning the binary files would be in <strong>/usr/local/nginx/sbin/nginx</strong>
+which won&#39;t be in our PATH setting, this option will allow the binary files
+to be placed where it can be found.</p>
+
+<p>The last option will compile nginx
+with the ssl module, so we can have ssl conections.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo mkdir /etc/nginx
+./configure --sbin-path<span class="o">=</span>/usr/local/sbin --conf-path<span class="o">=</span>/etc/nginx/nginx.conf --with-http_ssl_module
+make</code></pre></div>
+
+<p>When the configuration has finish you can compile and install it using make:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo make install</code></pre></div>
+
+<p>This should hopefully of installed nginx into <strong>/usr/local/nginx</strong> and the configuration files into <strong>/etc/nginx</strong>.</p>
+
+<p>When compiling from source we need to make the <strong>/etc/init.d</strong> script ourselves otherwise we&#39;ll have no way of starting, stopping and restarting nginx. Slicehost have a script on one of their articles that should be suitable here, so we&#39;ll download it and move it to the right directory.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cd</span> ~
+wget http://articles.slicehost.com/assets/2007/10/19/nginx
+chmod +x nginx
+sudo mv nginx /etc/init.d/nginx</code></pre></div>
+
+<p>Then finally add it to all the default run levels.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo /usr/sbin/update-rc.d -f nginx defaults</code></pre></div>
+
+<p>You should now be able to start nginx and browse to it <strong>http://127.0.0.1</strong> (change with your servers IP). If all is working OK you should see a message that says &quot;Welcome to nginx&quot;.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo /etc/init.d/nginx start</code></pre></div>
+
+<h2>Configuration for Nginx</h2>
+
+<p>The compiled version of nginx doesn&#39;t quite have the structure you would have if you&#39;d installed it from apt-get, the package manager sets up a familiar structure to Apache having the <strong>/etc/nginx/sites-available</strong> and <strong>/etc/nginx/sites-enabled </strong>directories, I find this to be a good way of organising all your virtual hosts so lets add that feature.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo mkdir /etc/nginx/sites-available
+sudo mkdir /etc/nginx/sites-enabled
+sudo vim /etc/nginx/nginx.conf</code></pre></div>
+
+<p>After we&#39;ve created the two directories we&#39;ll open the nginx.conf file so we can add the following line which will include our virtual host files.</p>
+
+<div class="highlight"><pre><code class="language-nginx" data-lang="nginx"><span class="k">include</span> <span class="n">/etc/nginx/sites-enabled/*</span>;</code></pre></div>
+
+<p>I was unsure the best place to put this so I placed mine after the server {} block, like this.</p>
+
+<div class="highlight"><pre><code class="language-nginx" data-lang="nginx"><span class="k">http</span> <span class="p">{</span>
+ <span class="kn">......</span>
+ <span class="s">server</span> <span class="p">{</span>
+ <span class="kn">......</span>
+ <span class="err">}</span>
+ <span class="s">include</span> <span class="s">/etc/nginx/sites-enabled/*</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div>
+
+<p>Once you have done that we are ready to setup our virtual host, for this well proxy all the dynamic content to mongrel and serve all static content using nginx.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo vim /etc/nginx/sites-available/site_name</code></pre></div>
+
+<p>You&#39;ll want to replace the <strong>site_name</strong> with the name of your site. Into this file paste the following:</p>
+
+<div class="highlight"><pre><code class="language-nginx" data-lang="nginx"><span class="c1">#Setup the location of your mongrel servers.</span>
+<span class="k">upstream</span> <span class="s">give_proxy_a_name</span> <span class="p">{</span>
+<span class="kn">server</span> <span class="n">127.0.0.1</span><span class="p">:</span><span class="mi">8000</span><span class="p">;</span>
+<span class="kn">server</span> <span class="n">127.0.0.1</span><span class="p">:</span><span class="mi">8001</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">#Rename www.site_name.com to site_domain.com</span>
+<span class="c1">#Remove this if this is something you don&#39;t want.</span>
+<span class="k">server</span> <span class="p">{</span>
+<span class="kn">listen</span>   <span class="mi">80</span><span class="p">;</span>
+<span class="kn">server_name</span>  <span class="s">www.site_name.com</span><span class="p">;</span>
+<span class="kn">rewrite</span> <span class="s">^/(.*)</span> <span class="s">http://site_name.com/</span><span class="nv">$1</span> <span class="s">permanent</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">server</span> <span class="p">{</span>
+<span class="kn">listen</span>   <span class="mi">80</span><span class="p">;</span>
+<span class="kn">server_name</span> <span class="s">site_name.com</span><span class="p">;</span>
+<span class="c1">#Setup nginx logs.</span>
+<span class="kn">access_log</span> <span class="s">/path/to/rails/project/log/access.log</span><span class="p">;</span>
+<span class="kn">error_log</span> <span class="s">/path/to/rails/project/log/error.log</span><span class="p">;</span>
+<span class="kn">root</span>   <span class="s">/path/to/rails/project/public/</span><span class="p">;</span>
+<span class="kn">index</span>  <span class="s">index.html</span><span class="p">;</span>
+<span class="kn">location</span> <span class="s">/</span> <span class="p">{</span>
+<span class="kn">proxy_set_header</span>  <span class="s">X-Real-IP</span>  <span class="nv">$remote_addr</span><span class="p">;</span>
+<span class="kn">proxy_set_header</span>  <span class="s">X-Forwarded-For</span> <span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+<span class="kn">proxy_set_header</span> <span class="s">Host</span> <span class="nv">$http_host</span><span class="p">;</span>
+<span class="kn">proxy_redirect</span> <span class="s">false</span><span class="p">;</span>
+<span class="kn">if</span> <span class="s">(-f</span> <span class="nv">$request_filename/index.html</span><span class="s">)</span> <span class="p">{</span>
+<span class="kn">rewrite</span> <span class="s">(.*)</span> <span class="nv">$1/index.html</span> <span class="s">break</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kn">if</span> <span class="s">(-f</span> <span class="nv">$request_filename.html</span><span class="s">)</span> <span class="p">{</span>
+<span class="kn">rewrite</span> <span class="s">(.*)</span> <span class="nv">$1.html</span> <span class="s">break</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kn">if</span> <span class="s">(!-f</span> <span class="nv">$request_filename</span><span class="s">)</span> <span class="p">{</span>
+<span class="kn">proxy_pass</span> <span class="s">http://give_proxy_a_name</span><span class="p">;</span>
+<span class="kn">break</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">}</span>
+<span class="p">}</span></code></pre></div>
+
+<p>Replace <strong>site<em>name.com</strong> with your domain. You can also rename <strong>give</em>proxy<em>a</em>name</strong> to something else, the name of your site (e.g. 27smiles) should be fine here.</p>
+
+<p>So what does some of that mean? Well the <strong>log</strong> and <strong>root</strong> stuff are pretty straight forward, they define where to put the logs and the what the root folder for the domain is, which in the case of rails will be the public folder within the rails project.</p>
+
+<div class="highlight"><pre><code class="language-nginx" data-lang="nginx"><span class="k">upstream</span> <span class="s">give_proxy_a_name</span> <span class="p">{</span>
+<span class="kn">server</span> <span class="n">127.0.0.1</span><span class="p">:</span><span class="mi">8000</span><span class="p">;</span>
+<span class="kn">server</span> <span class="n">127.0.0.1</span><span class="p">:</span><span class="mi">8001</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div>
+
+<p style="padding-left: 30px;">This is where you setup the mongrel cluster, for each mongrel server you have running you will need to put a server directive here nginx will then load balance between the servers.</p>
+
+<div class="highlight"><pre><code class="language-nginx" data-lang="nginx"><span class="k">location</span> <span class="s">/</span> <span class="p">{</span>
+<span class="kn">proxy_set_header</span>  <span class="s">X-Real-IP</span>  <span class="nv">$remote_addr</span><span class="p">;</span>
+<span class="kn">proxy_set_header</span>  <span class="s">X-Forwarded-For</span> <span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+<span class="kn">proxy_set_header</span> <span class="s">Host</span> <span class="nv">$http_host</span><span class="p">;</span>
+<span class="kn">proxy_redirect</span> <span class="s">false</span><span class="p">;</span>
+<span class="kn">if</span> <span class="s">(-f</span> <span class="nv">$request_filename/index.html</span><span class="s">)</span> <span class="p">{</span>
+  <span class="kn">rewrite</span> <span class="s">(.*)</span> <span class="nv">$1/index.html</span> <span class="s">break</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kn">if</span> <span class="s">(-f</span> <span class="nv">$request_filename.html</span><span class="s">)</span> <span class="p">{</span>
+  <span class="kn">rewrite</span> <span class="s">(.*)</span> <span class="nv">$1.html</span> <span class="s">break</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kn">if</span> <span class="s">(!-f</span> <span class="nv">$request_filename</span><span class="s">)</span> <span class="p">{</span>
+  <span class="kn">proxy_pass</span> <span class="s">http://give_proxy_a_name</span><span class="p">;</span>
+  <span class="kn">break</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">}</span></code></pre></div>
+
+<p>There are 3 IF statements to this bit, the first checks to see if an index.html file exists and if it does then nginx will serve it rather than passing it onto mongrel.</p>
+
+<p>The 2nd IF does pretty much the same but it looks for a html file with the same name as the request. So say you requested <strong>site_name.com/about</strong> it will attempt to find a file called <strong>about.html</strong> in the public folder of the rails project and serve it rather than passing it onto mongrel. This means that if you&#39;re using page caching in rails you can skip mongrel for cached pages - very good on performance.</p>
+
+<p>The 3rd IF makes sure the file doesn&#39;t exist before passing the request onto mongrel. For example say you requested <strong>site_name.com/images/logo.png</strong> nginx would attempt to locate the file and serve it rather than passing the request on to mongrel, this means you can serve all your static content using nginx instead of mongrel which is much much quicker.</p>
+
+<p>When you&#39;ve setup your virtual host you need to create a symlink to the sites-enabled folder in order for it to work.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo ln -s /etc/nginx/sites-available/site_name
+/etc/nginx/sites-enabled/site_name</code></pre></div>
+
+<p>And then finally restart the nginx server.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo /etc/init.d/nginx restart</code></pre></div>
+
+<p>If all went OK you should be able to browse to your domain name and see your rails project. If not then make sure you created the link to the sites-enabled folder and also that you actually have some mongrel instances running on the IP&#39;s you defined (I think you&#39;ll get bad gateway messages if it can&#39;t find mongrel).</p>
+
+<p>If you need help setting up mongrel head over to <a href="http://articles.slicehost.com">slicehost&#39;s article</a> page they have some good articles on how to do it.
+<h2>Extra configuration options</h2>
+There are a few extra configuration options in nginx that I use on 27smiles; gzip, expiry headers, on another site I also use HTTP authentication. I thought I&#39;d list them here for some people.</p>
+
+<p>If you&#39;re looking to setup gzip compression on nginx then add the following.</p>
+
+<div class="highlight"><pre><code class="language-nginx" data-lang="nginx"><span class="k">gzip</span> <span class="no">on</span><span class="p">;</span>
+<span class="k">gzip_min_length</span> <span class="mi">1100</span><span class="p">;</span>
+<span class="k">gzip_buffers</span> <span class="mi">4</span> <span class="mi">8k</span><span class="p">;</span>
+<span class="k">gzip_proxied</span> <span class="s">any</span><span class="p">;</span>
+<span class="k">gzip_types</span>      <span class="s">text/plain</span> <span class="s">text/html</span> <span class="s">text/css</span> <span class="s">application/x-javascript</span> <span class="s">text/xml</span>
+<span class="s">application/xml</span> <span class="s">application/xml+rss</span> <span class="s">text/javascript</span><span class="p">;</span><span class="k">[/code]</span>
+ 
+<span class="s">If</span> <span class="s">you&#39;re</span> <span class="s">looking</span> <span class="s">to</span> <span class="s">set</span> <span class="s">some</span> <span class="s">expiry</span> <span class="s">headers</span> <span class="s">to</span> <span class="s">images,</span> <span class="s">etc</span> <span class="s">in</span> <span class="s">nginx</span> <span class="s">try</span> <span class="s">this.</span>
+ 
+<span class="s">[code]location</span> <span class="p">~</span><span class="sr">*</span>
+<span class="s">^.+\.(jpg|jpeg|gif|png|ico|css|zip|tgz|gz|rar|bz2|doc|xls|exe|pdf|ppt|txt|tar|mid|midi|wav|bmp|rtf|js|mov)</span>$
+<span class="p">{</span>
+  <span class="kn">expires</span> <span class="s">30d</span><span class="p">;</span>
+  <span class="kn">break</span><span class="p">;</span>
+   
+<span class="p">}</span></code></pre></div>
+
+<p>And finally if you want to password protect domain try this.</p>
+
+<div class="highlight"><pre><code class="language-nginx" data-lang="nginx"><span class="k">auth_basic</span> <span class="s">&quot;Restricted&quot;</span><span class="p">;</span>
+<span class="k">auth_basic_user_file</span> <span class="s">/path/to/htpasswd/file</span><span class="p">;</span></code></pre></div>
+
+<p>If you need any help or have any questions feel free to <a href="http://twitter.com/RichGuk">contact me</a>.</p>
+
+</div>
+
+<div class="post-comments">
+  Got any questions or comments? Drop me a message on <a href="http://twitter.com/RichGuk" rel="nofollow">Twitter (@RichGuk)</a>.
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="container">
+        &copy; Rich Grundy 2016.
+      </div>
+    </footer>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-2160161-2', 'richgrundy.com');
+      ga('send', 'pageview');
+    </script>
+
+    <script>
+    $(function() {
+        $('a[data-fluidbox]').fluidbox();
+    });
+    </script>
+  </body>
+</html>

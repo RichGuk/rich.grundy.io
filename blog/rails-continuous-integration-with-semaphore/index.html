@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Rails continuous integration with Semaphore</title>
+    
+    <meta name="description" content="Personal space of Richard Grundy. A Birmingham based Ruby on Rails developer.">
+    
+    <meta name="author" content="Richard Grundy">
+    <link rel="author" href="https://plus.google.com/u/0/115833423324756942653/posts">
+    <link href="http://www.richgrundy.com/blog/rails-continuous-integration-with-semaphore/" rel="canonical">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="alternate" type="application/rss+xml" title="Rich Grundy" href="http://www.richgrundy.com/feed.xml">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fluidbox/1.3.1/jquery.fluidbox.css">
+    <link rel="stylesheet" href="/assets/application-9884be0a4e0e433a81e4b80dc1d36b65.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fluidbox/1.3.1/jquery.fluidbox.min.js"></script>
+  </head>
+
+  <body>
+  <header class="site-header" role="banner">
+      <div class="container">
+        <a href="/" class="logo"><img src="/assets/logo-0bfb51528a70dbc5915d936bd925f070.png" alt="Rich Grundy" class="site-logo"></a>
+
+        <nav role="navigiation">
+          <ul class="site-nav">
+            <li><a href="/about/">About</a>
+            <li><a href="/blog/">Blog</a>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    
+
+    <div class="site-content">
+      <div class="container">
+        <h1 class="post-title">Rails continuous integration with Semaphore</h1>
+<p class="post-meta">29 May 2014</p>
+
+<div class="post">
+<p>This post covers continuous integration for Rails and is part one of a series of
+posts that detail the services my team uses at <a href="http://www.stinkyinkshop.co.uk">work</a>.</p>
+
+<h2>Continuous integration</h2>
+
+<p>Writing software is error prone and riddled with problems. This is often
+amplified when working in larger teams as you try to integrate each other&#39;s
+code. Continuous integration, or CI for short, is a development practice whereby
+team members integrate their work as frequently as possible; it is normally
+achieved by having software automate the running of a test suite.</p>
+
+<p>At <a href="http://www.stinkyinkshop.co.uk">Stinkyink</a> we needed to find an affordable private CI server. We initially
+setup <a href="http://jenkins-ci.org/">Jenkins</a> as our CI, but we found this difficult to setup and a burden
+to maintain - we wanted a hosted solution. First we looked at <a href="https://travis-ci.org/">Travis CI</a>, a
+big player in the Rails world, however at the time they didn&#39;t offer private
+repositories (good and free for Open Source). We finally settled on a service
+called <a href="https://semaphoreapp.com/">Semaphore</a>.</p>
+
+<h2>Semaphore</h2>
+
+<p><a href="//i.imgur.com/cfmJjm1.png" data-fluidbox><img
+src="//i.imgur.com/cfmJjm1.png" class="figure"></a></p>
+
+<p>Semaphore is a hosted CI solution that links directly to your <a href="http://github.com/">Github</a>
+repositories. It automatically runs a build script, which you can customise,
+with every commit you push and branch you create. Our script runs things like
+db:test:prepare, rspec, etc..</p>
+
+<p>For us, Semaphore offered private repositories at an affordable price with
+basic plans that handle 5 projects for $39/pm - compare that to Travis CI&#39;s base
+private package at $129/pm.</p>
+
+<p>Getting notified of build failures is important and Semaphore fully supports
+this. By default this is via email but we have our notifications sent to
+<a href="http://hipchat.com/">HipChat</a> <em>(saving HipChat for a later post)</em>. It also supports Github&#39;s commit
+status API, which means you get build statuses directly in a Github pull
+request.</p>
+
+<p><a href="//i.imgur.com/GiBcCm6.png" data-fluidbox><img
+src="//i.imgur.com/GiBcCm6.png" class="figure"></a></p>
+
+<p><a href="//i.imgur.com/Mlf69Tp.png" data-fluidbox><img
+src="//i.imgur.com/Mlf69Tp.png" class="figure"></a></p>
+
+<p>Semaphore also allows you to exercise automatic deployment for successful
+builds. This is something we haven&#39;t yet taken advantage of but I would very
+much like to in future. It allows you to deploy via Capistrano, Heroku, Cloud66
+<em>(something else we want to look at)</em> or a generic deployment script (bash
+script run in the root of the application).</p>
+
+<p><a href="//i.imgur.com/hLFRhkE.png" data-fluidbox><img
+src="//i.imgur.com/hLFRhkE.png" class="figure"></a></p>
+
+<h2>Conclusion</h2>
+
+<p>We have been rocking Semaphore for well over a year now, and have loved our
+experience so far. It&#39;s reasonably priced, fast, had very little issues, the
+creators are lovely folk and their UI is sexy to boot.</p>
+
+<p>If you haven&#39;t already setup a CI server for your team, especially if your team
+is small, then I can highly recommend Semaphore. Even if you don&#39;t go with
+Semaphore I recommend running a CI server as it takes the integration headache
+away from your developers and ensures they&#39;re not distracted with having to
+remember to run a test suite.</p>
+
+</div>
+
+<div class="post-comments">
+  Got any questions or comments? Drop me a message on <a href="http://twitter.com/RichGuk" rel="nofollow">Twitter (@RichGuk)</a>.
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="container">
+        &copy; Rich Grundy 2016.
+      </div>
+    </footer>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-2160161-2', 'richgrundy.com');
+      ga('send', 'pageview');
+    </script>
+
+    <script>
+    $(function() {
+        $('a[data-fluidbox]').fluidbox();
+    });
+    </script>
+  </body>
+</html>

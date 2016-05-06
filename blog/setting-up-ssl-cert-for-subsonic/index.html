@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Setting up a valid SSL certificate for Subsonic</title>
+    
+    <meta name="description" content="Make your Linux Subsonic installtion secure with a valid SSL certificate.">
+    
+    <meta name="author" content="Richard Grundy">
+    <link rel="author" href="https://plus.google.com/u/0/115833423324756942653/posts">
+    <link href="http://www.richgrundy.com/blog/setting-up-ssl-cert-for-subsonic/" rel="canonical">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="alternate" type="application/rss+xml" title="Rich Grundy" href="http://www.richgrundy.com/feed.xml">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fluidbox/1.3.1/jquery.fluidbox.css">
+    <link rel="stylesheet" href="/assets/application-9884be0a4e0e433a81e4b80dc1d36b65.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fluidbox/1.3.1/jquery.fluidbox.min.js"></script>
+  </head>
+
+  <body>
+  <header class="site-header" role="banner">
+      <div class="container">
+        <a href="/" class="logo"><img src="/assets/logo-0bfb51528a70dbc5915d936bd925f070.png" alt="Rich Grundy" class="site-logo"></a>
+
+        <nav role="navigiation">
+          <ul class="site-nav">
+            <li><a href="/about/">About</a>
+            <li><a href="/blog/">Blog</a>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    
+      <div class="hero " style="background-image: url(//i.imgur.com/2ZGUdCW.jpg);"></div>
+    
+
+    <div class="site-content">
+      <div class="container">
+        <h1 class="post-title">Setting up a valid SSL certificate for Subsonic</h1>
+<p class="post-meta">11 Apr 2014</p>
+
+<div class="post">
+<p>Due to the recent OpenSSL issues (<a href="http://heartbleed.com">Heartbleed</a>) I&#39;ve been rekeying my
+SSL certificates and as part of that I&#39;ve needed to update the <a href="http://subsonic.org">Subsonic</a>
+key. I never remember the steps for this, luckily they were still in my ZSH
+history. To save myself in future and to help others I&#39;ve written the
+process down.</p>
+
+<h2>Prerequisites</h2>
+
+<p>You need to make sure openSSL is installed (and the latest patched version), you
+will also need zip installed and obviously <a href="http://subsonic.org">Subsonic</a> configured and working.</p>
+
+<h2>Get a valid SSL certificate</h2>
+
+<p>Plenty of places offer CA certs, you can get free certificates from
+<a href="http://www.startssl.com">StartSSL</a>. I chose to buy mine from my registrar,
+<a href="http://namecheap.com">Namecheap</a>, for ~£5.</p>
+
+<p>Generate a CSR (Certificate Signing Request) as Namecheap or StartSSL will need this.</p>
+
+<pre>
+openssl req -new -newkey rsa:2048 -nodes -keyout hostname.key -out hostname.csr
+</pre>
+
+<p>Fill out all the needed information, country, town, organisation. The Common
+name is the full domain name you wish create the SSL cert for. This has to be
+correct, for example if you run subsonic on homemachine.mydomain.com then enter
+this here. I didn&#39;t bother with passphrase.</p>
+
+<p>When submitting this request remember to choose OpenSSL as the certificate type.
+You will have to wait for it to be verified, this took a few hours on Namecheap
+for myself.</p>
+
+<h2>Generate for Subsonic</h2>
+
+<p>Subsonic needs a different key format to the Apache style one, you can convert
+this with openssl command.</p>
+
+<p>When you get the certificates from the registrar you should have files similar
+to:</p>
+
+<ul>
+<li>hostname.crt</li>
+<li>PositiveSSLCA2.crt</li>
+<li>AddTrustExternalCARoot.crt</li>
+</ul>
+
+<p>You need to combine these files, along with the hostname.key you generated
+earlier.</p>
+
+<pre>
+cat hostname.key hostname.crt PositiveSSLCA2.crt AddTrustExternalCARoot.crt > subsonic.crt
+</pre>
+
+<p>Next convert it to a format <a href="http://subsonic.org">Subsonic</a> understands.</p>
+
+<pre>
+openssl pkcs12 -in subsonic.crt -export -out subsonic.pkcs12
+</pre>
+
+<p>When prompted enter <strong>subsonic</strong> as export password.</p>
+
+<p>Now you should have a subsonic.pkcs12 file, we need to import this into a
+keystore for <a href="http://subsonic.org">Subsonic</a> to use.</p>
+
+<pre>
+sudo keytool -importkeystore -srckeystore subsonic.pkcs12 -destkeystore subsonic.keystore -srcstoretype PKCS12 -srcstorepass subsonic -srcalias 1 -destalias subsonic
+</pre>
+
+<p>When prompted enter <strong>subsonic</strong> as the password.</p>
+
+<p>Finally we need to put the keystore into the file <a href="http://subsonic.org">Subsonic</a> uses to
+boot.</p>
+
+<pre>
+sudo zip /var/subsonic/subsonic-booter-jar-with-dependencies.jar subsonic.keystore
+</pre>
+
+<p><em>note: Your paths may differ, these are default for Archlinux</em></p>
+
+<h2>Enable SSL in Subsonic</h2>
+
+<p>Finally you will need to enable SSL in <a href="http://subsonic.org">Subsonic</a>, if you haven&#39;t done so already.</p>
+
+<pre>
+sudo vim /var/subsonic/subsonic.sh
+# Change SUBSONIC_HTTPS_PORT=0 to the port you want to use for SSL.
+</pre>
+
+<p>Now restart <a href="http://subsonic.org">Subsonic</a></p>
+
+<pre>
+sudo systemctl restart subsonic
+</pre>
+
+<p>Congratulations, you now have a valid and secure <a href="http://subsonic.org">Subsonic</a>
+installation.</p>
+
+</div>
+
+<div class="post-comments">
+  Got any questions or comments? Drop me a message on <a href="http://twitter.com/RichGuk" rel="nofollow">Twitter (@RichGuk)</a>.
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="container">
+        &copy; Rich Grundy 2016.
+      </div>
+    </footer>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-2160161-2', 'richgrundy.com');
+      ga('send', 'pageview');
+    </script>
+
+    <script>
+    $(function() {
+        $('a[data-fluidbox]').fluidbox();
+    });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Application error handling with Honeybadger</title>
+    
+    <meta name="description" content="How we use Honeybadger to efficiently handle our application errors. Gone are the days of tons of exception emails and hard to read log files!">
+    
+    <meta name="author" content="Richard Grundy">
+    <link rel="author" href="https://plus.google.com/u/0/115833423324756942653/posts">
+    <link href="http://www.richgrundy.com/blog/application-error-handling-with-honeybadger/" rel="canonical">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="alternate" type="application/rss+xml" title="Rich Grundy" href="http://www.richgrundy.com/feed.xml">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fluidbox/1.3.1/jquery.fluidbox.css">
+    <link rel="stylesheet" href="/assets/application-9884be0a4e0e433a81e4b80dc1d36b65.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fluidbox/1.3.1/jquery.fluidbox.min.js"></script>
+  </head>
+
+  <body>
+  <header class="site-header" role="banner">
+      <div class="container">
+        <a href="/" class="logo"><img src="/assets/logo-0bfb51528a70dbc5915d936bd925f070.png" alt="Rich Grundy" class="site-logo"></a>
+
+        <nav role="navigiation">
+          <ul class="site-nav">
+            <li><a href="/about/">About</a>
+            <li><a href="/blog/">Blog</a>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    
+      <div class="hero " style="background-image: url(//i.imgur.com/JY0MJvn.png);"></div>
+    
+
+    <div class="site-content">
+      <div class="container">
+        <h1 class="post-title">Application error handling with Honeybadger</h1>
+<p class="post-meta">02 Jun 2014</p>
+
+<div class="post">
+<p>Part two in a series of posts detailing the services we use at
+<a href="http://www.stinkyinkshop.co.uk">work</a>. This post covers how we handle errors in our application.
+Part one covered <a href="/blog/rails-continuous-integration-with-semaphore/">continuous integration</a>.</p>
+
+<h2>Errors?</h2>
+
+<p>Error handling is very important for any application; you want to know when
+things break right? Traditionally applications have used log files or emails,
+however, monitoring a log file is cumbersome and suddenly getting thousands of
+emails is overwhelming.</p>
+
+<p>There are plenty of services that make error handling easier; <a href="https://www.honeybadger.io/">Honeybadger</a>,
+<a href="https://www.honeybadger.io/">Airbrake</a>, <a href="https://www.getsentry.com/">Sentry</a>, <a href="http://raygun.io/">Raygun</a>, the list goes on... They all essentially do
+the same thing just with the odd unique selling point or price difference.
+These services provide a central place for errors, smartly notify you when they
+occur, combine duplicates, allow team members to comment, and integrate with
+third-party bug tracking and notification systems - all terribly important
+things.</p>
+
+<p>At <a href="http://www.stinkyinkshop.co.uk">Stinkyink</a> we went with <a href="https://www.honeybadger.io/">Honeybadger</a> and get by with the micro plan which
+is $19/pm for 3 apps and 7 days retention. A nice feature of Honeybadger is
+that it knows about Rails&#39; stack trace and it attempts to tidy it for you. When
+you dig into the exception you also get useful information like environment
+variables, session data, cookie data and the query params.</p>
+
+<p><a href="//i.imgur.com/FnV1vMy.png" data-fluidbox><img
+src="//i.imgur.com/FnV1vMy.png" class="figure"></a></p>
+
+<p>Honeybadger is very Ruby focused so if you need other language support then
+<a href="https://www.getsentry.com/">Sentry</a> is often recommended. I think their base plan is $24/pm (if you need
+teams, or $9/pm if you don&#39;t). If you&#39;re looking to spend very little then
+<a href="https://github.com/errbit/errbit/">errbit</a> looks good - it&#39;s a self hosted open source project. Regardless of
+which one you choose the important thing is you pick one.</p>
+
+<h2>Honeybadger setup for Rails</h2>
+
+<p>Setting up Honeybadger is dead simple for Rails.</p>
+
+<p>Add the following to your Gemfile.</p>
+
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">gem</span> <span class="s1">&#39;honeybadger&#39;</span></code></pre></div>
+
+<p>Then generate the initializer with the following command.</p>
+
+<pre>
+rails generate honeybadger --api-key your-api-key
+</pre>
+
+<p>That <em>should</em> be all you need to do. Honeybadger will now send any exceptions
+that happen within Rails to your account, and it should have sent a test when you
+ran the generate command.</p>
+
+<p>Honeybadger allows you to manually send exceptions to your account. This is
+especially useful if you want to pass additional information along with the
+error.</p>
+
+<p>Here is an example from their documentation.</p>
+
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">begin</span>
+  <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="ss">:id</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="ss">:class</span> <span class="o">=&gt;</span> <span class="no">MyClass</span><span class="p">,</span>
+    <span class="ss">:foo</span> <span class="o">=&gt;</span> <span class="s2">&quot;bar&quot;</span>
+  <span class="p">}</span>
+  <span class="n">my_unpredicable_method</span><span class="p">(</span><span class="o">*</span><span class="n">params</span><span class="p">)</span>
+<span class="k">rescue</span> <span class="o">=&gt;</span> <span class="n">e</span>
+  <span class="no">Honeybadger</span><span class="o">.</span><span class="n">notify</span><span class="p">(</span>
+    <span class="ss">:error_class</span>   <span class="o">=&gt;</span> <span class="s2">&quot;Special Error&quot;</span><span class="p">,</span>
+    <span class="ss">:error_message</span> <span class="o">=&gt;</span> <span class="s2">&quot;Special Error: </span><span class="si">#{</span><span class="n">e</span><span class="o">.</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="ss">:parameters</span>    <span class="o">=&gt;</span> <span class="n">params</span>
+  <span class="p">)</span>
+<span class="k">end</span></code></pre></div>
+
+<h2>Getting notifications</h2>
+
+<p>Honeybadger will notify you via email by default, but who reads email? Like
+with our <a href="/blog/rails-continuous-integration-with-semaphore/">continuous integration</a> we like to send our notifications to
+<a href="https://www.hipchat.com/">HipChat</a>. This can be setup in the project&#39;s settings.</p>
+
+<p><img
+src="//i.imgur.com/Aq8ooC9.png" class="figure center"></p>
+
+<h2>Conclusion</h2>
+
+<p>We have been using Honeybadger for over a year now and having a service handle
+our error reporting has been incredibly useful. The HipChat integration provides
+enough of a nag factor that developers are reminded of issues without being
+overwhelmed so much as to ignore them entirely. I highly recommend going down
+this route with your applications right from day one. The costs are small enough
+to be a no-brainer for any business.</p>
+
+</div>
+
+<div class="post-comments">
+  Got any questions or comments? Drop me a message on <a href="http://twitter.com/RichGuk" rel="nofollow">Twitter (@RichGuk)</a>.
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="container">
+        &copy; Rich Grundy 2016.
+      </div>
+    </footer>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-2160161-2', 'richgrundy.com');
+      ga('send', 'pageview');
+    </script>
+
+    <script>
+    $(function() {
+        $('a[data-fluidbox]').fluidbox();
+    });
+    </script>
+  </body>
+</html>

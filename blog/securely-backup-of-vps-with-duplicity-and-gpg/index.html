@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Securely backup your VPS using Duplicity &amp; GnuPG</title>
+    
+    <meta name="description" content="Duplicity is a backup solution that you can use to backup your VPS. This howto shows how to get this setup for simple automatic encrypted backups.">
+    
+    <meta name="author" content="Richard Grundy">
+    <link rel="author" href="https://plus.google.com/u/0/115833423324756942653/posts">
+    <link href="http://www.richgrundy.com/blog/securely-backup-of-vps-with-duplicity-and-gpg/" rel="canonical">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="alternate" type="application/rss+xml" title="Rich Grundy" href="http://www.richgrundy.com/feed.xml">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fluidbox/1.3.1/jquery.fluidbox.css">
+    <link rel="stylesheet" href="/assets/application-9884be0a4e0e433a81e4b80dc1d36b65.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fluidbox/1.3.1/jquery.fluidbox.min.js"></script>
+  </head>
+
+  <body>
+  <header class="site-header" role="banner">
+      <div class="container">
+        <a href="/" class="logo"><img src="/assets/logo-0bfb51528a70dbc5915d936bd925f070.png" alt="Rich Grundy" class="site-logo"></a>
+
+        <nav role="navigiation">
+          <ul class="site-nav">
+            <li><a href="/about/">About</a>
+            <li><a href="/blog/">Blog</a>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    
+
+    <div class="site-content">
+      <div class="container">
+        <h1 class="post-title">Securely backup your VPS using Duplicity &amp; GnuPG</h1>
+<p class="post-meta">07 Apr 2010</p>
+
+<div class="post">
+<p>It&#39;s always a good idea to backup your data; it gives you protection from data loss and hardware failure. If you host sensitive data, or applications for customers, it&#39;s a good idea to encrypt the backups, ensuring their secure and can be safely kept just about anywhere.</p>
+
+<p>There are lots of backup scripts, solutions and services around: <a href="http://samba.anu.edu.au/rsync/">Rsync</a>, <a href="http://s3sync.net/wiki">s3sync</a>, <a href="http://rdiff-backup.nongnu.org/">Rdiff-backup</a>, <a href="http://www.jungledisk.com/">Jungle Disk</a> and <a href="http://www.nongnu.org/duplicity/">Duplicity</a> being just a few. After trying a few of them I decided to go with Duplicity for my <a href="http://www.linode.com/?r=00870b85cb89e8747f4319189550b4943bc7483b">Linode</a> VPS; it provided a simple, yet powerful, way of doing encrypted backups.</p>
+
+<p>Duplicity uses librsync and GnuPG to incrementally encrypt archives of files that have changed since the last backup. You can transfer the backups using a whole range of protocols: ftp, imap, rsync, s3 and scp for example - I store backups on my local file server, however, due to the encrypted nature they could easily be stored on something like Amazon&#39;s S3.</p>
+
+<p>The MAN pages have more information on the <a href="http://www.nongnu.org/duplicity/duplicity.1.html#toc4">actions</a>, <a href="http://www.nongnu.org/duplicity/duplicity.1.html#toc5">options</a> and <a href="http://www.nongnu.org/duplicity/duplicity.1.html#toc6">URL formats</a> for duplicity, it also provides several <a href="http://www.nongnu.org/duplicity/duplicity.1.html#toc3">examples</a>.</p>
+
+<h2>Installing duplicity and its dependencies</h2>
+
+<p>Duplicity is written in python, which needs to be installed if it isn&#39;t already (not something covered here). You can install Duplicity via Debian&#39;s package manager, but the version is outdated and lacks newer features; to get the latest version it&#39;s best to install it from source.</p>
+
+<p>The following dependencies need to be met:</p>
+
+<ul>
+<li>Python v2.3 or later</li>
+<li>librsync v0.9.6 or later</li>
+<li>GnuPG for encryption</li>
+<li>NcFTP version 3.1.9 or later</li>
+<li>Boto 0.9d or later</li>
+<li>Python development files (python-dev)</li>
+<li>librsync development files (librsync-dev)</li>
+</ul>
+
+<p>Debian users can simply run the following to get all of the required dependencies:</p>
+
+<pre>$ sudo aptitude build-dep duplicity</pre>
+
+<p>Fetch the latest stable release, which as of writing this was 0.6.08b:</p>
+
+<pre>$ mkdir sources<br>$ cd sources<br>$ wget http://code.launchpad.net/duplicity/0.6-series/0.6.08b/+download/duplicity-0.6.08b.tar.gz</pre>
+
+<p>Extract the tarball:</p>
+
+<pre>$ tar xvzf duplicity-0.6.08b.tar.gz<br>$ cd duplicity-0.6.08b</pre>
+
+<p>Finally, install Duplicity:</p>
+
+<pre>$ sudo python setup.py install</pre>
+
+<p>If successful then you should be able to verify by running:</p>
+
+<pre>$ duplicity --version</pre>
+
+<h2>Encryption &amp; Keys</h2>
+
+<p>Duplicity takes care of the gpg encryption for us, all we have to do is supply a public encryption and signature key. The encryption key is used to protect the data from nosey people, while the signature key is used to ensure the integrity of the backups.</p>
+
+<p>By default, if you omit the signature key, the encryption key is used for signing as well. It&#39;s highly recommended to create separate signature and encryption keys; the passphrase for the signature needs to be available in the script, therefore, using the same key for encryption and signing leaves your encrypted files exposed.</p>
+
+<p>On your local machine, not your production server, you can generate the keys with this command:</p>
+
+<pre>$ gpg --gen-key</pre>
+
+<p>You will be given a choice of key types, I normally go with the default - same thing with the key length and expiry. When you&#39;re asked to enter a name, you can put what you want, I tend to put the name of the server and which key it is, signature or encryption.</p>
+
+<p>Example of the encryption key generation:</p>
+
+<pre>
+gpg --gen-key
+gpg (GnuPG) 1.4.10; Copyright (C) 2008 Free Software Foundation, Inc.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Please select what kind of key you want:
+   (1) RSA and RSA (default)
+   (2) DSA and Elgamal
+   (3) DSA (sign only)
+   (4) RSA (sign only)
+Your selection? 
+*press enter*
+RSA keys may be between 1024 and 4096 bits long.
+What keysize do you want? (2048) 
+Requested keysize is 2048 bits
+*press enter*
+Please specify how long the key should be valid.
+         0 = key does not expire
+      <n>  = key expires in n days
+      <n>w = key expires in n weeks
+      <n>m = key expires in n months
+      <n>y = key expires in n years
+Key is valid for? (0) 
+*press enter*
+Key does not expire at all
+Is this correct? (y/N) y
+
+You need a user ID to identify your key; the software constructs the user ID
+from the Real Name, Comment and Email Address in this form:
+    "Heinrich Heine (Der Dichter) <heinrichh@duesseldorf.de>"
+
+Real name: Edge Backup Encryption Key
+Email address: me@domain.com
+Comment: Encryption key for Edge backups
+You selected this USER-ID:
+    "Edge Backup Encryption Key (Encryption key for Edge backups) <me@domain.com>"
+
+Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit? O
+You need a Passphrase to protect your secret key.
+*enter passphrase, make sure secure*
+We need to generate a lot of random bytes. It is a good idea to perform
+some other action (type on the keyboard, move the mouse, utilize the
+disks) during the prime generation; this gives the random number
+generator a better chance to gain enough entropy.
+....................+++++
+...+++++
+We need to generate a lot of random bytes. It is a good idea to perform
+some other action (type on the keyboard, move the mouse, utilize the
+disks) during the prime generation; this gives the random number
+generator a better chance to gain enough entropy.
+.....+++++
++++++
+gpg: key B5FC8737 marked as ultimately trusted
+public and secret key created and signed.
+
+gpg: checking the trustdb
+gpg: 3 marginal(s) needed, 1 complete(s) needed, PGP trust model
+gpg: depth: 0  valid:   2  signed:   0  trust: 0-, 0q, 0n, 0m, 0f, 2u
+pub   2048R/B5FC8737 2010-04-03
+      Key fingerprint = 2365 2F64 0808 8A90 644C  9AEF FBBD B843 B5FC 8737
+uid                  Edge Backup Encryption Key (Encryption key for Edge backups) <me@domain.com>
+sub   2048R/9ABB5804 2010-04-03
+</pre>
+
+<p>Do exactly the same for the signature key, but make sure you use a different passphrase.</p>
+
+<p>Once both keys have been created you need to export and copy the public encryption and private signature keys to the production box; the safest way to do this is SCP/SSH.</p>
+
+<p>To export the keys run the following commands:</p>
+
+<pre>$ gpg --export -a 'Edge Backup Encryption' > edge.enc.pub.gpg<br>$ gpg --export-secret-keys -a 'Edge Backup Signature' > backup.sig.sec.gpg</pre>
+
+<p>Transfer them to the production box:</p>
+
+<pre>$ scp edge.enc.pub.gpg backup.sig.sec.gpg rich@server.com:/tmp</pre>
+
+<p>Import the transferred keys by running the following command (on the production box):</p>
+
+<pre>$ gpg --import /tmp/backup.enc.pub.gpg<br>$ gpg --import-secret-keys /tmp/backup.enc.sec.gpg</pre>
+
+<p>Verify the keys were imported correctly, we also need to note down the key IDs:</p>
+
+<pre>$ gpg --list-keys<br>$ gpg --list-secret-keys</pre>
+
+<pre>
+/root/.gnupg/pubring.gpg
+------------------------
+pub   2048R/5FD0100F 2010-04-04
+uid                  Edge Backup Encryption Key (Encryption key for edge backups) <me@domain.com>
+sub   2048R/48F61F08 2010-04-04
+
+pub   2048R/7F73FA36 2010-04-04
+uid                  Edge Backup Signature Key (Signature key for edge backups) <me@domain.com>
+sub   2048R/A67F8410 2010-04-04
+
+
+
+/root/.gnupg/secring.gpg
+------------------------
+sec   2048R/7F73FA36 2010-04-04
+uid                  Edge Backup Signature Key (Signature key for edge backups) <me@domain.com>
+ssb   2048R/A67F8410 2010-04-04
+</pre>
+
+<p>The two IDs we&#39;re interested in are <strong>5FD0100F</strong> (encryption key) and <strong>7F73FA36</strong> (signature key).</p>
+
+<h2>Backup process</h2>
+
+<p>I run my backups as root with the scripts running from the root home directory and only readable by root - chmod&#39;ed with 700 (rwx------). I do this for two reasons: one, you need to be able to read all the directories on the server and two, the passphrase needs to be stored in the script.</p>
+
+<p>Before we begin the backups we need to create an exclusion list to ignore certain directories that we don&#39;t want to backup. You may include your own directories, or alter the list to better suit your Linux distro.</p>
+
+<pre>$ vim /root/backups/excludelist<br><br># Add the following and save<br>- /sys<br>- /dev<br>- /proc<br>- /tmp<br>- /mnt</pre>
+
+<p>I suggest running the initial backup manually so you can catch any potential errors before automating the process; the initial backup needs to copy everything so expect it to take a while! </p>
+
+<p>Run the following command, changing the sign and encrypt keys for yours! Time to grab a beer maybe?</p>
+
+<pre>$ duplicity --sign-key '7F73FA36' --encrypt-key '5FD0100F' --exclude-filelist=/root/backups/excludelist / scp://rich@backup_server//mnt/backups/edge/main</pre>
+
+<p>After that has finished confirm the backup ran successfully:</p>
+
+<pre>duplicity collection-status scp://rich@backup_server//mnt/backups/edge/main</pre>
+
+<p>It should list a load of statistics and say something like: <em>&quot;No orphaned or incomplete backup sets found.&quot;</em></p>
+
+<p>When you&#39;re happy it&#39;s all running you can automate the process via a cronjob. Below is the script I use to backup my VPS, note that I dump all the mySQL databases before doing the backup, relying on backups of /var/lib/mysql isn&#39;t advised.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/sh</span>
+
+<span class="nb">export </span><span class="nv">PASSPHRASE</span><span class="o">=</span>SomeMagiclySecurePassphrase
+<span class="nb">export </span><span class="nv">SSH_AUTH_SOCK</span><span class="o">=</span>/tmp/ssh-agent
+
+<span class="c">#</span>
+<span class="c"># Dump mySQL databases, relying on backup of /var/lib/mysql isn&#39;t advised.</span>
+<span class="c">#</span>
+mysqldump --all-databases -uroot -pTEHPAZZ <span class="p">|</span> bzip2 -c &gt; /root/backups/db/all_databases_<span class="k">$(</span>date +%Y_%m_%d<span class="k">)</span>.sql.bz2
+
+<span class="c">#</span>
+<span class="c"># Main backup.</span>
+<span class="c">#</span>
+duplicity --sign-key <span class="s1">&#39;7F73FA36&#39;</span> --encrypt-key <span class="s1">&#39;5FD0100F&#39;</span> --exclude-filelist<span class="o">=</span>/root/scripts/backups/ignorelist / scp://rich@backup_server//mnt/backups/edge/main
+
+<span class="c">#</span>
+<span class="c"># Clean up.</span>
+<span class="c">#</span>
+
+<span class="c"># Remove the temp database dump.</span>
+rm /root/backups/db/all_databases_<span class="k">$(</span>date +%Y_%m_%d<span class="k">)</span>.sql.bz2
+
+<span class="c"># Delete duplicity backups older than 30 days.</span>
+duplicity remove-older-than 30D scp://rich@backup_server//mnt/backups/edge/main</code></pre></div>
+
+<p>That&#39;s it! You should now have secure, fully automated backups of your server. Just make sure you keep your GPG keys safe, I keep mine on a USB pen drive I carry with me.</p>
+
+</div>
+
+<div class="post-comments">
+  Got any questions or comments? Drop me a message on <a href="http://twitter.com/RichGuk" rel="nofollow">Twitter (@RichGuk)</a>.
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="container">
+        &copy; Rich Grundy 2016.
+      </div>
+    </footer>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-2160161-2', 'richgrundy.com');
+      ga('send', 'pageview');
+    </script>
+
+    <script>
+    $(function() {
+        $('a[data-fluidbox]').fluidbox();
+    });
+    </script>
+  </body>
+</html>

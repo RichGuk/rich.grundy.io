@@ -1,0 +1,782 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rich Grundy</title>
+    <description>Personal space of Richard Grundy. A Birmingham based Ruby on Rails developer.</description>
+    <link>http://www.richgrundy.com</link>
+    <atom:link href="http://www.richgrundy.com/feed.xml" rel="self" type="application/rss+xml" />
+    
+      <item>
+        <title>Application error handling with Honeybadger</title>
+        <description>&lt;p&gt;Part two in a series of posts detailing the services we use at
+&lt;a href=&quot;http://www.stinkyinkshop.co.uk&quot;&gt;work&lt;/a&gt;. This post covers how we handle errors in our application.
+Part one covered &lt;a href=&quot;/blog/rails-continuous-integration-with-semaphore/&quot;&gt;continuous integration&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2&gt;Errors?&lt;/h2&gt;
+
+&lt;p&gt;Error handling is very important for any application; you want to know when
+things break right? Traditionally applications have used log files or emails,
+however, monitoring a log file is cumbersome and suddenly getting thousands of
+emails is overwhelming.&lt;/p&gt;
+
+&lt;p&gt;There are plenty of services that make error handling easier; &lt;a href=&quot;https://www.honeybadger.io/&quot;&gt;Honeybadger&lt;/a&gt;,
+&lt;a href=&quot;https://www.honeybadger.io/&quot;&gt;Airbrake&lt;/a&gt;, &lt;a href=&quot;https://www.getsentry.com/&quot;&gt;Sentry&lt;/a&gt;, &lt;a href=&quot;http://raygun.io/&quot;&gt;Raygun&lt;/a&gt;, the list goes on... They all essentially do
+the same thing just with the odd unique selling point or price difference.
+These services provide a central place for errors, smartly notify you when they
+occur, combine duplicates, allow team members to comment, and integrate with
+third-party bug tracking and notification systems - all terribly important
+things.&lt;/p&gt;
+
+&lt;p&gt;At &lt;a href=&quot;http://www.stinkyinkshop.co.uk&quot;&gt;Stinkyink&lt;/a&gt; we went with &lt;a href=&quot;https://www.honeybadger.io/&quot;&gt;Honeybadger&lt;/a&gt; and get by with the micro plan which
+is $19/pm for 3 apps and 7 days retention. A nice feature of Honeybadger is
+that it knows about Rails&amp;#39; stack trace and it attempts to tidy it for you. When
+you dig into the exception you also get useful information like environment
+variables, session data, cookie data and the query params.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;//i.imgur.com/FnV1vMy.png&quot; data-fluidbox&gt;&lt;img
+src=&quot;//i.imgur.com/FnV1vMy.png&quot; class=&quot;figure&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Honeybadger is very Ruby focused so if you need other language support then
+&lt;a href=&quot;https://www.getsentry.com/&quot;&gt;Sentry&lt;/a&gt; is often recommended. I think their base plan is $24/pm (if you need
+teams, or $9/pm if you don&amp;#39;t). If you&amp;#39;re looking to spend very little then
+&lt;a href=&quot;https://github.com/errbit/errbit/&quot;&gt;errbit&lt;/a&gt; looks good - it&amp;#39;s a self hosted open source project. Regardless of
+which one you choose the important thing is you pick one.&lt;/p&gt;
+
+&lt;h2&gt;Honeybadger setup for Rails&lt;/h2&gt;
+
+&lt;p&gt;Setting up Honeybadger is dead simple for Rails.&lt;/p&gt;
+
+&lt;p&gt;Add the following to your Gemfile.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;honeybadger&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Then generate the initializer with the following command.&lt;/p&gt;
+
+&lt;pre&gt;
+rails generate honeybadger --api-key your-api-key
+&lt;/pre&gt;
+
+&lt;p&gt;That &lt;em&gt;should&lt;/em&gt; be all you need to do. Honeybadger will now send any exceptions
+that happen within Rails to your account, and it should have sent a test when you
+ran the generate command.&lt;/p&gt;
+
+&lt;p&gt;Honeybadger allows you to manually send exceptions to your account. This is
+especially useful if you want to pass additional information along with the
+error.&lt;/p&gt;
+
+&lt;p&gt;Here is an example from their documentation.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;begin&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;params&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;ss&quot;&gt;:id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;ss&quot;&gt;:class&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;MyClass&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;ss&quot;&gt;:foo&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;bar&amp;quot;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;my_unpredicable_method&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;rescue&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;Honeybadger&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;notify&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;ss&quot;&gt;:error_class&lt;/span&gt;   &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Special Error&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;ss&quot;&gt;:error_message&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Special Error: &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;ss&quot;&gt;:parameters&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;params&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2&gt;Getting notifications&lt;/h2&gt;
+
+&lt;p&gt;Honeybadger will notify you via email by default, but who reads email? Like
+with our &lt;a href=&quot;/blog/rails-continuous-integration-with-semaphore/&quot;&gt;continuous integration&lt;/a&gt; we like to send our notifications to
+&lt;a href=&quot;https://www.hipchat.com/&quot;&gt;HipChat&lt;/a&gt;. This can be setup in the project&amp;#39;s settings.&lt;/p&gt;
+
+&lt;p&gt;&lt;img
+src=&quot;//i.imgur.com/Aq8ooC9.png&quot; class=&quot;figure center&quot;&gt;&lt;/p&gt;
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;We have been using Honeybadger for over a year now and having a service handle
+our error reporting has been incredibly useful. The HipChat integration provides
+enough of a nag factor that developers are reminded of issues without being
+overwhelmed so much as to ignore them entirely. I highly recommend going down
+this route with your applications right from day one. The costs are small enough
+to be a no-brainer for any business.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 02 Jun 2014 00:00:00 +0100</pubDate>
+        <link>http://www.richgrundy.com/blog/application-error-handling-with-honeybadger/</link>
+        <guid isPermaLink="true">http://www.richgrundy.com/blog/application-error-handling-with-honeybadger/</guid>
+      </item>
+    
+      <item>
+        <title>Rails continuous integration with Semaphore</title>
+        <description>&lt;p&gt;This post covers continuous integration for Rails and is part one of a series of
+posts that detail the services my team uses at &lt;a href=&quot;http://www.stinkyinkshop.co.uk&quot;&gt;work&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2&gt;Continuous integration&lt;/h2&gt;
+
+&lt;p&gt;Writing software is error prone and riddled with problems. This is often
+amplified when working in larger teams as you try to integrate each other&amp;#39;s
+code. Continuous integration, or CI for short, is a development practice whereby
+team members integrate their work as frequently as possible; it is normally
+achieved by having software automate the running of a test suite.&lt;/p&gt;
+
+&lt;p&gt;At &lt;a href=&quot;http://www.stinkyinkshop.co.uk&quot;&gt;Stinkyink&lt;/a&gt; we needed to find an affordable private CI server. We initially
+setup &lt;a href=&quot;http://jenkins-ci.org/&quot;&gt;Jenkins&lt;/a&gt; as our CI, but we found this difficult to setup and a burden
+to maintain - we wanted a hosted solution. First we looked at &lt;a href=&quot;https://travis-ci.org/&quot;&gt;Travis CI&lt;/a&gt;, a
+big player in the Rails world, however at the time they didn&amp;#39;t offer private
+repositories (good and free for Open Source). We finally settled on a service
+called &lt;a href=&quot;https://semaphoreapp.com/&quot;&gt;Semaphore&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2&gt;Semaphore&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;//i.imgur.com/cfmJjm1.png&quot; data-fluidbox&gt;&lt;img
+src=&quot;//i.imgur.com/cfmJjm1.png&quot; class=&quot;figure&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Semaphore is a hosted CI solution that links directly to your &lt;a href=&quot;http://github.com/&quot;&gt;Github&lt;/a&gt;
+repositories. It automatically runs a build script, which you can customise,
+with every commit you push and branch you create. Our script runs things like
+db:test:prepare, rspec, etc..&lt;/p&gt;
+
+&lt;p&gt;For us, Semaphore offered private repositories at an affordable price with
+basic plans that handle 5 projects for $39/pm - compare that to Travis CI&amp;#39;s base
+private package at $129/pm.&lt;/p&gt;
+
+&lt;p&gt;Getting notified of build failures is important and Semaphore fully supports
+this. By default this is via email but we have our notifications sent to
+&lt;a href=&quot;http://hipchat.com/&quot;&gt;HipChat&lt;/a&gt; &lt;em&gt;(saving HipChat for a later post)&lt;/em&gt;. It also supports Github&amp;#39;s commit
+status API, which means you get build statuses directly in a Github pull
+request.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;//i.imgur.com/GiBcCm6.png&quot; data-fluidbox&gt;&lt;img
+src=&quot;//i.imgur.com/GiBcCm6.png&quot; class=&quot;figure&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;//i.imgur.com/Mlf69Tp.png&quot; data-fluidbox&gt;&lt;img
+src=&quot;//i.imgur.com/Mlf69Tp.png&quot; class=&quot;figure&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Semaphore also allows you to exercise automatic deployment for successful
+builds. This is something we haven&amp;#39;t yet taken advantage of but I would very
+much like to in future. It allows you to deploy via Capistrano, Heroku, Cloud66
+&lt;em&gt;(something else we want to look at)&lt;/em&gt; or a generic deployment script (bash
+script run in the root of the application).&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;//i.imgur.com/hLFRhkE.png&quot; data-fluidbox&gt;&lt;img
+src=&quot;//i.imgur.com/hLFRhkE.png&quot; class=&quot;figure&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;We have been rocking Semaphore for well over a year now, and have loved our
+experience so far. It&amp;#39;s reasonably priced, fast, had very little issues, the
+creators are lovely folk and their UI is sexy to boot.&lt;/p&gt;
+
+&lt;p&gt;If you haven&amp;#39;t already setup a CI server for your team, especially if your team
+is small, then I can highly recommend Semaphore. Even if you don&amp;#39;t go with
+Semaphore I recommend running a CI server as it takes the integration headache
+away from your developers and ensures they&amp;#39;re not distracted with having to
+remember to run a test suite.&lt;/p&gt;
+</description>
+        <pubDate>Thu, 29 May 2014 00:00:00 +0100</pubDate>
+        <link>http://www.richgrundy.com/blog/rails-continuous-integration-with-semaphore/</link>
+        <guid isPermaLink="true">http://www.richgrundy.com/blog/rails-continuous-integration-with-semaphore/</guid>
+      </item>
+    
+      <item>
+        <title>Setting up a valid SSL certificate for Subsonic</title>
+        <description>&lt;p&gt;Due to the recent OpenSSL issues (&lt;a href=&quot;http://heartbleed.com&quot;&gt;Heartbleed&lt;/a&gt;) I&amp;#39;ve been rekeying my
+SSL certificates and as part of that I&amp;#39;ve needed to update the &lt;a href=&quot;http://subsonic.org&quot;&gt;Subsonic&lt;/a&gt;
+key. I never remember the steps for this, luckily they were still in my ZSH
+history. To save myself in future and to help others I&amp;#39;ve written the
+process down.&lt;/p&gt;
+
+&lt;h2&gt;Prerequisites&lt;/h2&gt;
+
+&lt;p&gt;You need to make sure openSSL is installed (and the latest patched version), you
+will also need zip installed and obviously &lt;a href=&quot;http://subsonic.org&quot;&gt;Subsonic&lt;/a&gt; configured and working.&lt;/p&gt;
+
+&lt;h2&gt;Get a valid SSL certificate&lt;/h2&gt;
+
+&lt;p&gt;Plenty of places offer CA certs, you can get free certificates from
+&lt;a href=&quot;http://www.startssl.com&quot;&gt;StartSSL&lt;/a&gt;. I chose to buy mine from my registrar,
+&lt;a href=&quot;http://namecheap.com&quot;&gt;Namecheap&lt;/a&gt;, for ~£5.&lt;/p&gt;
+
+&lt;p&gt;Generate a CSR (Certificate Signing Request) as Namecheap or StartSSL will need this.&lt;/p&gt;
+
+&lt;pre&gt;
+openssl req -new -newkey rsa:2048 -nodes -keyout hostname.key -out hostname.csr
+&lt;/pre&gt;
+
+&lt;p&gt;Fill out all the needed information, country, town, organisation. The Common
+name is the full domain name you wish create the SSL cert for. This has to be
+correct, for example if you run subsonic on homemachine.mydomain.com then enter
+this here. I didn&amp;#39;t bother with passphrase.&lt;/p&gt;
+
+&lt;p&gt;When submitting this request remember to choose OpenSSL as the certificate type.
+You will have to wait for it to be verified, this took a few hours on Namecheap
+for myself.&lt;/p&gt;
+
+&lt;h2&gt;Generate for Subsonic&lt;/h2&gt;
+
+&lt;p&gt;Subsonic needs a different key format to the Apache style one, you can convert
+this with openssl command.&lt;/p&gt;
+
+&lt;p&gt;When you get the certificates from the registrar you should have files similar
+to:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;hostname.crt&lt;/li&gt;
+&lt;li&gt;PositiveSSLCA2.crt&lt;/li&gt;
+&lt;li&gt;AddTrustExternalCARoot.crt&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;You need to combine these files, along with the hostname.key you generated
+earlier.&lt;/p&gt;
+
+&lt;pre&gt;
+cat hostname.key hostname.crt PositiveSSLCA2.crt AddTrustExternalCARoot.crt &gt; subsonic.crt
+&lt;/pre&gt;
+
+&lt;p&gt;Next convert it to a format &lt;a href=&quot;http://subsonic.org&quot;&gt;Subsonic&lt;/a&gt; understands.&lt;/p&gt;
+
+&lt;pre&gt;
+openssl pkcs12 -in subsonic.crt -export -out subsonic.pkcs12
+&lt;/pre&gt;
+
+&lt;p&gt;When prompted enter &lt;strong&gt;subsonic&lt;/strong&gt; as export password.&lt;/p&gt;
+
+&lt;p&gt;Now you should have a subsonic.pkcs12 file, we need to import this into a
+keystore for &lt;a href=&quot;http://subsonic.org&quot;&gt;Subsonic&lt;/a&gt; to use.&lt;/p&gt;
+
+&lt;pre&gt;
+sudo keytool -importkeystore -srckeystore subsonic.pkcs12 -destkeystore subsonic.keystore -srcstoretype PKCS12 -srcstorepass subsonic -srcalias 1 -destalias subsonic
+&lt;/pre&gt;
+
+&lt;p&gt;When prompted enter &lt;strong&gt;subsonic&lt;/strong&gt; as the password.&lt;/p&gt;
+
+&lt;p&gt;Finally we need to put the keystore into the file &lt;a href=&quot;http://subsonic.org&quot;&gt;Subsonic&lt;/a&gt; uses to
+boot.&lt;/p&gt;
+
+&lt;pre&gt;
+sudo zip /var/subsonic/subsonic-booter-jar-with-dependencies.jar subsonic.keystore
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;em&gt;note: Your paths may differ, these are default for Archlinux&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2&gt;Enable SSL in Subsonic&lt;/h2&gt;
+
+&lt;p&gt;Finally you will need to enable SSL in &lt;a href=&quot;http://subsonic.org&quot;&gt;Subsonic&lt;/a&gt;, if you haven&amp;#39;t done so already.&lt;/p&gt;
+
+&lt;pre&gt;
+sudo vim /var/subsonic/subsonic.sh
+# Change SUBSONIC_HTTPS_PORT=0 to the port you want to use for SSL.
+&lt;/pre&gt;
+
+&lt;p&gt;Now restart &lt;a href=&quot;http://subsonic.org&quot;&gt;Subsonic&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;
+sudo systemctl restart subsonic
+&lt;/pre&gt;
+
+&lt;p&gt;Congratulations, you now have a valid and secure &lt;a href=&quot;http://subsonic.org&quot;&gt;Subsonic&lt;/a&gt;
+installation.&lt;/p&gt;
+</description>
+        <pubDate>Fri, 11 Apr 2014 00:00:00 +0100</pubDate>
+        <link>http://www.richgrundy.com/blog/setting-up-ssl-cert-for-subsonic/</link>
+        <guid isPermaLink="true">http://www.richgrundy.com/blog/setting-up-ssl-cert-for-subsonic/</guid>
+      </item>
+    
+      <item>
+        <title>Securely backup your VPS using Duplicity &amp;amp; GnuPG</title>
+        <description>&lt;p&gt;It&amp;#39;s always a good idea to backup your data; it gives you protection from data loss and hardware failure. If you host sensitive data, or applications for customers, it&amp;#39;s a good idea to encrypt the backups, ensuring their secure and can be safely kept just about anywhere.&lt;/p&gt;
+
+&lt;p&gt;There are lots of backup scripts, solutions and services around: &lt;a href=&quot;http://samba.anu.edu.au/rsync/&quot;&gt;Rsync&lt;/a&gt;, &lt;a href=&quot;http://s3sync.net/wiki&quot;&gt;s3sync&lt;/a&gt;, &lt;a href=&quot;http://rdiff-backup.nongnu.org/&quot;&gt;Rdiff-backup&lt;/a&gt;, &lt;a href=&quot;http://www.jungledisk.com/&quot;&gt;Jungle Disk&lt;/a&gt; and &lt;a href=&quot;http://www.nongnu.org/duplicity/&quot;&gt;Duplicity&lt;/a&gt; being just a few. After trying a few of them I decided to go with Duplicity for my &lt;a href=&quot;http://www.linode.com/?r=00870b85cb89e8747f4319189550b4943bc7483b&quot;&gt;Linode&lt;/a&gt; VPS; it provided a simple, yet powerful, way of doing encrypted backups.&lt;/p&gt;
+
+&lt;p&gt;Duplicity uses librsync and GnuPG to incrementally encrypt archives of files that have changed since the last backup. You can transfer the backups using a whole range of protocols: ftp, imap, rsync, s3 and scp for example - I store backups on my local file server, however, due to the encrypted nature they could easily be stored on something like Amazon&amp;#39;s S3.&lt;/p&gt;
+
+&lt;p&gt;The MAN pages have more information on the &lt;a href=&quot;http://www.nongnu.org/duplicity/duplicity.1.html#toc4&quot;&gt;actions&lt;/a&gt;, &lt;a href=&quot;http://www.nongnu.org/duplicity/duplicity.1.html#toc5&quot;&gt;options&lt;/a&gt; and &lt;a href=&quot;http://www.nongnu.org/duplicity/duplicity.1.html#toc6&quot;&gt;URL formats&lt;/a&gt; for duplicity, it also provides several &lt;a href=&quot;http://www.nongnu.org/duplicity/duplicity.1.html#toc3&quot;&gt;examples&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2&gt;Installing duplicity and its dependencies&lt;/h2&gt;
+
+&lt;p&gt;Duplicity is written in python, which needs to be installed if it isn&amp;#39;t already (not something covered here). You can install Duplicity via Debian&amp;#39;s package manager, but the version is outdated and lacks newer features; to get the latest version it&amp;#39;s best to install it from source.&lt;/p&gt;
+
+&lt;p&gt;The following dependencies need to be met:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Python v2.3 or later&lt;/li&gt;
+&lt;li&gt;librsync v0.9.6 or later&lt;/li&gt;
+&lt;li&gt;GnuPG for encryption&lt;/li&gt;
+&lt;li&gt;NcFTP version 3.1.9 or later&lt;/li&gt;
+&lt;li&gt;Boto 0.9d or later&lt;/li&gt;
+&lt;li&gt;Python development files (python-dev)&lt;/li&gt;
+&lt;li&gt;librsync development files (librsync-dev)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Debian users can simply run the following to get all of the required dependencies:&lt;/p&gt;
+
+&lt;pre&gt;$ sudo aptitude build-dep duplicity&lt;/pre&gt;
+
+&lt;p&gt;Fetch the latest stable release, which as of writing this was 0.6.08b:&lt;/p&gt;
+
+&lt;pre&gt;$ mkdir sources&lt;br&gt;$ cd sources&lt;br&gt;$ wget http://code.launchpad.net/duplicity/0.6-series/0.6.08b/+download/duplicity-0.6.08b.tar.gz&lt;/pre&gt;
+
+&lt;p&gt;Extract the tarball:&lt;/p&gt;
+
+&lt;pre&gt;$ tar xvzf duplicity-0.6.08b.tar.gz&lt;br&gt;$ cd duplicity-0.6.08b&lt;/pre&gt;
+
+&lt;p&gt;Finally, install Duplicity:&lt;/p&gt;
+
+&lt;pre&gt;$ sudo python setup.py install&lt;/pre&gt;
+
+&lt;p&gt;If successful then you should be able to verify by running:&lt;/p&gt;
+
+&lt;pre&gt;$ duplicity --version&lt;/pre&gt;
+
+&lt;h2&gt;Encryption &amp;amp; Keys&lt;/h2&gt;
+
+&lt;p&gt;Duplicity takes care of the gpg encryption for us, all we have to do is supply a public encryption and signature key. The encryption key is used to protect the data from nosey people, while the signature key is used to ensure the integrity of the backups.&lt;/p&gt;
+
+&lt;p&gt;By default, if you omit the signature key, the encryption key is used for signing as well. It&amp;#39;s highly recommended to create separate signature and encryption keys; the passphrase for the signature needs to be available in the script, therefore, using the same key for encryption and signing leaves your encrypted files exposed.&lt;/p&gt;
+
+&lt;p&gt;On your local machine, not your production server, you can generate the keys with this command:&lt;/p&gt;
+
+&lt;pre&gt;$ gpg --gen-key&lt;/pre&gt;
+
+&lt;p&gt;You will be given a choice of key types, I normally go with the default - same thing with the key length and expiry. When you&amp;#39;re asked to enter a name, you can put what you want, I tend to put the name of the server and which key it is, signature or encryption.&lt;/p&gt;
+
+&lt;p&gt;Example of the encryption key generation:&lt;/p&gt;
+
+&lt;pre&gt;
+gpg --gen-key
+gpg (GnuPG) 1.4.10; Copyright (C) 2008 Free Software Foundation, Inc.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Please select what kind of key you want:
+   (1) RSA and RSA (default)
+   (2) DSA and Elgamal
+   (3) DSA (sign only)
+   (4) RSA (sign only)
+Your selection? 
+*press enter*
+RSA keys may be between 1024 and 4096 bits long.
+What keysize do you want? (2048) 
+Requested keysize is 2048 bits
+*press enter*
+Please specify how long the key should be valid.
+         0 = key does not expire
+      &lt;n&gt;  = key expires in n days
+      &lt;n&gt;w = key expires in n weeks
+      &lt;n&gt;m = key expires in n months
+      &lt;n&gt;y = key expires in n years
+Key is valid for? (0) 
+*press enter*
+Key does not expire at all
+Is this correct? (y/N) y
+
+You need a user ID to identify your key; the software constructs the user ID
+from the Real Name, Comment and Email Address in this form:
+    &quot;Heinrich Heine (Der Dichter) &lt;heinrichh@duesseldorf.de&gt;&quot;
+
+Real name: Edge Backup Encryption Key
+Email address: me@domain.com
+Comment: Encryption key for Edge backups
+You selected this USER-ID:
+    &quot;Edge Backup Encryption Key (Encryption key for Edge backups) &lt;me@domain.com&gt;&quot;
+
+Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit? O
+You need a Passphrase to protect your secret key.
+*enter passphrase, make sure secure*
+We need to generate a lot of random bytes. It is a good idea to perform
+some other action (type on the keyboard, move the mouse, utilize the
+disks) during the prime generation; this gives the random number
+generator a better chance to gain enough entropy.
+....................+++++
+...+++++
+We need to generate a lot of random bytes. It is a good idea to perform
+some other action (type on the keyboard, move the mouse, utilize the
+disks) during the prime generation; this gives the random number
+generator a better chance to gain enough entropy.
+.....+++++
++++++
+gpg: key B5FC8737 marked as ultimately trusted
+public and secret key created and signed.
+
+gpg: checking the trustdb
+gpg: 3 marginal(s) needed, 1 complete(s) needed, PGP trust model
+gpg: depth: 0  valid:   2  signed:   0  trust: 0-, 0q, 0n, 0m, 0f, 2u
+pub   2048R/B5FC8737 2010-04-03
+      Key fingerprint = 2365 2F64 0808 8A90 644C  9AEF FBBD B843 B5FC 8737
+uid                  Edge Backup Encryption Key (Encryption key for Edge backups) &lt;me@domain.com&gt;
+sub   2048R/9ABB5804 2010-04-03
+&lt;/pre&gt;
+
+&lt;p&gt;Do exactly the same for the signature key, but make sure you use a different passphrase.&lt;/p&gt;
+
+&lt;p&gt;Once both keys have been created you need to export and copy the public encryption and private signature keys to the production box; the safest way to do this is SCP/SSH.&lt;/p&gt;
+
+&lt;p&gt;To export the keys run the following commands:&lt;/p&gt;
+
+&lt;pre&gt;$ gpg --export -a &#39;Edge Backup Encryption&#39; &gt; edge.enc.pub.gpg&lt;br&gt;$ gpg --export-secret-keys -a &#39;Edge Backup Signature&#39; &gt; backup.sig.sec.gpg&lt;/pre&gt;
+
+&lt;p&gt;Transfer them to the production box:&lt;/p&gt;
+
+&lt;pre&gt;$ scp edge.enc.pub.gpg backup.sig.sec.gpg rich@server.com:/tmp&lt;/pre&gt;
+
+&lt;p&gt;Import the transferred keys by running the following command (on the production box):&lt;/p&gt;
+
+&lt;pre&gt;$ gpg --import /tmp/backup.enc.pub.gpg&lt;br&gt;$ gpg --import-secret-keys /tmp/backup.enc.sec.gpg&lt;/pre&gt;
+
+&lt;p&gt;Verify the keys were imported correctly, we also need to note down the key IDs:&lt;/p&gt;
+
+&lt;pre&gt;$ gpg --list-keys&lt;br&gt;$ gpg --list-secret-keys&lt;/pre&gt;
+
+&lt;pre&gt;
+/root/.gnupg/pubring.gpg
+------------------------
+pub   2048R/5FD0100F 2010-04-04
+uid                  Edge Backup Encryption Key (Encryption key for edge backups) &lt;me@domain.com&gt;
+sub   2048R/48F61F08 2010-04-04
+
+pub   2048R/7F73FA36 2010-04-04
+uid                  Edge Backup Signature Key (Signature key for edge backups) &lt;me@domain.com&gt;
+sub   2048R/A67F8410 2010-04-04
+
+
+
+/root/.gnupg/secring.gpg
+------------------------
+sec   2048R/7F73FA36 2010-04-04
+uid                  Edge Backup Signature Key (Signature key for edge backups) &lt;me@domain.com&gt;
+ssb   2048R/A67F8410 2010-04-04
+&lt;/pre&gt;
+
+&lt;p&gt;The two IDs we&amp;#39;re interested in are &lt;strong&gt;5FD0100F&lt;/strong&gt; (encryption key) and &lt;strong&gt;7F73FA36&lt;/strong&gt; (signature key).&lt;/p&gt;
+
+&lt;h2&gt;Backup process&lt;/h2&gt;
+
+&lt;p&gt;I run my backups as root with the scripts running from the root home directory and only readable by root - chmod&amp;#39;ed with 700 (rwx------). I do this for two reasons: one, you need to be able to read all the directories on the server and two, the passphrase needs to be stored in the script.&lt;/p&gt;
+
+&lt;p&gt;Before we begin the backups we need to create an exclusion list to ignore certain directories that we don&amp;#39;t want to backup. You may include your own directories, or alter the list to better suit your Linux distro.&lt;/p&gt;
+
+&lt;pre&gt;$ vim /root/backups/excludelist&lt;br&gt;&lt;br&gt;# Add the following and save&lt;br&gt;- /sys&lt;br&gt;- /dev&lt;br&gt;- /proc&lt;br&gt;- /tmp&lt;br&gt;- /mnt&lt;/pre&gt;
+
+&lt;p&gt;I suggest running the initial backup manually so you can catch any potential errors before automating the process; the initial backup needs to copy everything so expect it to take a while! &lt;/p&gt;
+
+&lt;p&gt;Run the following command, changing the sign and encrypt keys for yours! Time to grab a beer maybe?&lt;/p&gt;
+
+&lt;pre&gt;$ duplicity --sign-key &#39;7F73FA36&#39; --encrypt-key &#39;5FD0100F&#39; --exclude-filelist=/root/backups/excludelist / scp://rich@backup_server//mnt/backups/edge/main&lt;/pre&gt;
+
+&lt;p&gt;After that has finished confirm the backup ran successfully:&lt;/p&gt;
+
+&lt;pre&gt;duplicity collection-status scp://rich@backup_server//mnt/backups/edge/main&lt;/pre&gt;
+
+&lt;p&gt;It should list a load of statistics and say something like: &lt;em&gt;&amp;quot;No orphaned or incomplete backup sets found.&amp;quot;&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;When you&amp;#39;re happy it&amp;#39;s all running you can automate the process via a cronjob. Below is the script I use to backup my VPS, note that I dump all the mySQL databases before doing the backup, relying on backups of /var/lib/mysql isn&amp;#39;t advised.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/sh&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PASSPHRASE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;SomeMagiclySecurePassphrase
+&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;SSH_AUTH_SOCK&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/tmp/ssh-agent
+
+&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Dump mySQL databases, relying on backup of /var/lib/mysql isn&amp;#39;t advised.&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
+mysqldump --all-databases -uroot -pTEHPAZZ &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; bzip2 -c &amp;gt; /root/backups/db/all_databases_&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;date +%Y_%m_%d&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;.sql.bz2
+
+&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Main backup.&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
+duplicity --sign-key &lt;span class=&quot;s1&quot;&gt;&amp;#39;7F73FA36&amp;#39;&lt;/span&gt; --encrypt-key &lt;span class=&quot;s1&quot;&gt;&amp;#39;5FD0100F&amp;#39;&lt;/span&gt; --exclude-filelist&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/root/scripts/backups/ignorelist / scp://rich@backup_server//mnt/backups/edge/main
+
+&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Clean up.&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Remove the temp database dump.&lt;/span&gt;
+rm /root/backups/db/all_databases_&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;date +%Y_%m_%d&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;.sql.bz2
+
+&lt;span class=&quot;c&quot;&gt;# Delete duplicity backups older than 30 days.&lt;/span&gt;
+duplicity remove-older-than 30D scp://rich@backup_server//mnt/backups/edge/main&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;That&amp;#39;s it! You should now have secure, fully automated backups of your server. Just make sure you keep your GPG keys safe, I keep mine on a USB pen drive I carry with me.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 07 Apr 2010 00:00:00 +0100</pubDate>
+        <link>http://www.richgrundy.com/blog/securely-backup-of-vps-with-duplicity-and-gpg/</link>
+        <guid isPermaLink="true">http://www.richgrundy.com/blog/securely-backup-of-vps-with-duplicity-and-gpg/</guid>
+      </item>
+    
+      <item>
+        <title>Simple backup script written in Ruby</title>
+        <description>&lt;p&gt;I&amp;#39;ve written a simple backup script in Ruby that utilises Rsync I&amp;#39;ve made it public so feel free to fork, change and contribute!&lt;/p&gt;
+
+&lt;p&gt;The backups are structured as such:&lt;/p&gt;
+
+&lt;p&gt;/remote/location/current - The current folder contains the the latest clone of the intended backup folder.
+/remote/location/backup_dir - The backup directory, which by default is the current day (monday, tuesday, etc) contains
+the difference to current since it was last run. So it will contain any new files and any files that were deleted.&lt;/p&gt;
+
+&lt;p&gt;I need to add a few examples of the settings and how to use it via cron on Linux and Launchd on OS X but the basic script should be working fine.&lt;/p&gt;
+
+&lt;p&gt;The script can be found on my &lt;a href=&quot;http://github.com/RichGuk&quot;&gt;github account&lt;/a&gt;, &lt;a href=&quot;http://github.com/RichGuk/rrsync/tree/master&quot;&gt;http://github.com/RichGuk/rrsync/tree/master&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;You can simply clone it with the following command:
+&lt;strong&gt;git clone git://github.com/RichGuk/rrsync.git&lt;/strong&gt;&lt;/p&gt;
+</description>
+        <pubDate>Mon, 18 Aug 2008 00:00:00 +0100</pubDate>
+        <link>http://www.richgrundy.com/blog/simple-backup-script-written-in-ruby/</link>
+        <guid isPermaLink="true">http://www.richgrundy.com/blog/simple-backup-script-written-in-ruby/</guid>
+      </item>
+    
+      <item>
+        <title>Setting up Nginx with Rails</title>
+        <description>&lt;p&gt;So the other day I decided to switch from using Apache to &lt;a href=&quot;http://nginx.net/&quot;&gt;Nginx&lt;/a&gt; not because apache isn&amp;#39;t any good, far from it. Nginx just uses much less ram and when you&amp;#39;re on a fairly small slice, using up more ram just isn&amp;#39;t good. I was going to benchmark speed and things between apache and nginx but I forgot to take some readings before stopping the apache service and installing nginx so we&amp;#39;ll skip over that idea like the thought never came into my head.&lt;/p&gt;
+
+&lt;p&gt;I&amp;#39;ll mention a few things I like about nginx first:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;It&amp;#39;s Russian&lt;/strong&gt; - Being Russian means it&amp;#39;s build to take some shit.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;It uses a lot less memory&lt;/strong&gt; - As I said before, not really done much benchmarks so these were some quick figures from &amp;#39;top&amp;#39; but I had apache running with about 5 instances each using 2-3% of ram even at 2% each that&amp;#39;s still 10% of ram being used just for apache... with nginx I appear to have 2 instances running both using 0.2% of ram, so 0.4% in total - which is a nice difference.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Faster page serving&lt;/strong&gt; - Nginx is meant to be better at serving static content fast and I&amp;#39;ve certainly noticed a speed up some with things.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2&gt;Installing nginx&lt;/h2&gt;
+
+&lt;p&gt;I follow pretty much most of these from &lt;a href=&quot;http://articles.slicehost.com&quot;&gt;slicehost&amp;#39;s articles&lt;/a&gt; but I didn&amp;#39;t find an article on how to setup the sites-available and sites-enabled type directories for Debian (if you compile from source), so I&amp;#39;ll cover that here.&lt;/p&gt;
+
+&lt;p&gt;On Debian the package manager contains a rather outdated version of nginx so I&amp;#39;d recommend installing it from the latest source. we&amp;#39;ll start by making sure you have all the required library&amp;#39;s:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;sudo apt-get install build-essential libpcre3 libpcre3-dev libpcrecpp0 libssl-dev zlib1g-de
+sudo apt-get build-dep nginx&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;When you&amp;#39;re ready you need to obtain the latest source from the nginx website, the latest stable when writing this was 0.6.31.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ~
+mkdir sources
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;sources
+wget http://sysoev.ru/nginx/nginx-0.6.31.tar.gz
+tar xvzf nginx-0.6.31.tar.gz
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;nginx-0.6.31&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;There are a few options we need to set when compiling from source. I wanted my nginx configuration files in &lt;strong&gt;/etc/nginx&lt;/strong&gt; instead of the default, so you may ignore this option (--conf-path) if you prefer the defaults.&lt;/p&gt;
+
+&lt;p&gt;We also need to change the location of where nginx puts it&amp;#39;s binary files using the &lt;strong&gt;--sbin-path&lt;/strong&gt; option because by default this path is set to &lt;strong&gt;/usr/local/nginx&lt;/strong&gt; meaning the binary files would be in &lt;strong&gt;/usr/local/nginx/sbin/nginx&lt;/strong&gt;
+which won&amp;#39;t be in our PATH setting, this option will allow the binary files
+to be placed where it can be found.&lt;/p&gt;
+
+&lt;p&gt;The last option will compile nginx
+with the ssl module, so we can have ssl conections.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;sudo mkdir /etc/nginx
+./configure --sbin-path&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/usr/local/sbin --conf-path&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/etc/nginx/nginx.conf --with-http_ssl_module
+make&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;When the configuration has finish you can compile and install it using make:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;sudo make install&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;This should hopefully of installed nginx into &lt;strong&gt;/usr/local/nginx&lt;/strong&gt; and the configuration files into &lt;strong&gt;/etc/nginx&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;When compiling from source we need to make the &lt;strong&gt;/etc/init.d&lt;/strong&gt; script ourselves otherwise we&amp;#39;ll have no way of starting, stopping and restarting nginx. Slicehost have a script on one of their articles that should be suitable here, so we&amp;#39;ll download it and move it to the right directory.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ~
+wget http://articles.slicehost.com/assets/2007/10/19/nginx
+chmod +x nginx
+sudo mv nginx /etc/init.d/nginx&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Then finally add it to all the default run levels.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;sudo /usr/sbin/update-rc.d -f nginx defaults&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;You should now be able to start nginx and browse to it &lt;strong&gt;http://127.0.0.1&lt;/strong&gt; (change with your servers IP). If all is working OK you should see a message that says &amp;quot;Welcome to nginx&amp;quot;.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;sudo /etc/init.d/nginx start&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2&gt;Configuration for Nginx&lt;/h2&gt;
+
+&lt;p&gt;The compiled version of nginx doesn&amp;#39;t quite have the structure you would have if you&amp;#39;d installed it from apt-get, the package manager sets up a familiar structure to Apache having the &lt;strong&gt;/etc/nginx/sites-available&lt;/strong&gt; and &lt;strong&gt;/etc/nginx/sites-enabled &lt;/strong&gt;directories, I find this to be a good way of organising all your virtual hosts so lets add that feature.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;sudo mkdir /etc/nginx/sites-available
+sudo mkdir /etc/nginx/sites-enabled
+sudo vim /etc/nginx/nginx.conf&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;After we&amp;#39;ve created the two directories we&amp;#39;ll open the nginx.conf file so we can add the following line which will include our virtual host files.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-nginx&quot; data-lang=&quot;nginx&quot;&gt;&lt;span class=&quot;k&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;/etc/nginx/sites-enabled/*&lt;/span&gt;;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;I was unsure the best place to put this so I placed mine after the server {} block, like this.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-nginx&quot; data-lang=&quot;nginx&quot;&gt;&lt;span class=&quot;k&quot;&gt;http&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+ &lt;span class=&quot;kn&quot;&gt;......&lt;/span&gt;
+ &lt;span class=&quot;s&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+ &lt;span class=&quot;kn&quot;&gt;......&lt;/span&gt;
+ &lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;
+ &lt;span class=&quot;s&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;/etc/nginx/sites-enabled/*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Once you have done that we are ready to setup our virtual host, for this well proxy all the dynamic content to mongrel and serve all static content using nginx.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;sudo vim /etc/nginx/sites-available/site_name&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;You&amp;#39;ll want to replace the &lt;strong&gt;site_name&lt;/strong&gt; with the name of your site. Into this file paste the following:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-nginx&quot; data-lang=&quot;nginx&quot;&gt;&lt;span class=&quot;c1&quot;&gt;#Setup the location of your mongrel servers.&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;upstream&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;give_proxy_a_name&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;127.0.0.1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;127.0.0.1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#Rename www.site_name.com to site_domain.com&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#Remove this if this is something you don&amp;#39;t want.&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;listen&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;80&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;server_name&lt;/span&gt;  &lt;span class=&quot;s&quot;&gt;www.site_name.com&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;rewrite&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;^/(.*)&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;http://site_name.com/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;permanent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;listen&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;80&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;server_name&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;site_name.com&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#Setup nginx logs.&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;access_log&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;/path/to/rails/project/log/access.log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;error_log&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;/path/to/rails/project/log/error.log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;root&lt;/span&gt;   &lt;span class=&quot;s&quot;&gt;/path/to/rails/project/public/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;index&lt;/span&gt;  &lt;span class=&quot;s&quot;&gt;index.html&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;location&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;proxy_set_header&lt;/span&gt;  &lt;span class=&quot;s&quot;&gt;X-Real-IP&lt;/span&gt;  &lt;span class=&quot;nv&quot;&gt;$remote_addr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;proxy_set_header&lt;/span&gt;  &lt;span class=&quot;s&quot;&gt;X-Forwarded-For&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$proxy_add_x_forwarded_for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;proxy_set_header&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Host&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$http_host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;proxy_redirect&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;(-f&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$request_filename/index.html&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;rewrite&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;(.*)&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$1/index.html&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;(-f&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$request_filename.html&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;rewrite&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;(.*)&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$1.html&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;(!-f&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$request_filename&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;proxy_pass&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;http://give_proxy_a_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Replace &lt;strong&gt;site&lt;em&gt;name.com&lt;/strong&gt; with your domain. You can also rename &lt;strong&gt;give&lt;/em&gt;proxy&lt;em&gt;a&lt;/em&gt;name&lt;/strong&gt; to something else, the name of your site (e.g. 27smiles) should be fine here.&lt;/p&gt;
+
+&lt;p&gt;So what does some of that mean? Well the &lt;strong&gt;log&lt;/strong&gt; and &lt;strong&gt;root&lt;/strong&gt; stuff are pretty straight forward, they define where to put the logs and the what the root folder for the domain is, which in the case of rails will be the public folder within the rails project.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-nginx&quot; data-lang=&quot;nginx&quot;&gt;&lt;span class=&quot;k&quot;&gt;upstream&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;give_proxy_a_name&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;127.0.0.1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;127.0.0.1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p style=&quot;padding-left: 30px;&quot;&gt;This is where you setup the mongrel cluster, for each mongrel server you have running you will need to put a server directive here nginx will then load balance between the servers.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-nginx&quot; data-lang=&quot;nginx&quot;&gt;&lt;span class=&quot;k&quot;&gt;location&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;proxy_set_header&lt;/span&gt;  &lt;span class=&quot;s&quot;&gt;X-Real-IP&lt;/span&gt;  &lt;span class=&quot;nv&quot;&gt;$remote_addr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;proxy_set_header&lt;/span&gt;  &lt;span class=&quot;s&quot;&gt;X-Forwarded-For&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$proxy_add_x_forwarded_for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;proxy_set_header&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Host&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$http_host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;proxy_redirect&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;(-f&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$request_filename/index.html&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kn&quot;&gt;rewrite&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;(.*)&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$1/index.html&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;(-f&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$request_filename.html&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kn&quot;&gt;rewrite&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;(.*)&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$1.html&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;(!-f&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$request_filename&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kn&quot;&gt;proxy_pass&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;http://give_proxy_a_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;kn&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;There are 3 IF statements to this bit, the first checks to see if an index.html file exists and if it does then nginx will serve it rather than passing it onto mongrel.&lt;/p&gt;
+
+&lt;p&gt;The 2nd IF does pretty much the same but it looks for a html file with the same name as the request. So say you requested &lt;strong&gt;site_name.com/about&lt;/strong&gt; it will attempt to find a file called &lt;strong&gt;about.html&lt;/strong&gt; in the public folder of the rails project and serve it rather than passing it onto mongrel. This means that if you&amp;#39;re using page caching in rails you can skip mongrel for cached pages - very good on performance.&lt;/p&gt;
+
+&lt;p&gt;The 3rd IF makes sure the file doesn&amp;#39;t exist before passing the request onto mongrel. For example say you requested &lt;strong&gt;site_name.com/images/logo.png&lt;/strong&gt; nginx would attempt to locate the file and serve it rather than passing the request on to mongrel, this means you can serve all your static content using nginx instead of mongrel which is much much quicker.&lt;/p&gt;
+
+&lt;p&gt;When you&amp;#39;ve setup your virtual host you need to create a symlink to the sites-enabled folder in order for it to work.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;sudo ln -s /etc/nginx/sites-available/site_name
+/etc/nginx/sites-enabled/site_name&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;And then finally restart the nginx server.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;sudo /etc/init.d/nginx restart&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;If all went OK you should be able to browse to your domain name and see your rails project. If not then make sure you created the link to the sites-enabled folder and also that you actually have some mongrel instances running on the IP&amp;#39;s you defined (I think you&amp;#39;ll get bad gateway messages if it can&amp;#39;t find mongrel).&lt;/p&gt;
+
+&lt;p&gt;If you need help setting up mongrel head over to &lt;a href=&quot;http://articles.slicehost.com&quot;&gt;slicehost&amp;#39;s article&lt;/a&gt; page they have some good articles on how to do it.
+&lt;h2&gt;Extra configuration options&lt;/h2&gt;
+There are a few extra configuration options in nginx that I use on 27smiles; gzip, expiry headers, on another site I also use HTTP authentication. I thought I&amp;#39;d list them here for some people.&lt;/p&gt;
+
+&lt;p&gt;If you&amp;#39;re looking to setup gzip compression on nginx then add the following.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-nginx&quot; data-lang=&quot;nginx&quot;&gt;&lt;span class=&quot;k&quot;&gt;gzip&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;gzip_min_length&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;gzip_buffers&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;gzip_proxied&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;any&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;gzip_types&lt;/span&gt;      &lt;span class=&quot;s&quot;&gt;text/plain&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;text/html&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;text/css&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;application/x-javascript&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;text/xml&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;application/xml&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;application/xml+rss&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;text/javascript&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;[/code]&lt;/span&gt;
+ 
+&lt;span class=&quot;s&quot;&gt;If&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;you&amp;#39;re&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;looking&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;some&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;expiry&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;headers&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;images,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;etc&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;nginx&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;this.&lt;/span&gt;
+ 
+&lt;span class=&quot;s&quot;&gt;[code]location&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;*&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;^.+\.(jpg|jpeg|gif|png|ico|css|zip|tgz|gz|rar|bz2|doc|xls|exe|pdf|ppt|txt|tar|mid|midi|wav|bmp|rtf|js|mov)&lt;/span&gt;$
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kn&quot;&gt;expires&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;30d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;kn&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+   
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;And finally if you want to password protect domain try this.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-nginx&quot; data-lang=&quot;nginx&quot;&gt;&lt;span class=&quot;k&quot;&gt;auth_basic&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Restricted&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;auth_basic_user_file&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;/path/to/htpasswd/file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;If you need any help or have any questions feel free to &lt;a href=&quot;http://twitter.com/RichGuk&quot;&gt;contact me&lt;/a&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Thu, 22 May 2008 00:00:00 +0100</pubDate>
+        <link>http://www.richgrundy.com/blog/setting-up-nginx-with-rails/</link>
+        <guid isPermaLink="true">http://www.richgrundy.com/blog/setting-up-nginx-with-rails/</guid>
+      </item>
+    
+      <item>
+        <title>Tinymce Syntaxhighlighter Plugin</title>
+        <description>&lt;p&gt;I went to integrate &lt;a href=&quot;http://code.google.com/p/syntaxhighlighter/&quot;&gt;Syntaxhighlighter&lt;/a&gt; into the site tonight, something I&amp;#39;d forgotten to do in the redesign and I thought it would be nice if I could just click a button in &lt;a href=&quot;http://tinymce.moxiecode.com/&quot;&gt;tinymce&lt;/a&gt; and paste in the code, select a few options and click insert. Which of course is entirely possible so I&amp;#39;ve written a tinymce plugin to do just that.&lt;/p&gt;
+
+&lt;p&gt;I did encounter one little bug writing the plugin. When inserting the pasted code it kept repeating itself if there was currently no content in the body of the textarea (tinymce). I finally managed to fix it by putting a space at the end of the variable I was trying to insert (and with the power of highlighting here&amp;#39;s what that looked like).&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;textarea_output&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;&amp;lt;/textarea&amp;gt; &amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;cm&quot;&gt;/* Note space */&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;tinyMCEPopup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;editor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;execCommand&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;mceInsertContent&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;textarea_output&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;You can download the plugin from my &lt;a href=&quot;http://github.com/RichGuk/syntaxhl/tree/master&quot;&gt;github account&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;Getting it to work&lt;/h2&gt;
+
+&lt;p&gt;First you need to download &lt;a href=&quot;http://code.google.com/p/syntaxhighlighter/&quot;&gt;Syntaxhighlighter&lt;/a&gt; and get that working by including the CSS file and Javascript files.&lt;/p&gt;
+
+&lt;h3&gt;Extract the plugin&lt;/h3&gt;
+
+&lt;p&gt;Next you need to extract the plugin to your tinymce plugin directory. When extracted it should be something like this:
+&lt;strong&gt;/path/to/tinymce/plugins/syntaxhl&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3&gt;Configure tinymce&lt;/h3&gt;
+
+&lt;p&gt;Finally we need to configure tinymce to use our plugin we also need to stop tinymce from stripping out &amp;lt;textarea&amp;gt;&amp;lt;/textarea&amp;gt; html tags as this is needed for Syntaxhighlighter.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;tinyMCE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;theme&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;advanced&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;plugins&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;syntaxhl&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;theme_advanced_buttons1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;bold,italic,underline,undo,redo,link,unlink,image,forecolor,styleselect,removeformat,cleanup,code, syntaxhl&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;theme_advanced_buttons2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;theme_advanced_buttons3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;remove_linebreaks&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;extended_valid_elements&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;textarea[cols|rows|disabled|name|readonly|class]&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;We tell tinymce to use our plugin by adding &lt;strong&gt;syntaxhl&lt;/strong&gt; to the plugins list and also adding the &lt;strong&gt;syntaxhl&lt;/strong&gt; button to the buttons list also note that extended&lt;em&gt;valid&lt;/em&gt;elements contains the textarea tag this tells tinymce to not remove it.&lt;/p&gt;
+
+&lt;p&gt;If all went well you should see a new highlighter icon button in tinymce and when you click it you should get a dialog popup allowing you to insert code into your content.&lt;/p&gt;
+
+&lt;p&gt;If you encounter any bugs then please create an issue on the &lt;a href=&quot;http://github.com/RichGuk/syntaxhl/tree/master&quot;&gt;github account&lt;/a&gt; and any forks/patches are welcome!&lt;/p&gt;
+</description>
+        <pubDate>Mon, 07 Apr 2008 00:00:00 +0100</pubDate>
+        <link>http://www.richgrundy.com/blog/tinymce-syntaxhighlighter-plugin/</link>
+        <guid isPermaLink="true">http://www.richgrundy.com/blog/tinymce-syntaxhighlighter-plugin/</guid>
+      </item>
+    
+  </channel>
+</rss>
