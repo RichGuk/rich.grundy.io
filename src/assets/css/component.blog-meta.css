@@ -1,0 +1,31 @@
+/* vim: set ft=scss: */
+
+.blog-meta {
+  --date-color: #718096;
+}
+
+.blog-meta {
+    display: flex;
+    align-items: center;
+    line-height: 1.2;
+    margin-bottom: 3px;
+
+  &__date {
+    font-size: 0.875rem;
+    color: var(--date-color);
+  }
+
+  &__tag-list {
+    margin: 0 !important;
+
+    &:before {
+      align-self: center;
+      content: "";
+      background: var(--meta-div-color);
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      margin: 0 0.5rem;
+    }
+  }
+}

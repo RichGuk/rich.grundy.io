@@ -1,6 +1,0 @@
-name: Rich Grundy
-url: http://www.richgrundy.com
-description: Personal space of Richard Grundy. A Birmingham based Ruby on Rails developer.
-markdown: redcarpet
-pygments: true
-permalink: /blog/:title/

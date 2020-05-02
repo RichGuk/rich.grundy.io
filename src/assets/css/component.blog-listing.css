@@ -1,0 +1,40 @@
+/* vim: set ft=scss: */
+
+.blog-listing {
+  --meta-div-color: #545353;
+}
+
+.blog-listings {
+  max-width: 675px;
+}
+
+.blog-list-item {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--main-div-color);
+
+  &:last-child { border: 0; }
+
+  @media (min-width: 700px) {
+    margin-bottom: 3rem;
+
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+
+  &__title {
+    margin: 0;
+  }
+
+  &__meta {
+    order: -1;
+  }
+
+  &__desc {
+    margin: 0;
+    font-size: 1rem;
+  }
+}

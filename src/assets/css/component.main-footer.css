@@ -1,0 +1,15 @@
+/* vim: set ft=scss: */
+
+.main-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--main-div-color);
+  padding: 1.5rem 0.75rem;
+  max-width: 1250px;
+  margin: 0 auto;
+
+  &__copyright {
+    font-size: 1rem;
+  }
+}

@@ -1,0 +1,96 @@
+/* vim: set ft=scss: */
+
+.main-blog {
+  margin: 0 auto;
+  max-width: 1350px;
+
+  &__header {
+    background: var(--main-background-color);
+    margin-bottom: 3rem;
+    &.-nohero {
+      @media (min-width: 700px) {
+        width: 85%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      @media (min-width: 850px) {
+        margin-left: 25%;
+        width: 70%;
+      }
+
+      @media (min-width: 1000px) {
+        margin-left: auto;
+        margin-right: 15%;
+        width: 60%;
+      }
+    }
+
+    &.-hero {
+      padding: 0.75rem;
+
+      @media (min-width: 700px) {
+        padding: 1.5rem;
+      }
+
+      @media (min-width: 700px) {
+        margin-top: -3rem;
+        margin-left: calc(3% + 1.5rem);
+        width: 80%;
+      }
+
+      @media (min-width: 1200px) {
+        width: 60%;
+        margin-top: -4rem;
+        margin-left: calc(10% + 1.5rem);
+      }
+    }
+  }
+
+  &__title {
+    margin: 0;
+  }
+
+  &__hero {
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 150px;
+    width: 100%;
+
+    @media (min-width: 700px) {
+      height: 200px;
+    }
+
+    @media (min-width: 1050px) {
+      margin-left: auto;
+      height: 305px;
+      width: 82%;
+    }
+  }
+
+  &__content {
+    margin: 0 0.75rem;
+
+    >*:not(.-full,img), .-keep-within {
+      margin-left: auto;
+      margin-right: auto;
+
+      @media (min-width: 700px) {
+        width: 85%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      @media (min-width: 850px) {
+        margin-left: 25%;
+        width: 70%;
+      }
+
+      @media (min-width: 1000px) {
+        margin-left: auto;
+        margin-right: 15%;
+        width: 60%;
+      }
+    }
+  }
+}

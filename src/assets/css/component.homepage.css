@@ -1,0 +1,89 @@
+/* vim: set ft=scss: */
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent; }
+  50% { border-color: #3497fc; }
+}
+
+.homepage {
+  position: absolute;
+  transform: translateY(-50%);
+  transition: all .5s;
+  padding: 0 0.75rem;
+  width: 100%;
+  top: 50%;
+
+  main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  }
+
+  &.-is-done {
+    top: 3rem;
+    transform: translateY(0);
+  }
+
+  &__intro {
+    margin-bottom: 1.5rem;
+  }
+
+  &__avatar {
+    width: 200px;
+    height: 200px;
+    margin-bottom: 0.75rem;
+
+    @media (min-width: 700px) {
+    width: 250px;
+    height: 250px;
+    }
+  }
+
+  &__title {
+    margin: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 8px solid #3497FC;
+    margin-bottom: 0;
+    animation:
+      typing 1.8s steps(40, end),
+      blink-caret .5s step-end infinite;
+
+    span {
+      color: var(--me-color);
+    }
+
+    &.-is-done {
+      border-color: transparent;
+      animation: none;
+    }
+  }
+
+  &__content {
+    margin-bottom: 1rem;
+  }
+
+  &__bio {
+    font-size: 1.25rem;
+    max-width: 600px;
+    margin: 0 auto 3rem auto;
+  }
+
+  &__loadable {
+    opacity: 0;
+    height: 0;
+    transition: opacity .2s;
+
+    &.-is-done {
+      opacity: 1;
+      height: auto;
+    }
+  }
+}

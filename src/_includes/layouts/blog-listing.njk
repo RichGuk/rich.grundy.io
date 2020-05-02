@@ -1,0 +1,38 @@
+---
+layout: layouts/pages
+eleventyExcludeFromCollections: true
+---
+
+<div class="topics">
+  <h4 class="topics__title">Topics:</h4>
+  <ul class="topics__list taglist -large">
+    {% for tag, _ in collections.tagList %}
+      {% set tagUrl %}/tag/{{ tag }}/{% endset %}
+      <li class="taglist__item"><a class="taglist__link {% if page.url == tagUrl %}-is-active{% endif %}"  href="{{ tagUrl }}">#{{ tag }}</a></li>
+    {% endfor %}
+  </ul>
+</div>
+
+<div class="blog-listings">
+  {% for post in posts | reverse %}
+    <article class="blog-list-item">
+      <h2 class="blog-list-item__title h4"><a href="{{ post.url }}">{{ post.data.title }}</a></h2>
+      <div class="blog-list-item__meta blog-meta">
+        <time datetime="{{ post.date | htmlDateString }}" class="blog-meta__date">{{ post.date | readableDate }}</time>
+
+        {% set tags = post.data.tags | validTags %}
+        {%- if tags.length > 0 -%}
+        <ul class="taglist -inline blog-meta__tag-list">
+          {%- for tag in tags -%}
+          <li class="taglist__item"><a class="taglist__link" href="/tag/{{ tag }}">#{{ tag }}</a></li>
+          {%-  endfor -%}
+        </ul>
+      {% endif -%}
+      </div>
+
+      <p class="blog-list-item__desc">
+        {{ post.data.description }}
+      </p>
+    </article>
+  {% endfor %}
+</div>

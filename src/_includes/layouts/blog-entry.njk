@@ -1,0 +1,29 @@
+---
+layout: layouts/base
+---
+
+{% include "layouts/_header.njk" %}
+<main class="main-blog">
+  {%- if hero %}
+  <div class="main-blog__hero" style="background-image: url({{ hero }});"></div>
+  {%- endif %}
+  <div class="main-blog__header {% if hero %}-hero{% else %}-nohero{% endif %}">
+    <div class="blog-meta">
+      <time datetime="{{ page.date | htmlDateString }}" class="blog-meta__date">{{ page.date | readableDate }}</time>
+      {% set tags = tags | validTags %}
+      {%- if tags.length > 0 -%}
+        <ul class="taglist -inline blog-meta__tag-list">
+          {%- for tag in tags -%}
+          <li class="taglist__item"><a class="taglist__link" href="/tag/{{ tag }}">#{{ tag }}</a></li>
+          {%-  endfor -%}
+        </ul>
+      {% endif -%}
+    </div>
+
+    <h1 class="main-blog__title">{{ title }}</h1>
+  </div>
+  <div class="main-blog__content">
+  {{ content | safe }}
+  </div>
+</main>
+{% include "layouts/_footer.njk" %}

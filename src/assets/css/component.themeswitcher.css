@@ -1,0 +1,29 @@
+.theme-switcher {
+  color: #888;
+  margin-left: auto;
+
+  i {
+    cursor: pointer;
+
+    &:before {
+      content: "\e9d4";
+    }
+
+    &.-dark {
+      &:before {
+        content: "\e904"
+      }
+    }
+  }
+
+  &.-homepage {
+    display: block;
+    text-align: center;
+  }
+
+  &.-global {
+    position: absolute;
+    top: -1rem;
+    right: 0.75rem;
+  }
+}

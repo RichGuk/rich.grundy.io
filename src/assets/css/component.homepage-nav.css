@@ -1,0 +1,38 @@
+/* vim: set ft=scss: */
+
+.homepage-nav {
+  --nav-color: black;
+  --div-color: var(--main-div-color);
+  opacity: 0;
+  height: 0;
+  transition: opacity .2s;
+  overflow: hidden;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1.5rem;
+
+
+  &.-is-done {
+    height: auto;
+    opacity: 1;
+  }
+
+  a {
+    width: 124px;
+    font-size: 1.25rem;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  div {
+    display: inline-block;
+    margin: 0 1.5rem;
+    background: var(--div-color);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    vertical-align: middle;
+  }
+}
