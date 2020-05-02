@@ -1,0 +1,27 @@
+.gallery {
+  line-height: 0;
+  column-gap: 5px;
+  row-gap: 5px;
+  max-width: 2000px;
+  column-count: 1;
+  padding: 0 0.62rem;
+  margin: 0 auto;
+
+  @media (min-width: 650px) {
+    column-count: 2;
+  }
+
+  @media (min-width: 1200px) {
+    column-count: 3;
+  }
+
+  @media (min-width: 1700px) {
+    column-count: 4;
+  }
+}
+
+.gallery img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 5px;
+}

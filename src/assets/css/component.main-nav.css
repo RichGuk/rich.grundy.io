@@ -1,0 +1,15 @@
+.main-nav {
+  a {
+    color: var(--main-font-color);
+    margin: 0 0.375rem;
+    font-size: 1rem;
+
+    &:last-child { margin-right: 0; }
+    &:hover { color: var(--main-link-color-hover); }
+
+    @media (min-width: 700px) {
+      font-size: 1.125rem;
+      margin: 0 0.75rem;
+    }
+  }
+}

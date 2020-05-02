@@ -1,0 +1,55 @@
+/* vim: set ft=scss: */
+
+.main-header {
+  display: flex;
+  margin: 1.5rem auto 3rem auto;
+  max-width: 1250px;
+  align-items: center;
+  padding: 0 0.75rem;
+  position: relative;
+
+  &__logo {
+    flex: 1 0 auto;
+  }
+
+  &__homelink {
+    color: var(--main-font-color);
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+
+    strong {
+      display: none;
+
+      @media (min-width: 700px) {
+        display: block;
+      }
+    }
+
+    span {
+      /*
+       * Moved to preload when Firefox supports it.
+       * <link rel="preload" as="image" href="/images/avatar-sunglasses.svg">
+       */
+      &:before {
+        position:absolute; width:0; height:0; overflow:hidden; z-index:-1;
+        content: "";
+        background-image: url(/images/avatar-sunglasses.svg);
+      }
+
+      background: url(/images/avatar.svg);
+      display: block;
+      width: 55px;
+      height: 55px;
+      background-size: 55px 55px;
+      border-radius: 50%;
+      border: 2px solid var(--main-div-color);
+      margin-right: 0.75rem;
+    }
+
+    &:hover span {
+      background-image: url(/images/avatar-sunglasses.svg);
+    }
+  }
+}
+

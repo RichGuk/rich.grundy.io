@@ -1,0 +1,55 @@
+/* vim: set ft=scss: */
+
+.taglist {
+  --tag-background-color: #F1E5FF;
+  --tag-color: #A480CF;
+  --tag-active-color: #7400ff;
+  --tag-hover-color: var(--tag-color);
+  --tag-hover-background-color: var(--tag-background-color);
+  --meta-div-color: #545353;
+}
+
+.taglist {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+
+  &.-large {
+    font-size: 1.2rem;
+  }
+
+  &.-inline {
+    display: inline-flex;
+    align-items: baseline;
+  }
+
+  &__item {
+    margin: 0 5px 5px 5px;
+  }
+  &.-inline &__item {
+    margin-bottom: 0;
+  }
+
+  &__link {
+    font-size: 0.875em;
+    border-radius: 3px;
+    padding: 3px 5px;
+    background: var(--tag-background-color);
+    color: var(--tag-color);
+
+    &.-is-active {
+      color: var(--tag-active-color);
+      font-weight: bold;
+    }
+
+    &:hover {
+      background: var(--tag-color);;
+      color: var(--tag-background-color)
+    }
+  }
+}

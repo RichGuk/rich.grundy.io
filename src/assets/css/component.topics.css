@@ -1,0 +1,28 @@
+
+  /* --tag-background-color: #F1E5FF; */
+  /* --tag-color: #A480CF; */
+  /* --tag-active-color: #7400ff; */
+  /* --meta-div-color: #545353; */
+
+.topics {
+
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 3rem;
+
+  &__title {
+    margin: 0 10px 0 0;
+    font-size: 1rem;
+    flex: 0 0 auto;
+  }
+
+  &__list {
+    --tag-background-color: #eee;
+    --tag-color: #444;
+    --tag-active-color: black;
+    --tag-hover-color: #cccecc;
+    --tag-hover-background-color: black;
+    font-weight: normal;
+    margin-bottom: 0;
+  }
+}

@@ -1,0 +1,97 @@
+/* vim: set ft=scss: */
+
+.social-profiles {
+  --link-color: #333;
+  --label-color: black;
+}
+
+
+[data-theme="dark"] .social-profiles {
+  --link-color: #ccc;
+  --label-color: white;
+}
+
+.social-profiles {
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
+  margin-bottom: 1.5rem;
+
+  display: flex;
+  justify-content: center;
+
+  &.-footer {
+    margin: 0;
+  }
+
+  &__item {
+    margin: 0 1rem;
+    display: flex;
+    align-items: center;
+
+    &:first-child { margin-left: 0; }
+    &:last-child { margin-right: 0; }
+  }
+
+  &__link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: left;
+    text-decoration: none;
+    line-height: 1;
+  }
+
+  &__icon {
+    font-size: 2.62rem;
+    color: var(--main-font-color);
+    grid-area: icon;
+    align-self: center;
+  }
+    &__link:hover &__icon { color: inherit; }
+    &.-footer &__icon { font-size: 1.5rem; }
+
+  &__label {
+    display: none;
+    grid-area: label;
+    color: var(--label-color);
+  }
+    &__link:hover &__label { color: inherit; }
+
+  &__link-text {
+    display: none;
+    color: var(--link-color);
+    grid-area: text;
+    font-size: 0.9rem;
+
+    &.-gpg {
+      span {
+        padding-right: 4px;
+
+        &:last-child { padding-right: 0; }
+      }
+    }
+  }
+    &__link:hover &__link-text { color: inherit; }
+
+  @media (min-width: 815px) {
+    &__label, &__link-text {
+      display: block;
+    }
+
+    &__link {
+      display: grid;
+      grid-template-areas:
+      'icon label'
+      'icon text';
+      grid-column-gap: 8px;
+      grid-row-gap: 2px;
+    }
+
+    &.-footer &__link {
+      display: inline-block;
+    }
+  }
+}
