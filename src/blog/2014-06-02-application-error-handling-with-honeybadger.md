@@ -6,7 +6,6 @@ description: "How we use Honeybadger to efficiently handle our application
 hero: "/images/heros/honeybadger.jpg"
 tags:
   - ruby
-  - tag with spaces
 ---
 
 Part two in a series of posts detailing the services we use at
