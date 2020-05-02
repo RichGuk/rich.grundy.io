@@ -13,18 +13,17 @@ if (homepageEl) {
     }
   }
 
-  homepageEl.addEventListener('transitionend', () => {
-    for (var i = 0; i < loadedContent.length; i++) {
-      var el = loadedContent[i];
-      el.classList.add('-is-done')
-    }
-  });
-
   // After type event move the content up (transitionend listener is triggered
   // when that is done).
   typewriterEl.addEventListener('animationend', () => {
     setTimeout(() => {
       homepageEl.classList.add('-is-done');
+
+      for (var i = 0; i < loadedContent.length; i++) {
+        var el = loadedContent[i];
+        el.classList.add('-is-done')
+      }
+
       localStorage.setItem('loadedHomepageBefore', true);
     }, 300);
 
