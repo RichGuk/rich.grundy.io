@@ -2,7 +2,7 @@
 
 .taglist {
   --tag-background-color: #F1E5FF;
-  --tag-color: #A480CF;
+  --tag-color: #54238e;
   --tag-active-color: #7400ff;
   --tag-hover-color: var(--tag-color);
   --tag-hover-background-color: var(--tag-background-color);
@@ -29,7 +29,7 @@
   }
 
   &__item {
-    margin: 0 5px 5px 5px;
+    margin: 0 8px 10px 8px;
   }
   &.-inline &__item {
     margin-bottom: 0;
@@ -38,7 +38,7 @@
   &__link {
     font-size: 0.875em;
     border-radius: 3px;
-    padding: 3px 5px;
+    padding: 5px;
     background: var(--tag-background-color);
     color: var(--tag-color);
 

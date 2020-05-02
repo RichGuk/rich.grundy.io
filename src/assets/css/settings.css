@@ -1,8 +1,8 @@
 :root {
   --main-background-color: white;
   --main-font-color: #333;
-  --main-link-color: #3497fc;
-  --main-link-color-hover: #195797;
+  --main-link-color: #3a4c59;
+  --main-link-color-hover: #1c88d6;
   --main-div-color: #ccc;
   --main-sub-heading-color: #757575;
 
@@ -17,4 +17,5 @@
   --main-link-color-hover: #7fb0e1;
   --main-div-color: #717171;
   --me-color: #7ca1bd;
+  --main-sub-heading-color: #b3b3b3;
 }
