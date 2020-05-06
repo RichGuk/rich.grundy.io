@@ -1,7 +1,7 @@
 /* vim: set ft=scss: */
 
 .main-blog {
-  margin: 0 auto;
+  margin: 0 auto 6rem auto;
   max-width: 1350px;
 
   &__header {

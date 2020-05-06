@@ -83,4 +83,8 @@ pre {
   tab-size: 2;
 }
 
+pre[class*="language-"] {
+  margin: -0.57rem 0 1.15rem 0;
+}
+
 img { max-width: 100%; }
