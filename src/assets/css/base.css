@@ -74,7 +74,7 @@ hr {
 pre {
   font-size: 1rem;
   border-radius: 0.3em;
-  padding: 1em;
+  padding: 1rem;
   background: #2E3440;
   color: #f8f8f2;
   line-height: 1.5;
@@ -83,8 +83,14 @@ pre {
   tab-size: 2;
 }
 
-pre[class*="language-"] {
+code, kbd, samp {
+  font-family: "Fira Code", Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  font-size: 1rem;
+}
+
+pre[class*="language-"], pre {
   margin: -0.57rem 0 1.15rem 0;
+  overflow-x: auto;
 }
 
 img { max-width: 100%; }
