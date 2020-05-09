@@ -1,8 +1,7 @@
 ---
-layout: layouts/base
+layout: layouts/main
 ---
 
-{% include "layouts/_header.njk" %}
 <main class="main-blog">
   {%- if hero %}
   <div class="main-blog__hero" style="background-image: url({{ hero }});"></div>
@@ -26,4 +25,3 @@ layout: layouts/base
   {{ content | safe }}
   </div>
 </main>
-{% include "layouts/_footer.njk" %}
