@@ -3,8 +3,6 @@
 .homepage-nav {
   --nav-color: black;
   --div-color: var(--main-div-color);
-  opacity: 0;
-  height: 0;
   transition: opacity .2s;
   overflow: hidden;
 
@@ -12,12 +10,6 @@
   justify-content: center;
   align-items: center;
   margin-bottom: 1.5rem;
-
-
-  &.-is-done {
-    height: auto;
-    opacity: 1;
-  }
 
   a {
     width: 124px;
