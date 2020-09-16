@@ -41,7 +41,7 @@
     border-right: 8px solid #3497FC;
     margin-bottom: 0;
     animation:
-      typing 1.8s steps(40, end),
+      typing 1.5s steps(40, end),
       blink-caret .5s step-end infinite;
 
     span {
