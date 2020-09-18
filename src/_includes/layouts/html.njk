@@ -8,7 +8,7 @@
     <link rel="icon" href="/images/avatar-circle.svg" type="image/svg+xml">
 
     <link rel="stylesheet" href="{% assetDigest 'app.css' %}">
-    <script defer type="text/javascript" src="{% assetDigest 'app.js' %}"></script>
+    <script async type="text/javascript" src="{% assetDigest 'app.js' %}"></script>
   </head>
   <body>
     {{ content | safe }}
