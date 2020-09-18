@@ -1,7 +1,16 @@
 import GLightbox from 'glightbox';
+import themeSwitcher from './themeswitch.js';
 
-import './themeswitch.js';
+function loader() {
+  themeSwitcher();
 
-const lightbox = GLightbox({
-  selector: "js-glightbox",
-});
+  GLightbox({
+    selector: ".js-glightbox",
+  });
+}
+
+if (document.readyState !== 'loading') {
+  loader();
+} else {
+  window.addEventListener('DOMContentLoaded',  loader);
+}
