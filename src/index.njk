@@ -50,10 +50,22 @@ layout: layouts/html
     </div>
   </main>
   <hr style="max-width: 100px">
+  <div class="theme-switcher -homepage"><i class="js-themeswitcher icon-moon" title="Light/Dark mode"></i></div>
+
   <nav class="homepage-nav">
     <a href="/blog">My Writings</a>
     <div></div>
     <a href="/photography">Photography</a>
   </nav>
 
-  <div class="theme-switcher -homepage"><i class="js-themeswitcher icon-moon" title="Light/Dark mode"></i></div>
+  <div class="homepage-blog-wrapper">
+    <h3 class="homepage-blog-wrapper__title">Latest Posts</h3>
+    <ul>
+      {% for post in collections.post | reverse | limit(5) %}
+        <li class="homepage-blog">
+          <a href="{{ post.url }}" class="homepage-blog__title">{{ post.data.title }}</a>
+          <time datetime="{{ post.date | htmlDateString }}" class="homepage-blog__date">{{ post.date | readableDate }}</time>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
