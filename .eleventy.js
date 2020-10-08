@@ -9,6 +9,14 @@ const manifest = JSON.parse(fs.readFileSync(manifestPath, {encoding: "utf8"}));
 
 const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 
+const slugFilter = (str) => {
+  return slugify(str, {
+    remove: /[*+~.()'"!:@]/g,
+    replacement: "-",
+    lower: true
+  });
+};
+
 module.exports = (eleventyConfig) => {
   const devMode = process.env.NODE_ENV !== "production";
 
@@ -32,6 +40,10 @@ module.exports = (eleventyConfig) => {
     return manifest[name];
   });
 
+  eleventyConfig.addFilter("slug", (str) => {
+    return slugFilter(str);
+  });
+
   eleventyConfig.addFilter("readableDate", (dateObj) => {
     return DateTime.fromJSDate(dateObj).toFormat("dd LLL yyyy");
   });
@@ -48,7 +60,7 @@ module.exports = (eleventyConfig) => {
     if (!tags) {
       return [];
     }
-    return tags.filter((t) => t && !tagBlackList.has(t)).map((t) => slugify(t));
+    return tags.filter((t) => t && !tagBlackList.has(t)).map((t) => slugFilter(t));
   });
 
   eleventyConfig.addCollection("tagList", function(collection) {
@@ -70,7 +82,7 @@ module.exports = (eleventyConfig) => {
       });
 
     return Object.keys(newTags).sort().reduce((res, k) => {
-      k = slugify(k);
+      k = slugFilter(k);
       res[k] = newTags[k];
       return res;
     }, {});
