@@ -8,6 +8,7 @@ const manifestPath = path.resolve(__dirname, "dist", "assets-manifest.json");
 const manifest = JSON.parse(fs.readFileSync(manifestPath, {encoding: "utf8"}));
 
 const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
+const pluginRss = require("@11ty/eleventy-plugin-rss");
 
 const slugFilter = (str) => {
   return slugify(str, {
@@ -25,6 +26,7 @@ module.exports = (eleventyConfig) => {
   eleventyConfig.setDataDeepMerge(true)
 
   eleventyConfig.addPlugin(syntaxHighlight);
+  eleventyConfig.addPlugin(pluginRss);
 
   eleventyConfig.addLayoutAlias("default", "layouts/pages.njk");
   eleventyConfig.addLayoutAlias("pages", "layouts/pages.njk");
