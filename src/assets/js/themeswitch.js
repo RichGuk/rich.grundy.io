@@ -23,7 +23,7 @@ export default function () {
     setLightMode();
   }
 
-  themeSwitcher.addEventListener('click', (e) => {
+  themeSwitcher.addEventListener('click', () => {
     if (darkMode) {
       darkMode = false;
       localStorage.setItem('theme', 'light');
