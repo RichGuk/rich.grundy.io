@@ -24,7 +24,9 @@
     "url": "https://github.com/RichGuk/rich.grundy.io/issues"
   },
   "homepage": "https://github.com/RichGuk/rich.grundy.io#readme",
-  "devDependencies": {},
+  "devDependencies": {
+    "@11ty/eleventy-plugin-rss": "^1.0.9"
+  },
   "dependencies": {
     "@11ty/eleventy": "^0.11.0",
     "@11ty/eleventy-plugin-syntaxhighlight": "^3.0.1",

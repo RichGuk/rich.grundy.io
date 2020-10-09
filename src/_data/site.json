@@ -1,4 +1,5 @@
 {
   "title": "Rich Grundy",
-  "baseUrl": "https://rich.grundy.io"
+  "baseUrl": "https://rich.grundy.io",
+  "feedUrl": "https://rich.grundy.io/feed.xml"
 }

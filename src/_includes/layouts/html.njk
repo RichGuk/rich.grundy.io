@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{% assetDigest 'app.css' %}">
     <script async type="text/javascript" src="{% assetDigest 'app.js' %}"></script>
     <script async defer data-domain="rich.grundy.io" src="https://plausible.grundy.io/js/plausible.js"></script>
+    <link type="application/atom+xml" rel="alternate" href="{{ site.feedUrl }}" />
   </head>
   <body>
     {{ content | safe }}
