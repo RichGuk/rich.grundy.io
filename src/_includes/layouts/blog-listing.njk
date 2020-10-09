@@ -24,7 +24,7 @@ eleventyExcludeFromCollections: true
         {%- if tags.length > 0 -%}
         <ul class="taglist -inline blog-meta__tag-list">
           {%- for tag in tags -%}
-          <li class="taglist__item"><a class="taglist__link" href="/tag/{{ tag }}">#{{ tag }}</a></li>
+          <li class="taglist__item"><a class="taglist__link" href="/tag/{{ tag }}/">#{{ tag }}</a></li>
           {%-  endfor -%}
         </ul>
       {% endif -%}
