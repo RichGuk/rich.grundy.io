@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="description" content="{% if description %}{{ description }}{% else %}The personal homepage of the fullstack developer from Birmingham - Rich Grundy.{% endif %}">
+    {% if description %}<meta name="description" content="{{ description }}">{% endif %}
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% if title %}{{ title }} - {{ site.title }}{%- else -%}{{ site.title }}{% endif %}</title>
     <link rel="icon" href="/images/avatar-circle.svg" type="image/svg+xml">
