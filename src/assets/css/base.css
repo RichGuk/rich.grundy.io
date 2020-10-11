@@ -62,7 +62,7 @@ small, .text_small {font-size: 0.889em;}
 hr {
   border: 0;
   border-bottom: 1px solid var(--main-div-color);
-  margin: 0 auto 1.5rem auto;
+  margin: 1.5rem auto;
 
   &.-short-within-content {
     border: 0;
@@ -72,9 +72,9 @@ hr {
     &:after {
       display: block;
       content: "";
-      height: 1px;
+      height: 2px;
       background: var(--main-div-color);
-      width: 100px;
+      width: 7rem;
     }
   }
 }
