@@ -35,7 +35,7 @@
 
   &__date {
     font-size: 0.9em;
-    color: #888;
+    color: #737373;
 
     @media (max-width: 600px) {
       display: none;
