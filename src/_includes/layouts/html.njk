@@ -6,7 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% if title %}{{ title }} - {{ site.title }}{%- else -%}{{ site.title }}{% endif %}</title>
     <link rel="icon" href="/images/avatar-circle.svg" type="image/svg+xml">
-    <link href="https://fonts.googleapis.com/css2?family=Catamaran:wght@400;700&display=swap" rel="stylesheet">
+    <style type="text/css">
+  @font-face {
+    font-family: 'Catamaran';
+    src: local('Catamaran Regular'), local('Catamaran-Regular'),
+      url('/fonts/Catamaran-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Catamaran';
+    src: local('Catamaran Bold'), local('Catamaran-Bold'),
+      url('/fonts/Catamaran-Bold.woff2') format('woff2');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+  }
+    </style>
     <link rel="stylesheet" href="{% assetDigest 'app.css' %}">
     <script async type="text/javascript" src="{% assetDigest 'app.js' %}"></script>
     <script async defer data-domain="rich.grundy.io" src="https://plausible.grundy.io/js/plausible.js"></script>
