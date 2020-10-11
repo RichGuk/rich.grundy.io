@@ -1,9 +1,9 @@
 @font-face {
   font-family: 'icomoon';
   src:
-    url('/fonts/icomoon-v1.ttf?qcja5r') format('truetype'),
-    url('/fonts/icomoon-v1.woff?qcja5r') format('woff'),
-    url('/fonts/icomoon-v1.svg?qcja5r#icomoon') format('svg');
+    url('/fonts/icomoon.ttf?k2q14p') format('truetype'),
+    url('/fonts/icomoon.woff?k2q14p') format('woff'),
+    url('/fonts/icomoon.svg?k2q14p#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -12,7 +12,7 @@
 [class^="icon-"], [class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'icomoon' !important;
-  speak: none;
+  speak: never;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
@@ -45,12 +45,22 @@
 .icon-instagram:before {
   content: "\ea92";
 }
+.icon-rss2:before {
+  content: "\ea9c";
+}
+.icon-steam2:before {
+  content: "\eaad";
+}
 .icon-github:before {
   content: "\eab0";
 }
 .icon-tux:before {
   content: "\eabd";
 }
+.icon-linkedin:before {
+  content: "\eac9";
+}
 .icon-key:before {
   content: "\e901";
 }
+
