@@ -11,7 +11,7 @@ tags:
 This is a beginners guide on how to compress and uncompress using Linux's
 __tar__ command. Part of a useful utility belt of commands for backups on Linux.
 
-<hr class="main-blog__intro-hr">
+<hr class="-short-within-content">
 
 __Tar__ allows you to archive files or directories into a single file—think of
 it like a bag you store items in—its useful if you want to maintain the
