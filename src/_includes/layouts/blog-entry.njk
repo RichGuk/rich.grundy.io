@@ -2,11 +2,11 @@
 layout: layouts/main
 ---
 
-<main class="main-blog">
+<main class="article">
   {%- if hero %}
-  <div class="main-blog__hero" style="background-image: url({{ hero }});"></div>
+  <div class="article__hero" style="background-image: url({{ hero }});"></div>
   {%- endif %}
-  <div class="main-blog__header {% if hero %}-hero{% else %}-nohero{% endif %}">
+  <div class="article__header {% if hero %}-hero{% else %}-nohero{% endif %}">
     <div class="blog-meta">
       <time datetime="{{ page.date | htmlDateString }}" class="blog-meta__date">{{ page.date | readableDate }}</time>
       {% set tags = tags | validTags %}
@@ -19,9 +19,9 @@ layout: layouts/main
       {% endif -%}
     </div>
 
-    <h1 class="main-blog__title">{{ title }}</h1>
+    <h1 class="article__title">{{ title }}</h1>
   </div>
-  <div class="main-blog__content">
+  <div class="article__content">
   {{ content | safe }}
   </div>
 </main>
