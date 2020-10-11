@@ -9,14 +9,8 @@ body {
   background: var(--main-background-color);
   color: var(--main-font-color);
   font-family:
-    system-ui,
-    /* macOS 10.11-10.12 */ -apple-system,
-    /* Windows 6+ */ Segoe UI,
-    /* Android 4+ */ Roboto,
-    /* Ubuntu 10.10+ */ Ubuntu,
-    /* Gnome 3+ */ Cantarell,
-    /* KDE Plasma 5+ */ Noto Sans,
-    /* fallback */ sans-serif,
+    'Catamaran',
+    sans-serif,
     /* macOS emoji */ "Apple Color Emoji",
     /* Windows emoji */ "Segoe UI Emoji",
     /* Windows emoji */ "Segoe UI Symbol",
@@ -69,6 +63,20 @@ hr {
   border: 0;
   border-bottom: 1px solid var(--main-div-color);
   margin: 0 auto 1.5rem auto;
+
+  &.-short-within-content {
+    border: 0;
+    display: flex;
+    justify-content: center;
+
+    &:after {
+      display: block;
+      content: "";
+      height: 1px;
+      background: var(--main-div-color);
+      width: 100px;
+    }
+  }
 }
 
 pre {
