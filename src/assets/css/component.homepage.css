@@ -61,7 +61,15 @@
   &__bio {
     font-size: 1.25rem;
     max-width: 600px;
-    margin: 0 auto 3rem auto;
+    margin: 0 auto 2rem auto;
+  }
+
+  &__bio-link {
+    display: block;
+    font-size: 0.9rem;
+    color: #626060;
+    text-decoration: underline;
+    margin-top: 1rem;
   }
 
   &__loadable {
