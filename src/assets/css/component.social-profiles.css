@@ -6,7 +6,7 @@
 }
 
 
-[data-theme="dark"] .social-profiles {
+[data-theme="dark"] .social-profiles, .-force-dark .social-profiles {
   --link-color: #ccc;
   --label-color: white;
 }
