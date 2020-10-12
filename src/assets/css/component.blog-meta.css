@@ -4,7 +4,7 @@
   --date-color: #30363e;
 }
 
-[data-theme="dark"] .blog-meta {
+[data-theme="dark"] .blog-meta, .-force-dark .blog-meta {
   --date-color: #a4a4a4;
 }
 

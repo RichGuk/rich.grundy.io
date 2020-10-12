@@ -10,7 +10,7 @@
 }
 
 
-[data-theme="dark"] {
+[data-theme="dark"], .-force-dark {
   --main-background-color: #272a2d;
   --main-font-color: #fff;
   --main-link-color: #b9dcff;
