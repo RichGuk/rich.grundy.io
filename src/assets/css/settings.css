@@ -7,16 +7,18 @@
   --main-sub-heading-color: #757575;
   --code-background: #3a3b3c;
   --me-color: #3a4c5a;
+  --border-color: #eee;
 }
 
 
 [data-theme="dark"], .-force-dark {
   --main-background-color: #272a2d;
-  --main-font-color: #fff;
+  --main-font-color: #f9f9f9;
   --main-link-color: #b9dcff;
   --main-link-color-hover: #7fb0e1;
   --main-div-color: #717171;
   --main-sub-heading-color: #b3b3b3;
   --code-background: #1a1c1e;
   --me-color: #7ca1bd;
+  --border-color: #4f5051;
 }

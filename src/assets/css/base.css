@@ -59,6 +59,25 @@ small, .text_small {font-size: 0.889em;}
   .text-get-big { font-size: 4.209rem; }
 }
 
+/*
+ * Creates a header with a line finishing the rest of the line.
+ */
+.header {
+  overflow: hidden;
+  position: block;
+  position: relative;
+
+  &:after {
+    content: "";
+    background: var(--border-color);
+    height: 0.2rem;
+    width: 100%;
+    position: absolute;
+    top: calc(50% - 0.15rem);
+    margin-left: 1rem;
+  }
+}
+
 hr {
   border: 0;
   border-bottom: 1px solid var(--main-div-color);
