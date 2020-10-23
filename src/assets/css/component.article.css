@@ -50,6 +50,9 @@
 
 
   &__title {
+    margin-top: 1rem;
+  }
+  &.-hero &__title {
     margin: 0;
   }
 
