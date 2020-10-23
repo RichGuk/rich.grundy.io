@@ -48,34 +48,6 @@
     }
   }
 
-  &__breakout-header {
-    span {
-      display: inline-block;
-      position: relative;
-
-      &:before {
-        background: #eee;
-        content: "";
-        height: 0.5rem;
-        margin-right: 1.5rem;
-        position: absolute;
-        right: 100%;
-        top: calc(50% - 0.25rem);
-        width: 1000%;
-      }
-
-      &:after {
-        background: #eee;
-        content: "";
-        height: 0.5rem;
-        margin-left: 1.5rem;
-        position: absolute;
-        left: 100%;
-        top: calc(50% - 0.25rem);
-        width: 1000%;
-      }
-    }
-  }
 
   &__title {
     margin: 0;
