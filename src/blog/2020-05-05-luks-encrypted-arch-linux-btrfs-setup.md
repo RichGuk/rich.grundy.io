@@ -154,15 +154,17 @@ Install the base system + extra packages:
 
 ```text
 pacstrap /mnt base base-devel linux linux-firmware intel-ucode amd-ucode \
-btrfs-progs dosfstools e2fsprogs sudo zsh zsh-completions \
-zsh-syntax-highlighting tmux rsync openssh git neovim htop networkmanager
+wpa_supplicant btrfs-progs dosfstools e2fsprogs sudo zsh zsh-completions \
+zsh-syntax-highlighting tmux rsync openssh git vim neovim htop networkmanager \
+openvpn networkmanager-openvpn fzf ruby python nodejs
 ```
 
 Generate fstab:
 
 ```text
-genfstab -U /mnt >> /mnt/etc/fstab
+genfstab /mnt >> /mnt/etc/fstab
 ```
+_Note: change the boot partition to use UUID._
 
 Example fstab:
 
@@ -203,7 +205,7 @@ and move *keyboard*.
 
 ``` diff
 - HOOKS=(base udev autodetect modconf block filesystems keyboard fsck)
-+ HOOKS=(base systemd udev autodetect keyboard sd-vconsole modconf block sd-encrypt filesystems fsck)
++ HOOKS=(base systemd autodetect keyboard sd-vconsole modconf block sd-encrypt filesystems fsck)
 
 - BINARIES=()
 + BINARIES=(btrfs)
@@ -499,6 +501,7 @@ sudo chattr +C /swapspace/swapfile
 sudo btrfs property set /swapspace/swapfile compression none
 
 sudo fallocate -l 32G /swapspace/swapfile
+sudo mkswap /swapspace/swapfile
 
 sudo chmod 600 /swapspace/swapfile
 ```
