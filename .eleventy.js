@@ -12,7 +12,7 @@ const pluginRss = require("@11ty/eleventy-plugin-rss");
 
 const slugFilter = (str) => {
   return slugify(str, {
-    remove: /[*+~.()'"!:@]/g,
+    remove: /[*+~.()'"!:@,]/g,
     replacement: "-",
     lower: true
   });
