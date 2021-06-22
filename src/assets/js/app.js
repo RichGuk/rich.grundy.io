@@ -5,12 +5,12 @@ function loader() {
   themeSwitcher();
 
   GLightbox({
-    selector: ".js-glightbox",
+    selector: '.js-glightbox',
   });
 }
 
 if (document.readyState !== 'loading') {
   loader();
 } else {
-  window.addEventListener('DOMContentLoaded',  loader);
+  window.addEventListener('DOMContentLoaded', loader);
 }
