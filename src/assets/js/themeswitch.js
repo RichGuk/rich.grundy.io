@@ -1,18 +1,18 @@
 export default function () {
-  const wantsDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const wantsDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
   const themeSwitcher = document.querySelector('.js-themeswitcher');
   let darkMode = false;
   let storedPreference = localStorage.getItem('theme');
 
   function setDarkMode() {
     document.documentElement.setAttribute('data-theme', 'dark');
-    themeSwitcher.classList.remove('-light')
+    themeSwitcher.classList.remove('-light');
     themeSwitcher.classList.add('-dark');
   }
 
   function setLightMode() {
     document.documentElement.setAttribute('data-theme', 'light');
-    themeSwitcher.classList.remove('-dark')
+    themeSwitcher.classList.remove('-dark');
     themeSwitcher.classList.add('-light');
   }
 
@@ -34,4 +34,4 @@ export default function () {
       setDarkMode();
     }
   });
-};
+}
