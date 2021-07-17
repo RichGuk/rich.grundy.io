@@ -1,10 +1,13 @@
 import GLightbox from 'glightbox';
 import themeSwitcher from './themeswitch';
-// import Carousel from './carousel';
+import Carousel from './carousel';
 
 function loader() {
   themeSwitcher();
-  // Carousel();
+
+  if (document.querySelector('.main-content.homepage')) {
+    Carousel();
+  }
 
   GLightbox({
     selector: '.js-glightbox',
