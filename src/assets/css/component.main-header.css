@@ -3,7 +3,7 @@
 .main-header {
   display: flex;
   margin: 1.5rem auto 3rem auto;
-  max-width: 1250px;
+  max-width: 80rem;
   align-items: center;
   padding: 0 0.75rem;
   position: relative;

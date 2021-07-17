@@ -1,0 +1,107 @@
+.homepage-photosets {
+  background: var(--alt-background-color);
+  margin-bottom: 5rem;
+
+  padding: 2rem;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+
+  &__wrap {
+    color: var(--main-font-color);
+  }
+
+  &__title {
+    margin-top: 0;
+    margin-bottom: 2rem;
+  }
+}
+
+.photoset-cards {
+  position: relative;
+
+  &__container {
+    display: flex;
+    gap: 3rem;
+    list-style: none;
+    padding-left: 0;
+    transition: transform .5s ease;
+  }
+}
+
+.photoset-card {
+  width: 300px;
+  height: 200px;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 10px;
+
+  @media (min-width: 800px) {
+    height: 400px;
+    width: 600px;
+  }
+
+  @media (min-width: 1300px) {
+    width: 800px;
+    height: 500px;
+  }
+
+  &__image {
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    position: relative;
+    box-shadow: 0 0 10px rgba(0,0,0,0.25);
+    transition: all .5s;
+  }
+  &:hover &__image {
+    transform: scale(1.03);
+  }
+
+  &__image:after {
+    content: "";
+    border-radius: 10px;
+    background: linear-gradient(to top, #000, transparent 60%);
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  &__link {
+    display: block;
+    position: relative;
+    height: 100%;
+  }
+
+  &__title {
+    position: absolute;
+    bottom: 2rem;
+    left: 2rem;
+    color: white;
+  }
+}
+
+.homepage-photoset-controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  font-size: 2em;
+
+  &__button {
+    cursor: pointer;
+    &.-disabled {
+      color: gray;
+      cursor: auto;
+    }
+    &.-disabled:hover {
+      color: gray;
+    }
+  }
+
+  &__button:hover {
+    color: var(--main-link-color-hover);
+  }
+}

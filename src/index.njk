@@ -1,33 +1,48 @@
 ---
 description: "I'm a full stack developer from the UK with over 10 years experience. I currently work for Zen Educate as a software engineer."
-layout: layouts/html
+layout: layouts/main
 priority: 1
 ---
 
-  <main  class="homepage js-homepage">
-    <div class="homepage__intro">
-      <img class="homepage__avatar" src="/images/avatar.svg" alt="Rich Grundy">
-      <h1 class="text-get-big homepage__title">Hello. <span>I'm Rich.</span></h1>
+<main class="homepage main-content">
+  <div class="homepage-intro">
+    <h1 class="homepage-intro__title">Hi, I'm Rich.</h1>
+    <p class="homepage-intro__blurb">
+      I’m a software engineer from the UK. This space is a random collection of my thoughts + some photography.
+    </p>
+  </div>
+
+  <div class="homepage-ramblings">
+    <h2 class="homepage-ramblings__title h3">Ramblings</h2>
+
+    <ul class="blog-card-wrapper">
+      {% for post in collections.post | reverse | limit(4) %}
+      <li class="blog-card">
+        <a href="{{ post.url }}" class="blog-card__link">
+          {% if post.data.hero -%}
+          <div class="blog-card__hero" style="background-image: url({{post.data.hero}})"></div>
+          {%- endif %}
+          <h3 class="blog-card__title h5">{{ post.data.title }}</h3>
+          <p class="blog-card__desc">{{ post.data.description }}</p>
+          <time datetime="{{ post.date | htmlDateString }}" class="blog-card__date">{{ post.date | readableDate }}</time>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+
+    <div class="homepage-ramblings__archive-link">
+      <a href="/blog/">View archive &gt;</a>
     </div>
+  </div>
 
-    <div class="homepage__content js-homepage-content"> <p
-      class="homepage__bio">I'm a <a href="/about/">full-stack developer</a>
-      from the UK with over 10 years experience. I currently work for <a rel="nofollow" href="https://www.zeneducate.com/">Zen Educate</a> as a software engineer. <a href="/about/" class="homepage__bio-link">more about me</a></p>
-
-      <ul class="social-profiles">
+  <div>
+    <h2 class="h3">Me on the web</h2>
+        <ul class="social-profiles">
         <li class="social-profiles__item">
           <a aria-label="Github" class="social-profiles__link" rel="nofollow" href="https://github.com/richguk/">
             <i class="social-profiles__icon icon-github"></i>
             <span class="social-profiles__label">code</span>
             <span class="social-profiles__link-text">github.com/<strong>richguk</strong></span>
-          </a>
-        </li>
-
-        <li class="social-profiles__item">
-          <a aria-label="Instagram" class="social-profiles__link" rel="nofollow" href="https://www.instagram.com/richguk/">
-            <i class="social-profiles__icon icon-instagram"></i>
-            <span class="social-profiles__label">photo</span>
-            <span class="social-profiles__link-text">instagram.com/<strong>richguk</strong></span>
           </a>
         </li>
 
@@ -39,7 +54,6 @@ priority: 1
           </a>
         </li>
 
-
         <li class="social-profiles__item">
           <a aria-label="GPG Public Key" rel="nofollow" class="social-profiles__link" href="/gpg.asc">
             <i class="social-profiles__icon icon-key"></i>
@@ -48,25 +62,5 @@ priority: 1
           </a>
         </li>
       </ul>
-    </div>
-  </main>
-  <hr style="max-width: 100px">
-  <div class="theme-switcher -homepage"><i class="js-themeswitcher icon-moon" title="Light/Dark mode"></i></div>
-
-  <nav class="homepage-nav">
-    <a href="/blog/">My Writings</a>
-    <div></div>
-    <a href="/photography/">Photography</a>
-  </nav>
-
-  <div class="homepage-blog-wrapper">
-    <h2 class="homepage-blog-wrapper__title">Latest Posts</h2>
-    <ul>
-      {% for post in collections.post | reverse | limit(5) %}
-        <li class="homepage-blog">
-          <a href="{{ post.url }}" class="homepage-blog__title">{{ post.data.title }}</a>
-          <time datetime="{{ post.date | htmlDateString }}" class="homepage-blog__date">{{ post.date | readableDate }}</time>
-        </li>
-      {% endfor %}
-    </ul>
   </div>
+</main>

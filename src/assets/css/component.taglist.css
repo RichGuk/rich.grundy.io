@@ -1,12 +1,13 @@
 /* vim: set ft=scss: */
 
 .taglist {
-  --tag-background-color: #F1E5FF;
-  --tag-color: #54238e;
-  --tag-active-color: #7400ff;
-  --tag-hover-color: var(--tag-color);
-  --tag-hover-background-color: var(--tag-background-color);
-  --meta-div-color: #545353;
+  --tag-border-color: #c6c6c6;
+  --tag-color: #757575;
+}
+
+[data-theme="dark"] .taglist, .-force-dark .taglist {
+  --tag-border-color: #575757;
+  --tag-color: #a8a8a8;
 }
 
 .taglist {
@@ -18,10 +19,7 @@
   margin-bottom: 1.5rem;
   font-size: 1rem;
   font-weight: bold;
-
-  &.-large {
-    font-size: 1.2rem;
-  }
+  gap: 10px;
 
   &.-inline {
     display: inline-flex;
@@ -29,27 +27,22 @@
   }
 
   &__item {
-    margin: 0 8px 10px 8px;
-  }
-  &.-inline &__item {
-    margin-bottom: 0;
   }
 
   &__link {
+    display: block;
     font-size: 0.875em;
-    border-radius: 3px;
-    padding: 5px;
-    background: var(--tag-background-color);
+    border: 1px solid var(--tag-border-color);
+    border-radius: 15px;
+    padding: 5px 10px;
     color: var(--tag-color);
 
     &.-is-active {
-      color: var(--tag-active-color);
       font-weight: bold;
     }
 
     &:hover {
-      background: var(--tag-color);;
-      color: var(--tag-background-color)
+      color: var(--tag-background-color);
     }
   }
 }

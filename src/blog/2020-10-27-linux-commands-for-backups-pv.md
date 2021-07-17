@@ -1,6 +1,7 @@
 ---
 title: "Linux commands for backups: pv"
 description: "This post is about the using the Linux pipe viewer command, or pv."
+hero: /images/blog/2020-10-27-linux-commands-for-backups-pv/hero.webp
 tags:
   - linux
   - cli

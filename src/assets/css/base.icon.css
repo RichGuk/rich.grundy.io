@@ -1,8 +1,8 @@
 @font-face {
   font-family: 'icomoon';
   src:
-  url('/fonts/icomoon.woff2?oww4wk') format('woff2'),
-  url('/fonts/icomoon.woff?oww4wk') format('woff');
+  url('/fonts/icomoon.woff2?okwe2q') format('woff2'),
+  url('/fonts/icomoon.woff?okwe2q') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -23,6 +23,36 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-circle-thin:before {
+  content: "\e900";
+}
+.icon-circle:before {
+  content: "\e902";
+}
+.icon-circle-left:before {
+  content: "\e906";
+}
+.icon-left:before {
+  content: "\e906";
+}
+.icon-circle-previous:before {
+  content: "\e906";
+}
+.icon-arrow:before {
+  content: "\e906";
+}
+.icon-circle-right:before {
+  content: "\e907";
+}
+.icon-right:before {
+  content: "\e907";
+}
+.icon-circle-next:before {
+  content: "\e907";
+}
+.icon-arrow1:before {
+  content: "\e907";
+}
 .icon-moon:before {
   content: "\e904";
 }
@@ -38,7 +68,7 @@
 .icon-connection:before {
   content: "\e91b";
 }
-.icon-location2:before {
+.icon-location:before {
   content: "\e948";
 }
 .icon-map2:before {
@@ -50,10 +80,10 @@
 .icon-instagram:before {
   content: "\ea92";
 }
-.icon-rss2:before {
+.icon-rss:before {
   content: "\ea9c";
 }
-.icon-steam2:before {
+.icon-steam:before {
   content: "\eaad";
 }
 .icon-github:before {
