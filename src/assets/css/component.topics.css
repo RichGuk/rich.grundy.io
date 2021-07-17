@@ -1,13 +1,6 @@
-
-  /* --tag-background-color: #F1E5FF; */
-  /* --tag-color: #A480CF; */
-  /* --tag-active-color: #7400ff; */
-  /* --meta-div-color: #545353; */
-
 .topics {
-
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   margin-bottom: 3rem;
 
   &__title {
@@ -17,11 +10,7 @@
   }
 
   &__list {
-    --tag-background-color: #eee;
-    --tag-color: #444;
-    --tag-active-color: black;
-    --tag-hover-color: #cccecc;
-    --tag-hover-background-color: black;
+    font-size: 1.2rem;
     font-weight: normal;
     margin-bottom: 0;
   }

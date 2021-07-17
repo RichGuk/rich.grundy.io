@@ -18,9 +18,10 @@ body {
   font-size: 1rem;
   line-height: 1.5;
   height: 100%;
+  overflow-x: hidden;
 
   @media (min-width: 700px) {
-    font-size: 1.266rem;
+    font-size: 1.3rem;
   }
 }
 
@@ -32,8 +33,9 @@ a:hover {
   color: var(--main-link-color-hover);
 }
 
-p {margin: 0 0 1.15rem 0;}
+p {margin: 0 0 1.5rem 0;}
 h1, h2, h3, h4, h5 {
+  color: var(--main-heading-color);
   margin: 2.75rem 0 1.05rem;
   line-height: 1.15;
 }
@@ -99,7 +101,7 @@ hr {
 }
 
 pre {
-  font-size: 1rem;
+  font-size: 1.1rem;
   border-radius: 0.3em;
   padding: 1rem;
   background: var(--code-background);
@@ -117,11 +119,13 @@ pre[class*="language-"] {
 
 code, kbd, samp {
   font-family: "Fira Code", Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-  font-size: 1rem;
+  font-size: 1.1rem;
 }
 
 pre[class*="language-"], pre {
   margin: -0.57rem 0 1.72rem 0;
+  padding: 2rem;
+  padding: 1.8rem 1.25rem 1.5rem 1.3rem;
   overflow-x: auto;
 }
 

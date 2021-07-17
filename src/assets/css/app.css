@@ -2,7 +2,7 @@
 
 @import "glightbox/dist/css/glightbox.css";
 
-@import "vendor/prism-nord.css";
+@import "vendor/prism-cb.css";
 
 @import "settings.css";
 @import "base.css";
@@ -13,11 +13,14 @@
 @import "component.main-content.css";
 @import "component.main-nav.css";
 
-@import "component.homepage.css";
 @import "component.homepage-blog.css";
+@import "component.homepage-photoset.css";
+@import "component.homepage-ramblings.css";
+@import "component.homepage-intro.css";
 @import "component.social-profiles.css";
 @import "component.homepage-nav.css";
 @import "component.blog-listing.css";
+@import "component.blog-card.css";
 @import "component.article.css";
 @import "component.blog-meta.css";
 @import "component.taglist.css";

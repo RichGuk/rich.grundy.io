@@ -1,13 +1,9 @@
 /* vim: set ft=scss: */
 
 .main-content {
-  max-width: 1150px;
+  max-width: 80rem;
   margin: 0 auto;
   padding: 0.75rem;
-
-  &.-photography {
-    max-width: 1250px;
-  }
 
   @media (min-width: 700px) {
     padding: 0 1.5rem;
