@@ -2,6 +2,7 @@
 title: "Steam Deck"
 hero: /images/blog/2021-07-17-steam-deck/hero.jpg
 description: "I reserved a Steam Deck. And I'm super excited about it."
+tags: technology
 ---
 
 On Friday, I reserved a [Steam Deck](https://www.steamdeck.com/). And I'm super

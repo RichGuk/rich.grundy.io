@@ -5,7 +5,6 @@ hero: /images/blog/2020-10-06-mounting-lvm-raw-disk-image-on-linux/hero.webp
 tags:
   - linux
   - howto
-  - linux tips
 ---
 
 The other day I needed to extract some files from a raw disk backup; problem is

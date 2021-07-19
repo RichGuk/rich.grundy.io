@@ -6,7 +6,6 @@ of commands for backups on Linux."
 hero: /images/blog/2020-10-09-linux-commands-for-backups-tar/hero.webp
 tags:
   - linux
-  - cli
 ---
 
 This is a beginners guide on how to compress and uncompress using Linux's
