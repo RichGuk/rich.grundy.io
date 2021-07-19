@@ -4,7 +4,6 @@ description: "This post is about the using the Linux pipe viewer command, or pv.
 hero: /images/blog/2020-10-27-linux-commands-for-backups-pv/hero.webp
 tags:
   - linux
-  - cli
 ---
 
 This post is about the Linux pipe viewer command, or `pv`. It's the second part

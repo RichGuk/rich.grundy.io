@@ -1,6 +1,7 @@
 ---
 title: "So long, and thanks for all the ink"
 hero: /images/blog/2021-03-25-so-long-and-thanks-for-the-ink/hero.webp
+tags: life
 ---
 
 So, 25th March 2021 was my last day at
