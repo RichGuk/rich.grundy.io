@@ -117,9 +117,10 @@ pre[class*="language-"] {
   background: var(--code-background);
 }
 
-code, kbd, samp {
+:not(pre) > code, kbd, samp {
   font-family: "Fira Code", Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   font-size: 1.1rem;
+  color: orange;
 }
 
 pre[class*="language-"], pre {
@@ -127,6 +128,12 @@ pre[class*="language-"], pre {
   padding: 2rem;
   padding: 1.8rem 1.25rem 1.5rem 1.3rem;
   overflow-x: auto;
+}
+
+blockquote {
+  border-left: 5px solid var(--border-alt-color);
+  padding-left: 0.75rem;
+  color: var(--subtle-alt-color);
 }
 
 img { max-width: 100%; }
