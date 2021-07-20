@@ -120,7 +120,7 @@ pre[class*="language-"] {
 :not(pre) > code, kbd, samp {
   font-family: "Fira Code", Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   font-size: 1.1rem;
-  color: orange;
+  color: var(--codeblock-color);
 }
 
 pre[class*="language-"], pre {

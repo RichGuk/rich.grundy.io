@@ -13,6 +13,7 @@
   --alt-background-color: #272a2d;
   --alt-color: #333;
   --subtle-alt-color: #737373;
+  --codeblock-color: #a26b08;
 }
 
 
@@ -31,4 +32,5 @@
   --alt-background-color: #1a1e22;
   --alt-color: #d0cfcf;
   --subtle-alt-color: #959393;
+  --codeblock-color: orange;
 }
