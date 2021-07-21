@@ -14,6 +14,7 @@
   --alt-color: #333;
   --subtle-alt-color: #737373;
   --codeblock-color: #a26b08;
+  --date-color: #30363e;
 }
 
 
@@ -33,4 +34,5 @@
   --alt-color: #d0cfcf;
   --subtle-alt-color: #959393;
   --codeblock-color: orange;
+  --date-color: #a4a4a4;
 }

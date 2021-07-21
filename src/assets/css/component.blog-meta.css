@@ -1,14 +1,6 @@
 /* vim: set ft=scss: */
 
 .blog-meta {
-  --date-color: #30363e;
-}
-
-[data-theme="dark"] .blog-meta, .-force-dark .blog-meta {
-  --date-color: #a4a4a4;
-}
-
-.blog-meta {
     display: flex;
     align-items: center;
     gap: 1rem;

@@ -14,7 +14,7 @@ eleventyExcludeFromCollections: true
   </ul>
 </div>
 
-<div class="blog-listings">
+<ul class="blog-listings">
   {% set currentYear = "" %}
   {% for post in posts | reverse %}
     {% set postYear = post.date.getFullYear() %}
@@ -22,24 +22,11 @@ eleventyExcludeFromCollections: true
       {% set currentYear = postYear %}
       <h3>{{ postYear }}</h3>
     {% endif %}
-    <article class="blog-list-item">
-      <h2 class="blog-list-item__title h4"><a href="{{ post.url }}">{{ post.data.title }}</a></h2>
-      <div class="blog-list-item__meta blog-meta">
-        <time datetime="{{ post.date | htmlDateString }}" class="blog-meta__date">{{ post.date | readableDate }}</time>
-
-        {% set tags = post.data.tags | validTags %}
-        {%- if tags.length > 0 -%}
-        <ul class="taglist -inline blog-meta__tag-list">
-          {%- for tag in tags -%}
-          <li class="taglist__item"><a class="taglist__link" href="/tag/{{ tag }}/">#{{ tag }}</a></li>
-          {%-  endfor -%}
-        </ul>
-      {% endif -%}
-      </div>
-
-      <p class="blog-list-item__desc">
-        {{ post.data.description }}
-      </p>
-    </article>
+    <li class="blog-list-item">
+      <span class="blog-list-item__title h4"><a href="{{ post.url }}">{{ post.data.title }}</a></span>
+      <span class="blog-list-item__meta">
+        <time datetime="{{ post.date | htmlDateString }}" class="blog-meta__date">{{ post.date | formatDate('d LLL') }}</time>
+      </span>
+    </li>
   {% endfor %}
-</div>
+</ul>

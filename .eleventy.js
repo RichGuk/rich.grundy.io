@@ -54,6 +54,10 @@ module.exports = (eleventyConfig) => {
     return DateTime.fromJSDate(dateObj).toFormat('yyyy-LL-dd');
   });
 
+  eleventyConfig.addFilter('formatDate', (dateObj, format) => {
+    return DateTime.fromJSDate(dateObj).toFormat(format);
+  });
+
   eleventyConfig.addFilter('limit', (arr, limit) => {
     return arr.slice(0, limit);
   });
