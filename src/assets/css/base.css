@@ -38,6 +38,7 @@ h1, h2, h3, h4, h5 {
   color: var(--main-heading-color);
   margin: 2.75rem 0 1.05rem;
   line-height: 1.15;
+  letter-spacing: -0.02em !important;
 }
 
 h1,.h1 {

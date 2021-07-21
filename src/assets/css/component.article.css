@@ -76,6 +76,10 @@
   &__content {
     margin: 0 0.75rem;
 
+    p:first-child {
+      font-weight: bold;
+    }
+
     >*:not(.-full,img), .-keep-within {
       margin-left: auto;
       margin-right: auto;
