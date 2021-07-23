@@ -2,26 +2,16 @@ const fs = require('fs');
 const path = require('path');
 const htmlmin = require('html-minifier');
 const { DateTime } = require('luxon');
-const slugify = require('slugify');
 
 const manifestPath = path.resolve(__dirname, 'dist', 'assets-manifest.json');
 const manifest = JSON.parse(fs.readFileSync(manifestPath, { encoding: 'utf8' }));
+const filters = require('./utils/filters.js');
 
 const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
 const pluginRss = require('@11ty/eleventy-plugin-rss');
 
-const slugFilter = (str) => {
-  return slugify(str, {
-    remove: /[*+~.()'"!:@,]/g,
-    replacement: '-',
-    lower: true,
-  });
-};
-
 module.exports = (eleventyConfig) => {
   const devMode = process.env.NODE_ENV !== 'production';
-
-  const tagBlackList = new Set(['post', 'posts']);
 
   eleventyConfig.setDataDeepMerge(true);
 
@@ -42,40 +32,13 @@ module.exports = (eleventyConfig) => {
     return manifest[name];
   });
 
-  eleventyConfig.addFilter('slug', (str) => {
-    return slugFilter(str);
-  });
-
-  eleventyConfig.addFilter('readableDate', (dateObj) => {
-    return DateTime.fromJSDate(dateObj).toFormat('dd LLL yyyy');
-  });
-
-  eleventyConfig.addFilter('htmlDateString', (dateObj) => {
-    return DateTime.fromJSDate(dateObj).toFormat('yyyy-LL-dd');
-  });
-
-  eleventyConfig.addFilter('formatDate', (dateObj, format) => {
-    return DateTime.fromJSDate(dateObj).toFormat(format);
-  });
-
-  eleventyConfig.addFilter('limit', (arr, limit) => {
-    return arr.slice(0, limit);
-  });
-
-  eleventyConfig.addFilter('validTags', (tags) => {
-    if (!tags) {
-      return [];
-    }
-    return tags.filter((t) => t && !tagBlackList.has(t)).map((t) => slugFilter(t));
-  });
-
   eleventyConfig.addCollection('tagList', function (collection) {
     let newTags = {};
 
     collection.getAll().forEach((item) => {
       if (item.data['tags']) {
-        item.data['tags']
-          .filter((t) => t && !tagBlackList.has(t))
+        filters
+          .withoutSpecialTags(item.data['tags'])
           .forEach((tag) => {
             if (!newTags[tag]) {
               newTags[tag] = 0;
@@ -89,10 +52,14 @@ module.exports = (eleventyConfig) => {
     return Object.keys(newTags)
       .sort()
       .reduce((res, k) => {
-        k = slugFilter(k);
+        k = filters.slug(k);
         res[k] = newTags[k];
         return res;
       }, {});
+  });
+
+  Object.keys(filters).forEach((name) => {
+    eleventyConfig.addFilter(name, filters[name]);
   });
 
   // Reload the page if any JS/CSS files cause manifest.json update.
