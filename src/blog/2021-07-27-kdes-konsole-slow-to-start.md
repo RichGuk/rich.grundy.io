@@ -1,7 +1,7 @@
 ---
 title: "Konsole on KDE slow to start?"
 description: ""
-heroColor: #1c94eb
+heroColor: "#1c94eb"
 tags:
   - linux
 ---
