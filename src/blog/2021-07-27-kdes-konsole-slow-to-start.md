@@ -7,7 +7,7 @@ tags:
 ---
 
 > TL;DR  
-> It turns out lots of bookmarks for remote servers in Konsole slows things down.
+> It turns out lots of bookmarks for remote servers slows things down.
 
 My Konsole was slow to create new windows,  taking 5-10 seconds. It didn't
 happen all the time but frustrating nonetheless.
