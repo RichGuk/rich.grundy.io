@@ -120,8 +120,11 @@ pre[class*="language-"] {
 
 :not(pre) > code, kbd, samp {
   font-family: "Fira Code", Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-  font-size: 1.1rem;
   color: var(--codeblock-color);
+
+  @media (min-width: 700px) {
+    font-size: 1.1rem;
+  }
 }
 
 pre[class*="language-"], pre {
@@ -129,6 +132,11 @@ pre[class*="language-"], pre {
   padding: 2rem;
   padding: 1.8rem 1.25rem 1.5rem 1.3rem;
   overflow-x: auto;
+  font-size: 1rem;
+
+  @media (min-width: 700px) {
+    font-size: 1.1rem;
+  }
 }
 
 blockquote {
