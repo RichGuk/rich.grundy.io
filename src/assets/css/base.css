@@ -8,14 +8,8 @@ html {
 body {
   background: var(--main-background-color);
   color: var(--main-font-color);
-  font-family:
-    'Catamaran',
-    sans-serif,
-    /* macOS emoji */ "Apple Color Emoji",
-    /* Windows emoji */ "Segoe UI Emoji",
-    /* Windows emoji */ "Segoe UI Symbol",
-    /* Linux emoji */ "Noto Color Emoji";
-  font-size: 1rem;
+  font-family: 'Catamaran',-apple-system,BlinkMacSystemFont,"Segoe UI Variable","Segoe UI",system-ui,ui-sans-serif,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji";
+  font-size: 1.1rem;
   line-height: 1.5;
   height: 100%;
   overflow-x: hidden;
@@ -36,14 +30,14 @@ a:hover {
 p {margin: 0 0 1.5rem 0;}
 h1, h2, h3, h4, h5 {
   color: var(--main-heading-color);
-  margin: 2.75rem 0 1.05rem;
-  line-height: 1.15;
+  margin: 3rem 0 1.38rem;
+  line-height: 1.3;
   letter-spacing: -0.02em !important;
 }
 
 h1,.h1 {
   margin-top: 0;
-  font-size: 1.802rem;
+  font-size: 1.953rem;
 }
 h2,.h2 { font-size: 1.602rem;}
 h3,.h3 { font-size: 1.424rem;}
@@ -53,11 +47,11 @@ small, .text_small {font-size: 0.889em;}
 .text-get-big { font-size: 2.986rem; }
 
 @media (min-width: 700px) {
-  h1,.h1 { font-size: 2.488rem; }
-  h2,.h2 { font-size: 2.074rem; }
-  h3,.h3 { font-size: 1.728rem; }
-  h4,.h4 { font-size: 1.44rem; }
-  h5,.h5 { font-size: 1.2rem; }
+  h1,.h1 { font-size: 3.052rem; }
+  h2,.h2 { font-size: 2.441rem; }
+  h3,.h3 { font-size: 1.953rem; }
+  h4,.h4 { font-size: 1.563rem; }
+  h5,.h5 { font-size: 1.25rem; }
   small, .text-small { font-size: 0.833rem; }
   .text-get-big { font-size: 4.209rem; }
 }
@@ -113,6 +107,17 @@ pre {
   tab-size: 2;
 }
 
+code, pre {
+  font-size: 0.9em;
+}
+
+code[class*="language-"],
+pre[class*="language-"] {
+  @media (min-width: 700px) {
+    font-size: 1em;
+  }
+}
+
 :not(pre) > code[class*="language-"],
 pre[class*="language-"] {
   background: var(--code-background);
@@ -121,10 +126,6 @@ pre[class*="language-"] {
 :not(pre) > code, kbd, samp {
   font-family: "Fira Code", Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   color: var(--codeblock-color);
-
-  @media (min-width: 700px) {
-    font-size: 1.1rem;
-  }
 }
 
 pre[class*="language-"], pre {
@@ -133,10 +134,6 @@ pre[class*="language-"], pre {
   padding: 1.8rem 1.25rem 1.5rem 1.3rem;
   overflow-x: auto;
   font-size: 1rem;
-
-  @media (min-width: 700px) {
-    font-size: 1.1rem;
-  }
 }
 
 blockquote {

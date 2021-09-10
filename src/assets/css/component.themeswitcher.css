@@ -9,7 +9,7 @@
       content: "\e9d4";
     }
 
-    &.-dark {
+    [data-theme="dark"] & {
       &:before {
         content: "\e904"
       }

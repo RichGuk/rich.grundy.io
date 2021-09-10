@@ -264,7 +264,7 @@ reboot
 
 You should have a functioning base system at this point.
 
-# Post install
+## Post install
 
 These steps are more personalised towards how I want my desktop to work. Feel
 free to tweak as you need to.

@@ -1,6 +1,7 @@
 /* vim: set ft=scss: */
 
 .main-header {
+  color: var(--main-page-header-font-color);
   display: flex;
   margin: 1.5rem auto 3rem auto;
   max-width: 80rem;
@@ -13,7 +14,7 @@
   }
 
   &__homelink {
-    color: var(--main-font-color);
+    color: inherit;
     font-weight: bold;
     display: inline-flex;
     align-items: center;
@@ -27,16 +28,6 @@
     }
 
     span {
-      /*
-       * Moved to preload when Firefox supports it.
-       * <link rel="preload" as="image" href="/images/avatar-sunglasses.svg">
-       */
-      &:before {
-        position:absolute; width:0; height:0; overflow:hidden; z-index:-1;
-        content: "";
-        background-image: url(/images/avatar-sunglasses.svg);
-      }
-
       background: url(/images/avatar.svg);
       display: block;
       width: 55px;

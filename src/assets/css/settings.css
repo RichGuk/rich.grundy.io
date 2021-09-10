@@ -1,6 +1,6 @@
-:root {
+:root, [data-theme="light"] {
   --main-background-color: white;
-  --main-font-color: #333;
+  --main-font-color: #41464d;
   --main-link-color: #0077cc;
   --main-link-color-hover: #0093ff;
   --main-div-color: #ccc;
@@ -15,24 +15,27 @@
   --subtle-alt-color: #737373;
   --codeblock-color: #a26b08;
   --date-color: #30363e;
+  --article-header-color: black;
 }
 
-
 [data-theme="dark"], .-force-dark {
-  --main-background-color: #232a31;
-  --main-font-color: #dddddd;
-  --main-link-color: #64b2ff;
-  --main-link-color-hover: #86c3ff;
+  --main-background-color: #161b20;
+  --main-font-color: #e3e9f0;
+  --main-link-color: #66c3ff;
+  --main-link-color-hover: #addeff;
   --main-div-color: #717171;
   --main-heading-color: #ffffff;
   --main-sub-heading-color: #b3b3b3;
-  --code-background: #1a1c1e;
+  --code-background: #232a31;
   --me-color: #7ca1bd;
   --border-color: #4f5051;
   --border-alt-color: #eee;
   --alt-background-color: #1a1e22;
   --alt-color: #d0cfcf;
   --subtle-alt-color: #959393;
-  --codeblock-color: orange;
+  --codeblock-color: #ff7f11;
   --date-color: #a4a4a4;
+  --article-header-color: #ffffff;
+  --article-intro-color: #ffffff;
+  --main-page-header-font-color: #ffffff;
 }
