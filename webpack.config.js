@@ -23,7 +23,7 @@ module.exports = (env, options) => {
     },
     output: {
       path: path.resolve(__dirname, "dist"),
-      filename: devMode ? "js/[name].js" : "js/[name].[contenthash].js"
+      filename: devMode ? "assets/js/[name].js" : "assets/js/[name].[contenthash].js"
     },
     devtool: devMode ? 'source-map' : undefined,
     module: {
@@ -50,7 +50,7 @@ module.exports = (env, options) => {
     },
 
     plugins: [
-      new MiniCssExtractPlugin({ filename: devMode ? "css/[name].css" : "css/app.[contenthash].css" }),
+      new MiniCssExtractPlugin({ filename: devMode ? "assets/css/[name].css" : "assets/css/app.[contenthash].css" }),
       new WebpackManifestPlugin({ publicPath: "/", fileName: "assets-manifest.json" }),
     ]
   }

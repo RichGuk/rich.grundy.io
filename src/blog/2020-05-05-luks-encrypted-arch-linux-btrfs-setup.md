@@ -2,7 +2,7 @@
 title: Archlinux on encrypted btrfs with systemd-boot and KDE
 description: "If you wanted to know how to install and configure Archlinux on an
 Luks encrypted SSD with Systemd-boot and KDE desktop, then this is the post."
-hero: /images/blog/2020-05-05-archlinux/hero.png
+hero: /assets/images/blog/2020-05-05-archlinux/hero.png
 tags:
   - linux
   - howto

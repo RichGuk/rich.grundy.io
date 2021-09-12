@@ -3,7 +3,7 @@ title: "Linux commands for backups: Tar"
 description: "This is a beginners guide on how to compress and uncompress
 directories and files using Linux's tar command. Part of a useful utility belt
 of commands for backups on Linux."
-hero: /images/blog/2020-10-09-linux-commands-for-backups-tar/hero.webp
+hero: /assets/images/blog/2020-10-09-linux-commands-for-backups-tar/hero.webp
 tags:
   - linux
 ---

@@ -22,7 +22,7 @@ module.exports = (eleventyConfig) => {
   eleventyConfig.addLayoutAlias('pages', 'layouts/pages.njk');
 
   eleventyConfig
-    .addPassthroughCopy({ 'src/assets/static': '/' })
+    .addPassthroughCopy({ 'src/assets/static': '/assets' })
     .addPassthroughCopy({ 'src/assets/vendor': 'vendor' });
 
   eleventyConfig.addShortcode('assetDigest', (name) => {

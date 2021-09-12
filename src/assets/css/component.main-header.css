@@ -28,7 +28,7 @@
     }
 
     span {
-      background: url(/images/avatar.svg);
+      background: url(/assets/images/avatar.svg);
       display: block;
       width: 55px;
       height: 55px;
@@ -39,7 +39,7 @@
     }
 
     &:hover span {
-      background-image: url(/images/avatar-sunglasses.svg);
+      background-image: url(/assets/images/avatar-sunglasses.svg);
     }
   }
 }
