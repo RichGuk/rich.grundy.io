@@ -1,9 +1,9 @@
-import themeSwitcher from './themeswitch';
-// import Carousel from './carousel';
+import GLightbox from 'glightbox';
 
 function loader() {
-  themeSwitcher();
-  // Carousel();
+  GLightbox({
+    selector: '.js-glightbox',
+  });
 }
 
 if (document.readyState !== 'loading') {

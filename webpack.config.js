@@ -1,4 +1,4 @@
-const path = require("path");
+const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
@@ -10,20 +10,15 @@ module.exports = (env, options) => {
   return {
     mode: devMode ? 'development' : 'production',
     optimization: {
-      minimizer: [
-        new TerserPlugin({ parallel: true }),
-        new CssMinimizerPlugin()
-      ]
+      minimizer: [new TerserPlugin({ parallel: true }), new CssMinimizerPlugin()],
     },
     entry: {
-      "app": [
-        "./src/assets/js/app.js",
-        "./src/assets/css/app.css"
-      ]
+      app: ['./src/assets/js/app.js', './src/assets/css/app.css'],
+      photography: ['./src/assets/js/photography.js'],
     },
     output: {
-      path: path.resolve(__dirname, "dist"),
-      filename: devMode ? "assets/js/[name].js" : "assets/js/[name].[contenthash].js"
+      path: path.resolve(__dirname, 'dist'),
+      filename: devMode ? 'assets/js/[name].js' : 'assets/js/[name].[contenthash].js',
     },
     devtool: devMode ? 'source-map' : undefined,
     module: {
@@ -32,8 +27,8 @@ module.exports = (env, options) => {
           test: /\.js$/,
           exclude: /node_modules/,
           use: {
-            loader: 'babel-loader'
-          }
+            loader: 'babel-loader',
+          },
         },
         {
           test: /\.css$/,
@@ -45,13 +40,15 @@ module.exports = (env, options) => {
             },
             'postcss-loader',
           ],
-        }
-      ]
+        },
+      ],
     },
 
     plugins: [
-      new MiniCssExtractPlugin({ filename: devMode ? "assets/css/[name].css" : "assets/css/app.[contenthash].css" }),
-      new WebpackManifestPlugin({ publicPath: "/", fileName: "assets-manifest.json" }),
-    ]
-  }
+      new MiniCssExtractPlugin({
+        filename: devMode ? 'assets/css/[name].css' : 'assets/css/app.[contenthash].css',
+      }),
+      new WebpackManifestPlugin({ publicPath: '/', fileName: 'assets-manifest.json' }),
+    ],
+  };
 };

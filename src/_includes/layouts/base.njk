@@ -39,11 +39,57 @@ font-display: fallback;
       }
     </script>
     <link rel="stylesheet" href="{% assetDigest 'app.css' %}">
-    <script async type="text/javascript" src="{% assetDigest 'app.js' %}"></script>
+    <script async defer type="text/javascript" src="{% assetDigest 'app.js' %}"></script>
     <script async defer data-domain="rich.grundy.io" src="https://plausible.grundy.io/js/plausible.js"></script>
     <link type="application/atom+xml" rel="alternate" href="{{ site.feedUrl }}" />
+    {% block head %}
+    {% endblock %}
   </head>
   <body>
+    <header class="main-header">
+      <div class="theme-switcher -global"><i class="js-themeswitcher icon-moon" title="Light/Dark mode"></i></div>
+      <div class="main-header__logo">
+        <a aria-label="Homepage" class="main-header__homelink" href="/">
+          <span></span>
+          <strong>Rich Grundy</strong>
+        </a>
+      </div>
+      <nav class="main-header__nav main-nav">
+        <a href="/blog/">Writings</a>
+        <a href="/photography/">Photography</a>
+        <a href="/about/">About</a>
+      </nav>
+    </header>
+
+    {% block content %}
     {{ content | safe }}
+    {% endblock %}
+
+    <footer class="main-footer">
+      <span class="main-footer__copyright">&copy; Richard Grundy</span>
+
+      <div class="main-footer__social">
+        <ul class="social-profiles -footer">
+          <li class="social-profiles__item">
+            <a aria-label="Github" class="social-profiles__link" rel="nofollow" href="https://github.com/richguk/">
+              <i class="social-profiles__icon icon-github"></i>
+            </a>
+          </li>
+
+          <li class="social-profiles__item">
+            <a aria-label="Email" class="social-profiles__link" href="mailto:rich@grundy.io">
+              <i class="social-profiles__icon icon-envelope"></i>
+            </a>
+          </li>
+
+
+          <li class="social-profiles__item">
+            <a aria-label="GPG Public Key" rel="nofollow" class="social-profiles__link" href="/gpg.asc">
+              <i class="social-profiles__icon icon-key"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </footer>
   </body>
 </html>
