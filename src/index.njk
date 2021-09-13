@@ -19,7 +19,7 @@ priority: 1
       {% for post in collections.post | reverse | limit(4) %}
       <li class="blog-card">
         <a href="{{ post.url }}" class="blog-card__link">
-          <div class="blog-card__hero" style="background-color: {{post.data.heroColor | default("black")}}{% if post.data.heroColor %};height: 10px;margin-top: 90px;{% endif %}{% if post.data.hero -%}; background-image: url({{post.data.hero}}){%- endif %}"></div>
+          <div class="blog-card__hero" style="{% if post.data.heroColor %}border-bottom: 10px solid {{post.data.heroColor | default("black")}};padding-top: 90px;{% endif %}{% if post.data.hero -%}; background-image: url({{post.data.hero}}){%- endif %}"></div>
           <h3 class="blog-card__title h5">{{ post.data.title }}</h3>
           <p class="blog-card__desc">{{ post.data.description }}</p>
           <time datetime="{{ post.date | htmlDateString }}" class="blog-card__date">{{ post.date | readableDate }}</time>
