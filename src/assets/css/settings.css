@@ -1,4 +1,6 @@
 :root, [data-theme="light"] {
+  --primary-color: #66c3ff;
+  --secondary-color: #e55381;
   --main-background-color: white;
   --main-font-color: #41464d;
   --main-link-color: #0077cc;
@@ -19,6 +21,8 @@
 }
 
 [data-theme="dark"], .-force-dark {
+  --primary-color: #66c3ff;
+  --secondary-color: #e55381;
   --main-background-color: #161b20;
   --main-font-color: #e3e9f0;
   --main-link-color: #66c3ff;
@@ -36,6 +40,7 @@
   --codeblock-color: #ff7f11;
   --date-color: #a4a4a4;
   --article-header-color: #ffffff;
-  --article-intro-color: #ffffff;
+  --article-other-header-color: #8a66ff;
+  --article-other-header-color: #e55381;
   --main-page-header-font-color: #ffffff;
 }

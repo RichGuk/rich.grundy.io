@@ -6,6 +6,14 @@
   }
 
   &__title {
+    a {
+      color: var(--secondary-color);
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
     @media (min-width: 1024px) {
       font-size: 2.6rem;
       margin-bottom: 0.75rem;

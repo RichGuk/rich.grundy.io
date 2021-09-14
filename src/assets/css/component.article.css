@@ -68,10 +68,15 @@
   &__content {
     margin: 0 0.75rem;
 
+    h1,h2,h3,h4,h5,h6 {
+      color: var(--article-other-header-color);
+    }
+
+
     p:first-child {
-      color: var(--article-intro-color);
       font-weight: bold;
       margin-bottom: 3rem;
+
     }
 
     a {
