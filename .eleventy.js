@@ -24,7 +24,8 @@ module.exports = (eleventyConfig) => {
   eleventyConfig.addLayoutAlias("pages", "layouts/pages.njk")
 
   eleventyConfig
-    .addPassthroughCopy({ "src/assets/static": "/assets" })
+    .addPassthroughCopy({ "src/assets/images": "/assets/images" })
+    .addPassthroughCopy({ "src/assets/fonts": "/assets/fonts" })
     .addPassthroughCopy({ "src/assets/vendor": "vendor" })
     .addPassthroughCopy({ "src/public": "/" })
 
