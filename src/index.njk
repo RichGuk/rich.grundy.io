@@ -15,7 +15,7 @@ priority: 1
     <h2 class="homepage-ramblings__title h3">Ramblings</h2>
 
     <ul class="blog-card-wrapper">
-      {% for post in collections.post | reverse | limit(8) %}
+      {% for post in collections.posts | reverse | limit(8) %}
       <li class="blog-card">
         <a href="{{ post.url }}" class="blog-card__link">
           <div class="blog-card__hero"

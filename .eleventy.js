@@ -1,20 +1,12 @@
-const fs = require("fs")
-const path = require("path")
-const htmlmin = require("html-minifier")
-
-const manifestPath = path.resolve(__dirname, "dist", "assets-manifest.json")
-let manifest = {}
-if (fs.existsSync(manifestPath)) {
-  manifest = JSON.parse(fs.readFileSync(manifestPath, { encoding: "utf8" }))
-}
+const shortcodes = require("./utils/shortcodes.js")
 const filters = require("./utils/filters.js")
+const collections = require("./utils/collections.js")
+const transforms = require("./utils/transforms.js")
 
 const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight")
 const pluginRss = require("@11ty/eleventy-plugin-rss")
 
 module.exports = (eleventyConfig) => {
-  const devMode = process.env.NODE_ENV !== "production"
-
   eleventyConfig.setDataDeepMerge(true)
 
   eleventyConfig.addPlugin(syntaxHighlight)
@@ -29,64 +21,27 @@ module.exports = (eleventyConfig) => {
     .addPassthroughCopy({ "src/assets/vendor": "vendor" })
     .addPassthroughCopy({ "src/public": "/" })
 
-  eleventyConfig.addShortcode("assetUrl", (name) => {
-    if (!manifest[name]) {
-      return name
-    }
-    return manifest[name]
-  })
-
-  eleventyConfig.addShortcode(
-    "imageTag",
-    (src, desc = "") => {
-      src = devMode ? `/assets/images/${src}` : `//media.rich.grundy.io/${src}`
-      const file = `${path.dirname(src)}/${path.basename(src, path.extname(src))}`
-      return `<picture><source srcset="${file}.avif" type="image/avif" loading="lazy"><source srcset="${file}.webp" type="image/webp" loading="lazy"><img src="${src}" alt="${desc}" loading="lazy"></picture>`
-    }
-  )
-
-  eleventyConfig.addCollection("tagList", function (collection) {
-    const tags = [...collection.getAll()].reduce((acc, item) => {
-      if (item.data.tags) {
-        filters.withoutSpecialTags(item.data.tags).forEach((tag) => {
-          acc[tag] ||= 0
-          acc[tag] += 1
-        })
-      }
-
-      return acc
-    }, {})
-
-    return Object.keys(tags).sort().reduce((acc, tag) => {
-      acc[tag] = { slug: filters.slug(tag), count: tags[tag] }
-      return acc
-    }, {})
-  })
-
-  Object.keys(filters).forEach((name) => {
-    eleventyConfig.addFilter(name, filters[name])
-  })
-
   eleventyConfig.setBrowserSyncConfig({
     files: [
       "./dist/assets"
     ]
   })
 
-  // Minify HTML in for the prod build.
-  if (!devMode) {
-    eleventyConfig.addTransform("htmlmin", (content, outputPath) => {
-      if (outputPath.endsWith(".html")) {
-        const minified = htmlmin.minify(content, {
-          useShortDoctype: true,
-          removeComments: true,
-          collapseWhitespace: true
-        })
-        return minified
-      }
-      return content
-    })
-  }
+  Object.keys(shortcodes).forEach((name) => {
+    eleventyConfig.addShortcode(name, shortcodes[name])
+  })
+
+  Object.keys(filters).forEach((name) => {
+    eleventyConfig.addFilter(name, filters[name])
+  })
+
+  Object.keys(collections).forEach((name) => {
+    eleventyConfig.addCollection(name, collections[name])
+  })
+
+  Object.keys(transforms).forEach((name) => {
+    eleventyConfig.addTransform(name, transforms[name])
+  })
 
   return {
     dir: {
@@ -94,7 +49,6 @@ module.exports = (eleventyConfig) => {
       output: "dist"
     },
     htmlTemplateEngine: "njk",
-    markdownTemplateEngine: "njk",
-    passthroughFileCopy: true
+    markdownTemplateEngine: "njk"
   }
 }
