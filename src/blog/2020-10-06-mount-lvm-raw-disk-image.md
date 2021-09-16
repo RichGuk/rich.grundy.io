@@ -1,7 +1,7 @@
 ---
 title: Mounting LVM raw disk image on Linux
 description: "The commands needed to mount a raw disk image containing LVM partition."
-hero: /assets/images/blog/2020-10-06-mounting-lvm-raw-disk-image-on-linux/hero.webp
+hero: //media.rich.grundy.io/blogs/2020-10-06-mounting-lvm-raw-disk-image-on-linux/hero.webp
 tags:
   - linux
   - howto

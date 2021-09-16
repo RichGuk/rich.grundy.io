@@ -1,6 +1,6 @@
 ---
 title: "Steam Deck"
-hero: /assets/images/blog/2021-07-17-steam-deck/hero.jpg
+hero: //media.rich.grundy.io/blogs/2021-07-17-steam-deck/hero.jpg
 description: "I reserved a Steam Deck. And I'm super excited about it."
 tags: technology
 ---
@@ -22,7 +22,7 @@ Order, apparently on high settings, sounds promising. Games will run well enough
 for me either way (there is that slight worry as the hardware isn't upgradable).
 But the ability to play through my Steam backlog. Win.
 
-<a><img src="/assets/images/blog/2021-07-17-steam-deck/deck.jpg"  class="figure center"></a>
+<a><img src="//media.rich.grundy.io/blogs/2021-07-17-steam-deck/deck.jpg"  class="figure center"></a>
 
 Gaming isn't my sole reason for preordering.  The openness of the platform is a
 big win for me. Valve decided to keep the system unlocked. It's just a PC. You

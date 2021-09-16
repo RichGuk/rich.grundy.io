@@ -1,6 +1,6 @@
 ---
 title: "So long, and thanks for all the ink"
-hero: /assets/images/blog/2021-03-25-so-long-and-thanks-for-the-ink/hero.webp
+hero: //media.rich.grundy.io/blogs/2021-03-25-so-long-and-thanks-for-the-ink/hero.webp
 tags: life
 ---
 
