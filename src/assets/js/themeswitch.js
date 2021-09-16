@@ -2,7 +2,7 @@ export default function () {
   document.querySelector('.js-themeswitcher').addEventListener('click', () => {
     const transition = 'color 350ms ease 0s, background 350ms ease 0s';
     document.getElementsByTagName('body')[0].style.transition = transition;
-    const hero = document.querySelector('.article__header.-hero');
+    const hero = document.querySelector('.article__header');
     if (hero) {
       hero.style.transition = transition;
     }
