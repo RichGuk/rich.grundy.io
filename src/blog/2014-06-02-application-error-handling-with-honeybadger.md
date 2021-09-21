@@ -3,7 +3,6 @@ title: "Application error handling with Honeybadger"
 description: "How we use Honeybadger to efficiently handle our application
               errors. Gone are the days of tons of exception emails and hard to
               read log files!"
-hero: //media.rich.grundy.io/blogs/2014-06-02-application-error-handling-with-honeybadger/honeybadger.jpg
 tags:
   - ruby
 ---

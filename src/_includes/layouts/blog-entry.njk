@@ -3,24 +3,25 @@ layout: layouts/base
 ---
 <main class="article">
   {%- if hero %}
-  <div class="article__hero" style="background-image: url({{ hero }});"></div>
+  <div class="article__hero"
+       style='background-image: image-set(url("{{heroBaseUrl}}/hero.avif") type("image/avif"), url("{{heroBaseUrl}}/hero.webp") type("image/webp"),url("{{heroBaseUrl}}/hero.jpg") type("image/jpg"))'>
+  </div>
   {%- endif %}
   <div class="article__header {% if hero %}-hero{% else %}-nohero{% endif %}">
     <div class="blog-meta">
       <time datetime="{{ page.date | htmlDateString }}" class="blog-meta__date">{{ page.date | readableDate }}</time>
       {% set tags = tags | validTags %}
       {%- if tags.length > 0 -%}
-        <ul class="taglist -inline blog-meta__tag-list">
-          {%- for tag in tags -%}
-          <li class="taglist__item"><a class="taglist__link" href="/tag/{{ tag }}/">#{{ tag }}</a></li>
-          {%-  endfor -%}
-        </ul>
+      <ul class="taglist -inline blog-meta__tag-list">
+        {%- for tag in tags -%}
+        <li class="taglist__item"><a class="taglist__link" href="/tag/{{ tag }}/">#{{ tag }}</a></li>
+        {%-  endfor -%}
+      </ul>
       {% endif -%}
     </div>
-
     <h1 class="article__title">{{ title }}</h1>
   </div>
   <div class="article__content">
-  {{ content | safe }}
+    {{ content | safe }}
   </div>
 </main>

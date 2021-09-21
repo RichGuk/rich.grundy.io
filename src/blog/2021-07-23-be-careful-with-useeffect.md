@@ -1,7 +1,6 @@
 ---
 title: Be careful with useEffect
 description: "Be careful when using useEffect, you might not realise you're returning."
-hero: //media.rich.grundy.io/blogs/be-careful-with-useeffect/hero.png
 tags:
   - javascript
   - react

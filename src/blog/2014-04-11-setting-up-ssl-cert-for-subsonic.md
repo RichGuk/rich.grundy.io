@@ -2,7 +2,6 @@
 postSlug: "setting-up-ssl-cert-for-subsonic"
 title: Setting up a valid SSL certificate for Subsonic
 description: Make your Linux Subsonic installtion secure with a valid SSL certificate.
-hero: //i.imgur.com/2ZGUdCW.jpg
 ---
 
 Due to the recent OpenSSL issues ([Heartbleed][heartbleed]) I've been rekeying my

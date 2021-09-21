@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
   layout: 'layouts/blog-entry',
   tags: 'post',
@@ -7,5 +9,10 @@ module.exports = {
   priority: '0.9',
   eleventyComputed: {
     posts: (data) => data.collections.post,
+    heroBaseUrl: (data) => {
+      return process.env.NODE_ENV === 'production'
+        ? `//media.rich.grundy.io/blog/${path.basename(data.page.url)}`
+        : `/assets/images/blog/${path.basename(data.page.url)}`;
+    },
   },
 };

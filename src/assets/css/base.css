@@ -27,7 +27,7 @@ a:hover {
   color: var(--main-link-color-hover);
 }
 
-p {margin: 0 0 1.5rem 0;}
+p, iframe {margin: 0 0 1.5rem 0;}
 h1, h2, h3, h4, h5 {
   color: var(--main-heading-color);
   margin: 3rem 0 1.38rem;

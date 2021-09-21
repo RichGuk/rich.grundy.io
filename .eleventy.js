@@ -32,6 +32,15 @@ module.exports = (eleventyConfig) => {
     return manifest[name];
   });
 
+  eleventyConfig.addShortcode(
+    'imageTag',
+    (src, desc = '') => {
+      src = devMode ? `/assets/images/${src}` : `//media.rich.grundy.io/${src}`
+      const file = `${path.dirname(src)}/${path.basename(src, path.extname(src))}`
+      return `<picture><source srcset="${file}.avif" type="image/avif" loading="lazy"><source srcset="${file}.webp" type="image/webp" loading="lazy"><img src="${src}" alt="${desc}" loading="lazy"></picture>`;
+    }
+  );
+
   eleventyConfig.addCollection('tagList', function (collection) {
     let newTags = {};
 
