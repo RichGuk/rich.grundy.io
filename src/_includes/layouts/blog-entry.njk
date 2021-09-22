@@ -4,7 +4,7 @@ layout: layouts/base
 <main class="article">
   {%- if hero %}
   <div class="article__hero"
-       style='background-image: image-set(url("{{heroBaseUrl}}/hero.avif") type("image/avif"), url("{{heroBaseUrl}}/hero.webp") type("image/webp"),url("{{heroBaseUrl}}/hero.jpg") type("image/jpg"))'>
+       style='background-image: url("{{heroBaseUrl}}/hero.jpg"); background-image: image-set(url("{{heroBaseUrl}}/hero.avif") type("image/avif"), url("{{heroBaseUrl}}/hero.webp") type("image/webp"),url("{{heroBaseUrl}}/hero.jpg") type("image/jpg"))'>
   </div>
   {%- endif %}
   <div class="article__header {% if hero %}-hero{% else %}-nohero{% endif %}">
