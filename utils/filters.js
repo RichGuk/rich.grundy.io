@@ -2,7 +2,7 @@ const slugify = require('slugify');
 const { DateTime } = require('luxon');
 
 const slugFilter = (str) => {
-  return slugify(str, {
+  return slugify(str.replace(/\//g, '-'), {
     remove: /[*+~.()'"!:@,?]/g,
     replacement: '-',
     lower: true,
