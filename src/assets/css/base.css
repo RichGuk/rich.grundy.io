@@ -120,6 +120,7 @@ pre[class*="language-"] {
 
 :not(pre) > code[class*="language-"],
 pre[class*="language-"] {
+  border: 1px solid var(--code-border);
   background: var(--code-background);
 }
 
