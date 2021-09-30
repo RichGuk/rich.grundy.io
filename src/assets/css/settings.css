@@ -24,7 +24,7 @@
 
 [data-theme="dark"], .-force-dark {
   --primary-color: #66c3ff;
-  --secondary-color: #e55381;
+  --secondary-color: #3772ff;
   --main-background-color: #0d1117;
   --main-font-color: #e3e9f0;
   --main-link-color: #66c3ff;
@@ -44,6 +44,6 @@
   --date-color: #a4a4a4;
   --article-header-color: #ffffff;
   --article-other-header-color: #8a66ff;
-  --article-other-header-color: #e55381;
+  --article-other-header-color: #3772ff;
   --main-page-header-font-color: #ffffff;
 }
