@@ -1,31 +1,31 @@
 #!/usr/bin/env node
 
-const fs = require('fs');
-const path = require('path');
-const filters = require('../utils/filters.js');
-const { DateTime } = require('luxon');
-const args = process.argv.slice(2);
-const currentDate = DateTime.now().toISODate();
-const filePath = path.resolve(__dirname, '../src/blog/');
+const fs = require("fs")
+const path = require("path")
+const filters = require("../utils/filters.js")
+const { DateTime } = require("luxon")
+const args = process.argv.slice(2)
+const currentDate = DateTime.now().toISODate()
+const filePath = path.resolve(__dirname, "../src/blog/")
 
-const title = args[0];
-const slug = `${filters.slug(title)}`;
-const tags = args.slice(1);
-const filename = path.join(filePath, `${currentDate}-${slug}.md`);
+const title = args[0]
+const slug = `${filters.slug(title)}`
+const tags = args.slice(1)
+const filename = path.join(filePath, `${currentDate}-${slug}.md`)
 
-let content = `
+const content = `
 ---
 title: ${title}
 description: ""
 hero: //media.rich.grundy.io/blogs/${slug}/hero.webp
 tags:
-${tags.map((t) => `  - ${t}`).join('\n')}
+${tags.map((t) => `  - ${t}`).join("\n")}
 ---
 
-`;
+`
 
 fs.writeFile(filename, content.trim(), (e) => {
   if (e) {
-    throw e;
+    throw e
   }
-});
+})

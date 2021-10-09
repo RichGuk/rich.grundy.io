@@ -1,13 +1,13 @@
-import GLightbox from 'glightbox';
+import GLightbox from "glightbox"
 
-function loader() {
+function loader () {
   GLightbox({
-    selector: '.js-glightbox',
-  });
+    selector: ".js-glightbox"
+  })
 }
 
-if (document.readyState !== 'loading') {
-  loader();
+if (document.readyState !== "loading") {
+  loader()
 } else {
-  window.addEventListener('DOMContentLoaded', loader);
+  window.addEventListener("DOMContentLoaded", loader)
 }
