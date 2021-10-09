@@ -1,4 +1,4 @@
-import themeSwitcher from './themeswitch';
+import themeSwitcher from './modules/themeswitch';
 // import Carousel from './carousel';
 
 function loader() {

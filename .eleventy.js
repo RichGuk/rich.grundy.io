@@ -4,7 +4,10 @@ const htmlmin = require('html-minifier');
 const { DateTime } = require('luxon');
 
 const manifestPath = path.resolve(__dirname, 'dist', 'assets-manifest.json');
-const manifest = JSON.parse(fs.readFileSync(manifestPath, { encoding: 'utf8' }));
+let manifest = {};
+if (fs.existsSync(manifestPath)) {
+  manifest = JSON.parse(fs.readFileSync(manifestPath, { encoding: 'utf8' }));
+}
 const filters = require('./utils/filters.js');
 
 const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
@@ -25,9 +28,9 @@ module.exports = (eleventyConfig) => {
     .addPassthroughCopy({ 'src/assets/static': '/assets' })
     .addPassthroughCopy({ 'src/assets/vendor': 'vendor' });
 
-  eleventyConfig.addShortcode('assetDigest', (name) => {
+  eleventyConfig.addShortcode('assetUrl', (name) => {
     if (!manifest[name]) {
-      throw new Error(`The asset ${name} does not exist in ${manifestPath}`);
+      return name;
     }
     return manifest[name];
   });
@@ -71,8 +74,9 @@ module.exports = (eleventyConfig) => {
     eleventyConfig.addFilter(name, filters[name]);
   });
 
-  // Reload the page if any JS/CSS files cause manifest.json update.
-  eleventyConfig.setBrowserSyncConfig({ files: [manifestPath] });
+  eleventyConfig.setBrowserSyncConfig({ files: [
+    './dist/assets'
+  ] });
 
   // Minify HTML in for the prod build.
   if (!devMode) {

@@ -1,0 +1,35 @@
+#!/usr/bin/env node
+const fs = require('fs');
+const crypto = require('crypto');
+const path = require('path');
+const glob = require('glob');
+const zlib = require('zlib');
+
+let manifest = {};
+glob.sync('dist/assets/{css,js}/*').forEach((originalFile) => {
+  const file = originalFile.replace('dist', '');
+  const extName = path.extname(file);
+  const baseName = path.basename(file, extName);
+  const filePath = path.dirname(file);
+
+  const content = fs.readFileSync(originalFile);
+  const hash = crypto.createHash('md5');
+  hash.update(content);
+  const digest = hash.digest('hex').slice(0, 20);
+
+  const newFilename = `${filePath}/${baseName}.${digest}${extName}`;
+
+  const gzip = zlib.createGzip();
+  const readSteam = fs.createReadStream(originalFile);
+  const writeStream = fs.createWriteStream(`./dist/${newFilename}.gz`);
+  writeStream.on('finish', () => {
+    fs.renameSync(originalFile, `./dist/${newFilename}`);
+  });
+
+  readSteam.pipe(gzip).pipe(writeStream);
+
+  manifest = { ...manifest, [file]: newFilename };
+});
+
+const manifestData = JSON.stringify(manifest);
+fs.writeFileSync('./dist/assets-manifest.json', manifestData);
