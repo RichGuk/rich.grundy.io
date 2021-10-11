@@ -1,7 +1,7 @@
 ---
 title: "So long, and thanks for all the ink"
 hero: true
-tags: life
+tags: personal
 ---
 
 So, 25th March 2021 was my last day at

@@ -5,7 +5,6 @@ Luks encrypted SSD with Systemd-boot and KDE desktop, then this is the post."
 hero: //media.rich.grundy.io/blogs/2020-05-05-archlinux/hero.png
 tags:
   - linux
-  - howto
 ---
 
 I've been a Linux user since the 2000s starting on Mandrake with KDE2, however,

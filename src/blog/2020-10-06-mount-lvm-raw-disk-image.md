@@ -4,7 +4,6 @@ description: "The commands needed to mount a raw disk image containing LVM parti
 hero: //media.rich.grundy.io/blogs/2020-10-06-mounting-lvm-raw-disk-image-on-linux/hero.webp
 tags:
   - linux
-  - howto
 ---
 
 The other day I needed to extract some files from a raw disk backup; problem is

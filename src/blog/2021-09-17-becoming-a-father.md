@@ -4,9 +4,7 @@ description: ""
 heroColor: "#FFD23F"
 hero: true
 tags:
-  - life
-  - parenting
-  - joshua
+  - personal
 ---
 
 This past June, Livvy and I became parents for the first time to a baby boy.

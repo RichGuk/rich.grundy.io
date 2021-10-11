@@ -5,7 +5,8 @@ description:
   Duplicity is a backup solution that you can use to backup your VPS. This howto
   shows how to get this setup for simple automatic encrypted backups.
 tags:
-  - howto
+  - linux
+  - backups
 ---
 It's always a good idea to backup your data; it gives you protection from data loss and hardware failure. If you host sensitive data, or applications for customers, it's a good idea to encrypt the backups, ensuring their secure and can be safely kept just about anywhere.
 

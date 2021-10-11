@@ -2,7 +2,8 @@
 title: Setting up Nginx with Rails
 description: How to setup Ruby on Rails application with Nginx.
 tags:
-  - howto
+  - networking
+  - rails
 ---
 So the other day I decided to switch from using Apache to [Nginx](http://nginx.net/) not because apache isn't any good, far from it. Nginx just uses much less ram and when you're on a fairly small slice, using up more ram just isn't good. I was going to benchmark speed and things between apache and nginx but I forgot to take some readings before stopping the apache service and installing nginx so we'll skip over that idea like the thought never came into my head.
 

@@ -1,12 +1,10 @@
 .topics {
-  display: flex;
-  align-items: center;
-  margin-bottom: 3rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid var(--main-div-color);
 
   &__title {
-    margin: 0 10px 0 0;
-    font-size: 1rem;
-    flex: 0 0 auto;
+    font-size: 0.9em;
+    margin-bottom: 1rem;
   }
 
   &__list {

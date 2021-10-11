@@ -2,7 +2,7 @@
 title: "Caching assets on Netlify"
 heroColor: "#0d6286"
 tags:
-  - hosting
+  - services
 ---
 
 For some reason, I never thought to check until now. But caching wasn't working

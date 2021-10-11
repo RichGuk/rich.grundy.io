@@ -24,15 +24,15 @@
 
 [data-theme="dark"], .-force-dark {
   --primary-color: #66c3ff;
-  --secondary-color: #3772ff;
-  --main-background-color: #0d1117;
+  --secondary-color: #ffc857;
+  --main-background-color: #1d2126;
   --main-font-color: #e3e9f0;
   --main-link-color: #66c3ff;
   --main-link-color-hover: #addeff;
   --main-div-color: #3e3e3e;
   --main-heading-color: #ffffff;
   --main-sub-heading-color: #b3b3b3;
-  --code-background: #181818;
+  --code-background: #121417;
   --code-border: #4d4d4d;
   --me-color: #7ca1bd;
   --border-color: #4f5051;
@@ -40,10 +40,9 @@
   --alt-background-color: #1a1e22;
   --alt-color: #d0cfcf;
   --subtle-alt-color: #959393;
-  --codeblock-color: #e5a638;
+  --codeblock-color: white;
   --date-color: #a4a4a4;
   --article-header-color: #ffffff;
-  --article-other-header-color: #8a66ff;
-  --article-other-header-color: #3772ff;
+  --article-other-header-color: #ffc857;
   --main-page-header-font-color: #ffffff;
 }

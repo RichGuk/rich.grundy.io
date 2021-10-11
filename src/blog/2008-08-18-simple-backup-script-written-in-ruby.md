@@ -4,8 +4,7 @@ description:
   Simple Ruby backup script that interfaces with Rsync to for weekly
   incremental backups.
 tags:
-  - post
-  - projects
+  - ruby
 ---
 I've written a simple backup script in Ruby that utilises Rsync I've made it public so feel free to fork, change and contribute!
 
