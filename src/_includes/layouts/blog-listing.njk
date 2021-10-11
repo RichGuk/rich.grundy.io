@@ -7,9 +7,9 @@ eleventyExcludeFromCollections: true
   <h4 class="topics__title">Search blogs by topics</h4>
   <ul class="topics__list taglist">
     <li class="taglist__item"><a class="taglist__link {% if page.url == '/blog/' %}-is-active{% endif %}"  href="/blog/">all</a></li>
-    {% for tag, _ in collections.tagList %}
-      {% set tagUrl %}/tag/{{ tag }}/{% endset %}
-      <li class="taglist__item"><a class="taglist__link {% if page.url == tagUrl %}-is-active{% endif %}"  href="{{ tagUrl }}">#{{ tag }}</a></li>
+    {% for tag, data in collections.tagList %}
+      {% set tagUrl %}/tag/{{ data['slug'] }}/{% endset %}
+      <li class="taglist__item"><a title="{{ data['count'] }} articles for {{ tag }}" class="taglist__link {% if page.url == tagUrl %}-is-active{% endif %}"  href="{{ tagUrl }}">#{{ data['slug'] }}</a></li>
     {% endfor %}
   </ul>
 </div>
