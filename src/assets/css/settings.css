@@ -23,11 +23,11 @@
 }
 
 [data-theme="dark"], .-force-dark {
-  --primary-color: #66c3ff;
-  --secondary-color: #ffc857;
-  --main-background-color: #1d2126;
+  --primary-color: #52aef4;
+  --secondary-color: #06D6A0;
+  --main-background-color: #1e1f26;
   --main-font-color: #e3e9f0;
-  --main-link-color: #66c3ff;
+  --main-link-color: var(--primary-color);
   --main-link-color-hover: #addeff;
   --main-div-color: #3e3e3e;
   --main-heading-color: #ffffff;
@@ -43,6 +43,6 @@
   --codeblock-color: white;
   --date-color: #a4a4a4;
   --article-header-color: #ffffff;
-  --article-other-header-color: #ffc857;
+  --article-other-header-color: #06D6A0;
   --main-page-header-font-color: #ffffff;
 }
