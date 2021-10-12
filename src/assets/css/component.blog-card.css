@@ -47,9 +47,17 @@
   }
 
   &__hero {
+    position: relative;
     display: block;
     height: 100px;
     background-size: cover;
+  }
+
+  &__hero-icon {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 2rem;
   }
 
   &__title {

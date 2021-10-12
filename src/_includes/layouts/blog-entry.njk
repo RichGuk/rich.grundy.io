@@ -18,6 +18,10 @@ layout: layouts/base
         {%-  endfor -%}
       </ul>
       {% endif -%}
+
+      {%- if heroIcon %}
+      <i class="blog-meta__icon {{ heroIcon }}"></i>
+      {% endif -%}
     </div>
     <h1 class="article__title">{{ title }}</h1>
   </div>

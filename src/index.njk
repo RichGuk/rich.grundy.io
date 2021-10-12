@@ -19,7 +19,19 @@ priority: 1
       {% for post in collections.post | reverse | limit(4) %}
       <li class="blog-card">
         <a href="{{ post.url }}" class="blog-card__link">
-          <div class="blog-card__hero" style='{% if not post.data.hero %}background: black;border-bottom: 3px solid {{post.data.heroColor | default("black")}};padding-top: 90px;{% endif %}{% if post.data.hero -%}; background-image: url("{{post.data.heroBaseUrl}}/hero-small.jpg"); background-image: image-set(url("{{post.data.heroBaseUrl}}/hero-small.avif") type("image/avif"), url("{{post.data.heroBaseUrl}}/hero-small.webp") type("image/webp"),url("{{post.data.heroBaseUrl}}/hero-small.jpg") type("image/jpg")){%- endif %}'></div>
+          <div class="blog-card__hero"
+            style='
+            {% if post.data.hero -%}
+            background-image: url("{{post.data.heroBaseUrl}}/hero-small.jpg");
+            background-image: image-set(url("{{post.data.heroBaseUrl}}/hero-small.avif") type("image/avif"), url("{{post.data.heroBaseUrl}}/hero-small.webp") type("image/webp"),url("{{post.data.heroBaseUrl}}/hero-small.jpg") type("image/jpg"));
+            {%- else -%}
+              background: black;
+              border-bottom: 3px solid {{post.data.heroColor | default("black")}};
+              padding-top: 90px;
+            {%- endif %}
+          '>
+            {% if not post.data.hero and post.data.heroIcon %}<i class="blog-card__hero-icon {{ post.data.heroIcon }}"></i>{% endif %}
+          </div>
           <h3 class="blog-card__title h5">{{ post.data.title }}</h3>
           <p class="blog-card__desc">{{ post.data.description }}</p>
           <time datetime="{{ post.date | htmlDateString }}" class="blog-card__date">{{ post.date | readableDate }}</time>
