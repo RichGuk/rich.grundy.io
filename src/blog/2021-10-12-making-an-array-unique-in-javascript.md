@@ -31,7 +31,7 @@ const newItems = [...new Set(items)]
 // [ 'item1', 'item2', 'item3', 'item4' ]
 ```
 
-`Set` create a unique mapping, which we convert to a new Array using the spread
+`Set` creates a unique mapping, which we convert to a new Array using the spread
 operator '`...`' to give us the new list. Neat!
 
 If you're stuck supporting ES5/older browsers (IE9+), you can use the less
