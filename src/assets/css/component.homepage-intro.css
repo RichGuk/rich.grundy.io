@@ -7,7 +7,7 @@
 
   &__title {
     a {
-      color: var(--secondary-color);
+      color: var(--primary-color);
 
       &:hover {
         text-decoration: underline;

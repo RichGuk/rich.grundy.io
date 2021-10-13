@@ -1,5 +1,5 @@
 export default function () {
-  document.querySelector(".js-themeswitcher").addEventListener("click", () => {
+  document.querySelector(".js-themeswitcher:not(.-is-disabled)").addEventListener("click", () => {
     const transition = "color 350ms ease 0s, background 350ms ease 0s"
     document.getElementsByTagName("body")[0].style.transition = transition
     const hero = document.querySelector(".article__header")

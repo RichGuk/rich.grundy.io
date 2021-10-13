@@ -1,15 +1,20 @@
 .main-nav {
+  margin-top: -5px;
   a {
     color: inherit;
     margin: 0 0.375rem;
+    padding-bottom: 5px;
     font-size: 1rem;
 
     &:last-child { margin-right: 0; }
     &:hover { color: var(--main-link-color-hover); }
 
     @media (min-width: 700px) {
-      font-size: 1.125rem;
       margin: 0 0.75rem;
+    }
+
+    &.-is-active {
+      border-bottom: 5px solid var(--primary-color);
     }
   }
 }

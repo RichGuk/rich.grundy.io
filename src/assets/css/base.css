@@ -8,7 +8,7 @@ html {
 body {
   background: var(--main-background-color);
   color: var(--main-font-color);
-  font-family: 'Catamaran',-apple-system,BlinkMacSystemFont,"Segoe UI Variable","Segoe UI",system-ui,ui-sans-serif,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji";
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI Variable","Segoe UI",system-ui,ui-sans-serif,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji";
   font-size: 1.1rem;
   line-height: 1.5;
   height: 100%;
@@ -50,7 +50,7 @@ small, .text_small {font-size: 0.889em;}
 .text-get-big { font-size: 2.986rem; }
 
 @media (min-width: 700px) {
-  h1,.h1 { font-size: 3.052rem; }
+  h1,.h1 { font-size: 3.252rem; }
   h2,.h2 { font-size: 2.274rem; }
   h3,.h3 { font-size: 1.8rem; }
   h4,.h4 { font-size: 1.44rem; }
@@ -138,12 +138,19 @@ pre[class*="language-"], pre {
   overflow-x: auto;
   font-size: 1rem;
 }
+pre > code {
+  display: block;
+}
 
 blockquote {
-  border-left: 5px solid var(--border-alt-color);
-  padding-left: 0.75rem;
+  border-left: 5px solid var(--primary-color);
+  padding: 0.75rem;
   font-size: 0.95em;
-  color: var(--subtle-alt-color);
+  background: var(--blockquote-background);
+
+  p:last-child {
+    margin-bottom: 0;
+  }
 }
 
 img { max-width: 100%; }

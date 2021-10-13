@@ -1,30 +1,20 @@
 .theme-switcher {
   color: #888;
-  margin-left: auto;
+  margin-left: 1rem;
+  cursor: pointer;
 
-  i {
-    cursor: pointer;
+  &.-is-disabled {
+    color: #333;
+    cursor: unset;
+  }
 
+  &:before {
+    content: "\e9d4";
+  }
+
+  [data-theme="dark"] & {
     &:before {
-      content: "\e9d4";
+      content: "\e904"
     }
-
-    [data-theme="dark"] & {
-      &:before {
-        content: "\e904"
-      }
-    }
-  }
-
-  &.-homepage {
-    display: block;
-    text-align: center;
-    margin-bottom: 1rem;
-  }
-
-  &.-global {
-    position: absolute;
-    top: -1rem;
-    right: 0.75rem;
   }
 }

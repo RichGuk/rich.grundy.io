@@ -16,6 +16,7 @@
     font-weight: bold;
     display: inline-flex;
     align-items: center;
+    font-size: 1rem;
 
     strong {
       display: none;

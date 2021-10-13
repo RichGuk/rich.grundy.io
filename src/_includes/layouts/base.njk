@@ -8,29 +8,6 @@
     <link rel="icon" href="/assets/images/avatar-circle.svg" type="image/svg+xml">
     <link rel="preload" as="image" href="/assets/images/avatar-sunglasses.svg">
     <link rel="preload" as="image" href="/assets/images/avatar.svg">
-    <style>
-@font-face {
-  font-family: 'Catamaran';
-  src: local('Catamaran Regular'), local('Catamaran-Regular'),
-  url('/assets/fonts/Catamaran-Regular.woff2') format('woff2');
-font-weight: normal;
-font-style: normal;
-font-display: fallback;
-}
-
-  @font-face {
-    font-family: 'Catamaran';
-    src: local('Catamaran Bold'), local('Catamaran-Bold'),
-    url('/assets/fonts/Catamaran-Bold.woff2') format('woff2');
-  font-weight: bold;
-  font-style: normal;
-  font-display: fallback;
-  }
-
-  body {
-    font-family: 'Catamaran',-apple-system,BlinkMacSystemFont,"Segoe UI Variable","Segoe UI",system-ui,ui-sans-serif,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji";
-  }
-    </style>
     <script>
       const wantsDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       const storedPreference = localStorage.getItem('theme');
@@ -47,7 +24,6 @@ font-display: fallback;
   </head>
   <body>
     <header class="main-header">
-      <div class="theme-switcher -global"><i class="js-themeswitcher icon-moon" title="Light/Dark mode"></i></div>
       <div class="main-header__logo">
         <a aria-label="Homepage" class="main-header__homelink" href="/">
           <span></span>
@@ -55,9 +31,10 @@ font-display: fallback;
         </a>
       </div>
       <nav class="main-header__nav main-nav">
-        <a href="/blog/">Writings</a>
-        <a href="/photography/">Photography</a>
-        <a href="/about/">About</a>
+        <a href="/blog/" class="{%- if "/blog" in page.url %}-is-active{% endif -%}">Writings</a>
+        <a href="/photography/" class="{%- if "/photography" in page.url %}-is-active{% endif -%}">Photography</a>
+        <a href="/about/" class="{%- if "/about" in page.url %}-is-active{% endif -%}">About</a>
+        <i class="js-themeswitcher {% if forceDark  %}-is-disabled {% endif %}icon-moon theme-switcher" title="Light/Dark mode"></i>
       </nav>
     </header>
 
