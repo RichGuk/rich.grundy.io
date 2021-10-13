@@ -27,7 +27,7 @@ a:hover {
   color: var(--main-link-color-hover);
 }
 
-p, iframe {margin: 0 0 1.5rem 0;}
+ul,ol, p, iframe {margin: 0 0 1.5rem 0;}
 h1, h2, h3, h4, h5 {
   color: var(--main-heading-color);
   margin: 3rem 0 1.38rem;
@@ -120,7 +120,6 @@ pre[class*="language-"] {
 
 :not(pre) > code[class*="language-"],
 pre[class*="language-"] {
-  border: 1px solid var(--code-border);
   background: var(--code-background);
 }
 

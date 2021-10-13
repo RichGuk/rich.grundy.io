@@ -42,8 +42,8 @@
 [data-theme="dark"], .-force-dark {
   --primary-color: #52aef4;
   --secondary-color: #06D6A0;
-  --main-background-color: #141d26;
-  --main-font-color: #d1d5db;
+  --main-background-color: #181d24;
+  --main-font-color: #a7b3c1;
   --main-link-color: var(--primary-color);
   --main-link-color-hover: #addeff;
   --main-div-color: #3e3e3e;

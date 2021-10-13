@@ -19,7 +19,7 @@
 
       @media (min-width: 1200px) {
         width: 60%;
-        margin-bottom: 4rem;
+        margin-bottom: 2rem;
       }
     }
 
@@ -77,9 +77,14 @@
 
 
     > p:first-child {
+      color: var(--article-header-color);
       font-weight: bold;
       margin-bottom: 3rem;
 
+    }
+
+    ul,ol {
+      line-height: 1.3;
     }
 
     >*:not(.-full,img,picture), .-keep-within {

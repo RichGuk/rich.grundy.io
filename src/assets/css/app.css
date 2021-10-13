@@ -2,7 +2,8 @@
 
 @import "glightbox/dist/css/glightbox.css";
 
-@import "vendor/prism-cb.css";
+/* @import "vendor/prism-cb.css"; */
+@import "vendor/prism-coldark-dark.css";
 
 @import "settings.css";
 @import "base.css";
