@@ -27,7 +27,10 @@ a:hover {
   color: var(--main-link-color-hover);
 }
 
-ul,ol, p, iframe {margin: 0 0 1.5rem 0;}
+ul,ol, p, iframe {
+  margin: 0 0 2rem 0;
+}
+
 h1, h2, h3, h4, h5 {
   color: var(--main-heading-color);
   margin: 3rem 0 1.38rem;
@@ -48,8 +51,8 @@ small, .text_small {font-size: 0.889em;}
 
 @media (min-width: 700px) {
   h1,.h1 { font-size: 3.052rem; }
-  h2,.h2 { font-size: 2.074rem; }
-  h3,.h3 { font-size: 1.728rem; }
+  h2,.h2 { font-size: 2.274rem; }
+  h3,.h3 { font-size: 1.8rem; }
   h4,.h4 { font-size: 1.44rem; }
   h5,.h5 { font-size: 1.2rem; }
   small, .text-small { font-size: 0.833rem; }
@@ -126,11 +129,10 @@ pre[class*="language-"] {
 :not(pre) > code, kbd, samp {
   font-family: "Fira Code", Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   color: var(--codeblock-color);
-  font-weight: bold;
 }
 
 pre[class*="language-"], pre {
-  margin: -0.57rem 0 1.72rem 0;
+  margin: -0.5rem 0 4rem 0;
   padding: 2rem;
   padding: 1.8rem 1.25rem 1.5rem 1.3rem;
   overflow-x: auto;
@@ -140,6 +142,7 @@ pre[class*="language-"], pre {
 blockquote {
   border-left: 5px solid var(--border-alt-color);
   padding-left: 0.75rem;
+  font-size: 0.95em;
   color: var(--subtle-alt-color);
 }
 

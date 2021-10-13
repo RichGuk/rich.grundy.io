@@ -17,26 +17,9 @@
   --alt-background-color: #272a2d;
   --alt-color: #333;
   --subtle-alt-color: #737373;
-  --codeblock-color: #e5a638;
+  --codeblock-color: #ffa200;
   --date-color: #30363e;
   --article-header-color: black;
-
-  --brand-color-digitalocean: #0080ff;
-  --brand-color-linode: #00a95c;
-  --brand-color-netlify: #00c7b7;
-  --brand-color-laravel: #ff2d20;
-  --brand-color-php: #777bb4;
-  --brand-color-vim: #019733;
-  --brand-color--archlinux: #1793d1;
-  --brand-color-go: #00add8;
-  --brand-color-rust: black;
-  --brand-color-python: #3776ab;
-  --brand-color-javascript: #f7df1e;
-  --brand-color-typescript: #007acc;
-  --brand-color-react: #61dafb;
-  --brand-color-vuejs: #4fc08d;
-  --brand-color-ruby: #cc342d;
-  --brand-color-elixir: #4e2a8e;
 }
 
 [data-theme="dark"], .-force-dark {
@@ -57,11 +40,28 @@
   --alt-background-color: #1a1e22;
   --alt-color: #d0cfcf;
   --subtle-alt-color: #959393;
-  --codeblock-color: white;
+  --codeblock-color: #ffffff;
   --date-color: #a4a4a4;
   --article-header-color: #ffffff;
   --article-other-header-color: #06D6A0;
   --main-page-header-font-color: #ffffff;
 }
 
-
+:root {
+  --brand-color-digitalocean: #0080ff;
+  --brand-color-linode: #00a95c;
+  --brand-color-netlify: #00c7b7;
+  --brand-color-laravel: #ff2d20;
+  --brand-color-php: #777bb4;
+  --brand-color-vim: #019733;
+  --brand-color--archlinux: #1793d1;
+  --brand-color-go: #00add8;
+  --brand-color-rust: black;
+  --brand-color-python: #3776ab;
+  --brand-color-javascript: #f7df1e;
+  --brand-color-typescript: #007acc;
+  --brand-color-react: #61dafb;
+  --brand-color-vuejs: #4fc08d;
+  --brand-color-ruby: #cc342d;
+  --brand-color-elixir: #4e2a8e;
+}
