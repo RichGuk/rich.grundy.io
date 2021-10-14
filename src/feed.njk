@@ -15,8 +15,8 @@ metadata:
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>{{ metadata.title }}</title>
   <subtitle>{{ metadata.subtitle }}</subtitle>
-  <link href="{{ site.feedUrl }}" rel="self"/>
-  <link href="{{ site.baseUrl }}"/>
+  <link href="{{ site.feedUrl }}" rel="self" type="application/atom+xml"/>
+  <link href="{{ site.baseUrl }}" rel="alternate" type="text/html"/>
   <updated>{{ collections.post | rssLastUpdatedDate }}</updated>
   <id>{{ site.baseUrl }}</id>
   <author>
