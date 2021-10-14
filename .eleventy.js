@@ -26,6 +26,7 @@ module.exports = (eleventyConfig) => {
   eleventyConfig
     .addPassthroughCopy({ "src/assets/static": "/assets" })
     .addPassthroughCopy({ "src/assets/vendor": "vendor" })
+    .addPassthroughCopy({ "src/public": "/" })
 
   eleventyConfig.addShortcode("assetUrl", (name) => {
     if (!manifest[name]) {
