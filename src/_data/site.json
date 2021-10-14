@@ -1,5 +1,7 @@
 {
+  "author": "Richard Grundy",
   "title": "Richard Grundy",
+  "description": "Rich Grundy is a full stack developer from the UK with over 10 years experience.",
   "baseUrl": "https://rich.grundy.io",
   "feedUrl": "https://rich.grundy.io/feed.xml"
 }

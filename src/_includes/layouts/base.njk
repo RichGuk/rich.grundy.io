@@ -2,7 +2,7 @@
 <html lang="en" data-theme="light" {% if forceDark %}class="-force-dark"{% endif %}>
   <head>
     <meta charset="utf-8">
-    {% if description %}<meta name="description" content="{{ description }}">{% endif %}
+    <meta name="description" content="{{ description or site.description }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% if title %}{{ title }} - {{ site.title }}{%- else -%}{{ site.title }}{% endif %}</title>
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -26,6 +26,11 @@
     <script async defer type="text/javascript" src="{% assetUrl '/assets/js/app.js' %}"></script>
     <script async defer data-domain="rich.grundy.io" src="https://plausible.grundy.io/js/plausible.js"></script>
     <link type="application/atom+xml" rel="alternate" href="{{ site.feedUrl }}" />
+    <meta name="author" content="{{ site.author }}">
+    <meta property="og:title" content="{{ title or site.title }}">
+    <meta property="og:description" content="{{ description or site.description }}">
+    <meta property="og:url" content="{{ site.baseUrl }}{{ page.url }}">
+    <meta property="og:image" content="{% if hero %}https://{{ heroBaseUrl }}/hero.jpg{% else %}{{ site.baseUrl }}/assets/images/avatar.jpg{% endif %}">
     {% block head %}
     {% endblock %}
   </head>
