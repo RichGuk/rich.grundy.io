@@ -8,6 +8,7 @@
   --main-div-color: #ccc;
   --main-heading-color: #333;
   --main-sub-heading-color: #757575;
+  --main-page-header-font-color: var(--main-font-color);
   --code-background: #181818;
   --code-border: transparent;
   --code-background: #141421;
@@ -27,6 +28,7 @@
   --primary-color: #06d6a0;
   --secondary-color: #52aef4;
   --main-background-color: #14181e;
+  --main-background-color: #0f1720;
   --main-font-color: #dbdddf;
   --main-link-color: #52aef4;
   --main-link-color-hover: #addeff;

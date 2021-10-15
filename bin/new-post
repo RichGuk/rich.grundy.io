@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 
-const fs = require("fs")
-const path = require("path")
-const filters = require("../utils/filters.js")
-const { DateTime } = require("luxon")
+const fs = require('fs')
+const path = require('path')
+const filters = require('../utils/filters.js')
+const { DateTime } = require('luxon')
 const args = process.argv.slice(2)
 const currentDate = DateTime.now().toISODate()
-const filePath = path.resolve(__dirname, "../src/blog/")
+const filePath = path.resolve(__dirname, '../src/blog/')
 
 const title = args[0]
 const slug = `${filters.slug(title)}`
@@ -19,7 +19,7 @@ title: ${title}
 description: ""
 hero: //media.rich.grundy.io/blogs/${slug}/hero.webp
 tags:
-${tags.map((t) => `  - ${t}`).join("\n")}
+${tags.map((t) => `  - ${t}`).join('\n')}
 ---
 
 `

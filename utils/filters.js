@@ -1,15 +1,15 @@
-const slugify = require("slugify")
-const { DateTime } = require("luxon")
+const slugify = require('slugify')
+const { DateTime } = require('luxon')
 
 const slugFilter = (str) => {
-  return slugify(str.replace(/\//g, "-"), {
+  return slugify(str.replace(/\//g, '-'), {
     remove: /[*+~.()'"!:@,?]/g,
-    replacement: "-",
+    replacement: '-',
     lower: true
   })
 }
 
-const specialTags = new Set(["post", "posts"])
+const specialTags = new Set(['post', 'posts', 'ramblings'])
 const withoutSpecialTags = (tags) =>
   tags.filter((t) => t && !specialTags.has(t))
 
@@ -17,11 +17,15 @@ module.exports = {
   slug: slugFilter,
 
   readableDate: (dateObj) => {
-    return DateTime.fromJSDate(dateObj).toFormat("dd LLL yyyy")
+    return DateTime.fromJSDate(dateObj).toFormat('dd LLL yyyy')
   },
 
   htmlDateString: (dateObj) => {
-    return DateTime.fromJSDate(dateObj).toFormat("yyyy-LL-dd")
+    return DateTime.fromJSDate(dateObj).toFormat('yyyy-LL-dd')
+  },
+
+  ISOTime: (dateObj) => {
+    return DateTime.fromJSDate(dateObj).toISO()
   },
 
   formatDate: (dateObj, format) => {
@@ -39,5 +43,5 @@ module.exports = {
     return withoutSpecialTags(tags).map((t) => slugFilter(t))
   },
 
-  withoutSpecialTags: withoutSpecialTags
+  withoutSpecialTags
 }

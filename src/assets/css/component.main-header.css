@@ -1,14 +1,30 @@
 .main-header {
   color: var(--main-page-header-font-color);
   display: flex;
-  margin: 1.5rem auto 3rem auto;
+  margin: 1rem auto 3rem auto;
   max-width: 80rem;
   align-items: center;
-  padding: 1rem 0.75rem 0;
-  position: relative;
+  padding: 0 0.75rem;
+
+  @media (min-width: 700px) {
+    margin-top: 2.5rem;
+  }
 
   &__logo {
     flex: 1 0 auto;
+    z-index: 2;
+
+    .-nav-open & {
+      @media (max-width: 700px) {
+        background-color: var(--main-background-color);
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 1rem 0.75rem;
+      }
+    }
   }
 
   &__homelink {
@@ -17,14 +33,6 @@
     display: inline-flex;
     align-items: center;
     font-size: 1rem;
-
-    strong {
-      display: none;
-
-      @media (min-width: 700px) {
-        display: block;
-      }
-    }
 
     span {
       background: url(/assets/images/avatar.svg);

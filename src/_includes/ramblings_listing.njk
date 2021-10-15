@@ -1,0 +1,26 @@
+<div class="microblog-wrapper">
+  {%- for post in posts %}
+  <article class="microblog">
+    <div class="microblog__header">
+      <h2 class="microblog__title">{{ post.data.title }}</h2>
+      <time class="microblog__date" datetime="{{ post.date | ISOTime }}" >{{ post.date | formatDate('dd LLL yyyy @ HH:mm') }}</time>
+    </div>
+
+    <div class="microblog__body">
+      {{ post.templateContent | safe }}
+
+      {% if post.data.tags %}
+      <div class="microblog__tags">
+        {% for tag in post.data.tags %}<a href="/ramblings/tag/{{tag}}">#{{tag}}</a>{% endfor %}
+      </div>
+      {% endif %}
+    </div>
+  </article>
+  {% endfor -%}
+
+    {% if pagination.nextPageHref and paginationLinks !== false %}
+    <div>
+      <a href="{{ pagination.nextPageHref }}">Next</a>
+    </div>
+    {% endif %}
+</div>

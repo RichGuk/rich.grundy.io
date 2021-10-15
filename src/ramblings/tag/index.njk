@@ -1,0 +1,11 @@
+---
+layout: "layouts/pages"
+paginationLinks: false
+pagination:
+  data: collections.ramblingTags
+  size: 1
+  alias: tag
+permalink: /ramblings/tag/{{ tag }}/
+---
+
+{% include "ramblings_listing.njk" %}

@@ -1,12 +1,15 @@
----
-layout: layouts/base
----
+{% extends "layouts/base.njk" %}
 
-<main class="main-content -standard">
+{% block content %}
+<main class="main-content -standard {% if centerHeader %}-center{% endif %}">
   <h1 class="main-content__title">{{ title }}</h1>
   <p class="main-content__desc">{{ description }}</p>
+  {% if extraDescription %}<p class="main-content__extra-desc">{{ extraDescription | safe }}</p>{% endif %}
 
   <div class="main-content__body">
-    {{ content | safe }}
+    {% block pageContent %}
+      {{ content | safe }}
+    {% endblock %}
   </div>
 </main>
+{% endblock %}

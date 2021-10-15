@@ -1,8 +1,23 @@
+[functions]
+node_bundler = "esbuild"
+external_node_modules = ["aws-crt"]
+
 [build]
   publish = "dist"
   command = "npm run build"
+  functions = "functions"
+
+[dev]
+  command = "npm run dev"
+  port = 8888
+  autoLaunch = false
 
 [[headers]]
   for="/assets/*"
   [headers.values]
   Cache-Control = "public, max-age=31536000"
+
+[[headers]]
+  for = "/ramblings-sw.js"
+  [headers.values]
+    Cache-Control = "max-age=0,no-cache,no-store,must-revalidate"

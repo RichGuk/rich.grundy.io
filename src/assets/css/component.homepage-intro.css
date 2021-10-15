@@ -15,16 +15,25 @@
     }
 
     @media (min-width: 1024px) {
-      font-size: 2.6rem;
+      font-size: 3rem;
       margin-bottom: 0.75rem;
     }
   }
 
   &__blurb {
-    max-width: 600px;
+    max-width: 800px;
+
+    a {
+      color: inherit;
+      text-decoration: underline;
+
+      &:hover {
+        color: var(--main-link-color-hover);
+      }
+    }
 
     @media (min-width: 1024px) {
-      font-size: 1.5rem;
+      font-size: 1.25rem;
     }
   }
 }

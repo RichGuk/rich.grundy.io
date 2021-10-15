@@ -1,6 +1,6 @@
-const fs = require("fs")
-const path = require("path")
-const htmlmin = require("html-minifier")
+const fs = require('fs')
+const path = require('path')
+const htmlmin = require('html-minifier')
 
 const minify = (content) => (
   htmlmin.minify(content, {
@@ -8,10 +8,10 @@ const minify = (content) => (
   })
 )
 
-const manifestPath = path.resolve(__dirname, "..", "dist", "assets-manifest.json")
+const manifestPath = path.resolve(__dirname, '..', 'dist', 'assets-manifest.json')
 let manifest = {}
 if (fs.existsSync(manifestPath)) {
-  manifest = JSON.parse(fs.readFileSync(manifestPath, { encoding: "utf8" }))
+  manifest = JSON.parse(fs.readFileSync(manifestPath, { encoding: 'utf8' }))
 }
 
 module.exports = {
@@ -23,8 +23,8 @@ module.exports = {
   },
 
   imageTag:
-  (src, desc = "") => {
-    src = process.env.NODE_ENV !== "production" ? `/assets/images/${src}` : `//media.rich.grundy.io/${src}`
+  (src, desc = '') => {
+    src = process.env.NODE_ENV !== 'production' ? `/assets/images/${src}` : `//media.rich.grundy.io/${src}`
     const file = `${path.dirname(src)}/${path.basename(src, path.extname(src))}`
 
     return minify(`

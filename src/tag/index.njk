@@ -3,13 +3,8 @@ layout: layouts/blog-listing
 description: "A random collection of my thoughts from programming and tech to general life."
 
 pagination:
-  data: collections
+  data: collections.tagList
   size: 1
   alias: tag
-  filter:
-   - all
-   - post
-   - tagList
 permalink: /tag/{{ tag | slug }}/
 ---
-

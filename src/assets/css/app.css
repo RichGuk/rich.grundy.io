@@ -16,7 +16,7 @@
 
 @import "component.homepage-blog.css";
 @import "component.homepage-photoset.css";
-@import "component.homepage-ramblings.css";
+@import "component.homepage-writings.css";
 @import "component.homepage-intro.css";
 @import "component.social-profiles.css";
 @import "component.homepage-nav.css";
@@ -29,3 +29,5 @@
 @import "component.gallery.css";
 @import "component.themeswitcher.css";
 @import "component.about.css";
+@import "component.microblog.css";
+@import "component.microblog-form.css";

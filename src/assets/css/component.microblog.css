@@ -1,0 +1,88 @@
+.microblog-wrapper {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.microblog {
+  --microblog-background: #20242b;
+  --microblog-background: #1b2735;
+
+  background-color: var(--microblog-background);
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+  padding: 1.5rem 1rem;
+  font-size: 1rem;
+
+  >*:last-child {
+    margin-bottom: 0;
+  }
+
+  a {
+    color: var(--primary-color);
+    text-decoration: underline;
+
+    &:hover {
+      color: var(--main-link-color-hover);
+    }
+  }
+
+  &__header {
+    display: flex;
+    gap: 0.85rem;
+    margin-bottom: 1.5rem;
+    align-items: center;
+  }
+
+  &__title {
+    font-size: 1.1em;
+    margin: 0;
+  }
+
+  &__date {
+    color: #515c62;
+    font-size: 0.85em;
+    font-weight: bold;
+  }
+
+  &__tags {
+    display: flex;
+    gap: 5px;
+
+    a {
+      text-decoration: none;
+      color: var(--main-link-color);
+    }
+  }
+
+  &__body-link {
+    display: block;
+    margin-bottom: 1rem;
+    font-size: 1.2em;
+  }
+
+  &__image {
+    display: block;
+    background-size: cover;
+    width: calc(100% + 2rem);
+    margin-left: -1rem;
+    margin-bottom: 1.5rem;
+    max-width: unset;
+  }
+
+  &__body {
+    font-size: 1.1em;
+    margin-bottom: 1rem;
+
+    p {
+      margin-bottom: 1.25rem;
+    }
+
+    pre {
+      margin-top: 1rem;
+    }
+
+    >div>*:last-child, >*:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

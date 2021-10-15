@@ -4,6 +4,6 @@ module.exports = {
     'postcss-preset-env': {},
     'postcss-nested': {},
     autoprefixer: {},
-    cssnano: process.env.NODE_ENV == 'production' ? {} : false,
-  },
-};
+    cssnano: process.env.NODE_ENV == 'production' ? {} : false
+  }
+}

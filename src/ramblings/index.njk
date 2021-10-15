@@ -1,0 +1,22 @@
+---
+title: "Ramblings"
+description: "This is my own personal microblog. My own Twitter. It's full of random thoughts, links and images."
+extraDescription: 'I write more in-depth articles about programming and technology on my main <a href="/blog/">Writings</a> page.'
+centerHeader: true
+pagination:
+  data: collections.ramblings
+  size: 10
+  reverse: true
+  alias: posts
+permalink: /ramblings/{% if pagination.pageNumber %}{{ pagination.pageNumber }}/{% endif %}
+---
+
+{% extends "layouts/pages.njk" %}
+
+{% block head %}
+<meta name="robots" content="noindex">
+{% endblock %}
+
+{% block pageContent %}
+{% include "ramblings_listing.njk" %}
+{% endblock %}

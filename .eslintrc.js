@@ -6,12 +6,9 @@ module.exports = {
     node: true
   },
   extends: [
-    "standard"
+    'preact', 'standard'
   ],
   parserOptions: {
     ecmaVersion: 12
-  },
-  rules: {
-    quotes: ["error", "double"]
   }
 }

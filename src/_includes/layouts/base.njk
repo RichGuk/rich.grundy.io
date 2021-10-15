@@ -35,7 +35,7 @@
     {% endblock %}
   </head>
   <body>
-    <header class="main-header">
+    <header class="main-header js-main-header">
       <div class="main-header__logo">
         <a aria-label="Homepage" class="main-header__homelink" href="/">
           <span></span>
@@ -43,10 +43,26 @@
         </a>
       </div>
       <nav class="main-header__nav main-nav">
-        <a href="/blog/" class="{%- if "/blog" in page.url %}-is-active{% endif -%}">Writings</a>
-        <a href="/photography/" class="{%- if "/photography" in page.url %}-is-active{% endif -%}">Photography</a>
-        <a href="/about/" class="{%- if "/about" in page.url %}-is-active{% endif -%}">About</a>
-        <i class="js-themeswitcher {% if forceDark  %}-is-disabled {% endif %}icon-moon theme-switcher" title="Light/Dark mode"></i>
+        <ul class="main-nav__items">
+          <li><a href="/blog/" class="{%- if "/blog" in page.url %}-is-active{% endif -%}">Writings</a></li>
+          <li><a href="/ramblings/" class="{%- if "/ramblings" in page.url %}-is-active{% endif -%}" rel="nofollow">Ramblings</a></li>
+          <li><a href="/photography/" class="{%- if "/photography" in page.url %}-is-active{% endif -%}">Photography</a></li>
+          <li><a href="/about/" class="{%- if "/about" in page.url %}-is-active{% endif -%}">About</a></li>
+        </ul>
+
+        <ul class="main-nav__extra-items">
+          <li><i class="js-themeswitcher {% if forceDark  %}-is-disabled {% endif %}icon-moon theme-switcher main-nav__themeswitcher" title="Light/Dark mode"></i></li>
+          <li>
+            <button class="js-toggle-nav main-nav__toggle-btn">
+              <span class="nav-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+            </button>
+          </li>
+        </ul>
       </nav>
     </header>
 
@@ -55,7 +71,7 @@
     {% endblock %}
 
     <footer class="main-footer">
-      <span class="main-footer__copyright">&copy; Richard Grundy</span>
+      <span class="main-footer__copyright" onclick="window.location.href = '/ramblings/share'">&copy; Richard Grundy</span>
 
       <div class="main-footer__social">
         <ul class="social-profiles -footer">
