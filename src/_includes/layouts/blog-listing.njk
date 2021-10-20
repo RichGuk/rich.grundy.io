@@ -16,7 +16,7 @@ eleventyExcludeFromCollections: true
 
 <ul class="blog-listings">
   {% set currentYear = "" %}
-  {% for post in collections.posts | reverse %}
+  {% for post in (postsForTag or collections.posts) | reverse %}
     {% set postYear = post.date.getFullYear() %}
     {% if currentYear != postYear %}
       {% set currentYear = postYear %}
