@@ -43,6 +43,8 @@ module.exports = (eleventyConfig) => {
     eleventyConfig.addTransform(name, transforms[name])
   })
 
+  eleventyConfig.setUseGitIgnore(false)
+
   return {
     dir: {
       input: "src",
