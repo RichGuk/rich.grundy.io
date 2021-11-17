@@ -4,10 +4,8 @@
 }
 
 .microblog {
-  --microblog-background: #20242b;
-  --microblog-background: #1b2735;
-
   background-color: var(--microblog-background);
+  border: 1px solid var(--microblog-border-color);
   border-radius: 10px;
   margin-bottom: 1.5rem;
   padding: 1.5rem 1rem;

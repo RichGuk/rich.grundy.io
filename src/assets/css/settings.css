@@ -22,6 +22,9 @@
   --date-color: #30363e;
   --blockquote-background: #f4f4f4;
   --article-header-color: var(--primary-color);
+
+  --microblog-background: #f9f9f9;
+  --microblog-border-color: #e8e8e8;
 }
 
 [data-theme="dark"], .-force-dark {
@@ -49,6 +52,9 @@
   --main-page-header-font-color: #ffffff;
   --article-intro-color: #ffffff;
   --blockquote-background: #111111;
+
+  --microblog-background: #1b2735;
+  --microblog-border-color: #1b2735;
 }
 
 :root {
