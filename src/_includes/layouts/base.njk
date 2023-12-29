@@ -16,8 +16,8 @@
     <link rel="preload" as="image" href="/assets/images/avatar-sunglasses.svg">
     <link rel="preload" as="image" href="/assets/images/avatar.svg">
     <script>
-      const wantsDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const storedPreference = localStorage.getItem('theme');
+      var wantsDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var storedPreference = localStorage.getItem('theme');
       if (storedPreference == 'dark' || (!storedPreference && wantsDark)) {
         document.documentElement.setAttribute('data-theme', 'dark')
       }
@@ -44,7 +44,6 @@
       <nav class="main-header__nav main-nav">
         <ul class="main-nav__items">
           <li><a href="/blog/" class="{%- if "/blog" in page.url %}-is-active{% endif -%}">Writings</a></li>
-          <li><a href="/ramblings/" class="{%- if "/ramblings" in page.url %}-is-active{% endif -%}" rel="nofollow">Ramblings</a></li>
           <li><a href="/photography/" class="{%- if "/photography" in page.url %}-is-active{% endif -%}">Photography</a></li>
           <li><a href="/about/" class="{%- if "/about" in page.url %}-is-active{% endif -%}">About</a></li>
         </ul>
