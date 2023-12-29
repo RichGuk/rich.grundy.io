@@ -23,15 +23,6 @@ module.exports = (eleventyConfig) => {
     .addPassthroughCopy({ "src/assets/vendor": "vendor" })
     .addPassthroughCopy({ "src/public": "/" });
 
-  // eleventyConfig.setBrowserSyncConfig({
-  //   ui: false,
-  //   ghostMode: true,
-  //   ignorePaths: ['ramblings/share/*'],
-  //   files: [
-  //     './dist/assets/css',
-  //     './dist/assets/js',
-  //   ]
-  // })
   eleventyConfig.setServerOptions({
     watch: ["./dist/assets/css", "./dist/assets/js"],
   });
