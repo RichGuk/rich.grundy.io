@@ -66,8 +66,9 @@
       &:hover { color: var(--main-link-color-hover); }
 
       &.-is-active {
-        color: var(--primary-color);
-        border-bottom: 3px solid var(--primary-color);
+        color: var(--primary-nav-color);
+        padding-bottom: 2px;
+        border-bottom: 5px solid var(--primary-color);
       }
     }
 
