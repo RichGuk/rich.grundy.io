@@ -1,5 +1,20 @@
+.blog-title {
+  color: var(--primary-color);
+}
+
 .blog-listing {
   --meta-div-color: #545353;
+}
+
+.blog-listings-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 3rem;
+
+  @media (min-width: 1200px) {
+    flex-direction: row;
+    gap: 5rem;
+  }
 }
 
 .blog-listings {

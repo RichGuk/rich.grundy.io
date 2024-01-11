@@ -5,7 +5,6 @@
   align-items: flex-start;
   flex-wrap: wrap;
   row-gap: 1rem;
-  column-gap: 0.5rem;
   padding: 0;
   margin-top: 0;
 
@@ -24,13 +23,10 @@
   display: block;
   padding: 0.5rem 1rem;
   flex: 1 1 auto;
+  transition: transform .2s ease;
 
   &:hover {
-    box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.05), 0 10px 10px 0 rgba(0, 0, 0, 0.03);
-
-    [data-theme="dark"] & {
-    box-shadow: 0 10px 20px 0 rgba(0,0,0,0.2), 0 10px 10px 0 rgba(0,0,0,0.3);
-    }
+    transform: scale(1.05);
   }
 
 
@@ -62,6 +58,10 @@
     margin-top: 1rem;
     padding-right: 0.5rem;
     margin-bottom: 0.25rem;
+
+    .blog-card:hover & {
+      color: var(--primary-color);
+    }
   }
 
   &__date {

@@ -19,6 +19,15 @@ body {
   }
 }
 
+::selection {
+  background:var(--secondary-color);
+  color:#fff
+}
+::-moz-selection {
+  background:var(--secondary-color);
+  color:#fff
+}
+
 a {
   color: var(--main-link-color);
   text-decoration: none;

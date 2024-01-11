@@ -12,9 +12,9 @@ priority: 1
   </div>
 
   <div class="homepage-writings">
-    <h2 class="homepage-writings__title h3 js-post-data">Writings</h2>
+    <h2 class="h3">Technical writings</h2>
     <ul class="blog-card-wrapper">
-      {% for post in collections.posts | reverse | limit(8) %}
+      {% for post in collections.postsWithoutPersonal | reverse | limit(8) %}
       <li class="blog-card">
         <a href="{{ post.url }}" class="blog-card__link">
           <div class="blog-card__hero"
@@ -41,6 +41,17 @@ priority: 1
     <div class="homepage-writings__archive-link">
       <a href="/blog/">View archive &gt;</a>
     </div>
+  </div>
+
+  <div>
+    <h2 class="h3">More personal writings</h2>
+    <ul class="blog-listings">
+      {% for post in collections.personalPosts | reverse | limit(6) %}
+      <li class="blog-list-item">
+        <span class="blog-list-item__title h4"><a href="{{ post.url }}">{{ post.data.title }}</a></span>
+      </li>
+      {% endfor %}
+    </ul>
   </div>
 
   <div>

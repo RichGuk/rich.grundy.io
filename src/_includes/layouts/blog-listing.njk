@@ -8,25 +8,70 @@ eleventyExcludeFromCollections: true
   <ul class="topics__list taglist">
     <li class="taglist__item"><a class="taglist__link {% if page.url == '/blog/' %}-is-active{% endif %}"  href="/blog/">all</a></li>
     {% for tag, data in collections.tagList %}
-      {% set tagUrl %}/tag/{{ data['slug'] }}/{% endset %}
-      <li class="taglist__item"><a title="{{ data['count'] }} articles for {{ tag }}" class="taglist__link {% if page.url == tagUrl %}-is-active{% endif %}"  href="{{ tagUrl }}">#{{ data['slug'] }}</a></li>
+    {% set tagUrl %}/tag/{{ data['slug'] }}/{% endset %}
+  <li class="taglist__item"><a title="{{ data['count'] }} articles for {{ tag }}" class="taglist__link {% if page.url == tagUrl %}-is-active{% endif %}"  href="{{ tagUrl }}">#{{ data['slug'] }}</a></li>
     {% endfor %}
   </ul>
 </div>
 
+{% if onTag %}
 <ul class="blog-listings">
   {% set currentYear = "" %}
-  {% for post in posts | reverse %}
-    {% set postYear = post.date.getFullYear() %}
-    {% if currentYear != postYear %}
-      {% set currentYear = postYear %}
-      <h3>{{ postYear }}</h3>
-    {% endif %}
-    <li class="blog-list-item">
-      <span class="blog-list-item__title h4"><a href="{{ post.url }}">{{ post.data.title }}</a></span>
-      <span class="blog-list-item__meta">
-        <time datetime="{{ post.date | htmlDateString }}" class="blog-meta__date">{{ post.date | formatDate('d LLL') }}</time>
-      </span>
-    </li>
+  {% for post in filteredPosts | reverse %}
+  {% set postYear = post.date.getFullYear() %}
+  {% if currentYear != postYear %}
+  {% set currentYear = postYear %}
+  <h3>{{ postYear }}</h3>
+  {% endif %}
+  <li class="blog-list-item">
+    <span class="blog-list-item__title h4"><a href="{{ post.url }}">{{ post.data.title }}</a></span>
+    <span class="blog-list-item__meta">
+      <time datetime="{{ post.date | htmlDateString }}" class="blog-meta__date">{{ post.date | formatDate('d LLL') }}</time>
+    </span>
+  </li>
   {% endfor %}
 </ul>
+
+{% else %}
+<div class="blog-listings-wrapper">
+  <div>
+    <h2 class="blog-title">Technical writing</h2>
+    <ul class="blog-listings">
+      {% set currentYear = "" %}
+      {% for post in collections.postsWithoutPersonal | reverse %}
+      {% set postYear = post.date.getFullYear() %}
+      {% if currentYear != postYear %}
+      {% set currentYear = postYear %}
+      <h3>{{ postYear }}</h3>
+      {% endif %}
+      <li class="blog-list-item">
+        <span class="blog-list-item__title h4"><a href="{{ post.url }}">{{ post.data.title }}</a></span>
+        <span class="blog-list-item__meta">
+          <time datetime="{{ post.date | htmlDateString }}" class="blog-meta__date">{{ post.date | formatDate('d LLL') }}</time>
+        </span>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div>
+    <h2 class="blog-title">Personal writing</h2>
+    <ul class="blog-listings">
+      {% set currentYear = "" %}
+      {% for post in collections.personalPosts | reverse %}
+      {% set postYear = post.date.getFullYear() %}
+      {% if currentYear != postYear %}
+      {% set currentYear = postYear %}
+      <h3>{{ postYear }}</h3>
+      {% endif %}
+      <li class="blog-list-item">
+        <span class="blog-list-item__title h4"><a href="{{ post.url }}">{{ post.data.title }}</a></span>
+        <span class="blog-list-item__meta">
+          <time datetime="{{ post.date | htmlDateString }}" class="blog-meta__date">{{ post.date | formatDate('d LLL') }}</time>
+        </span>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endif %}

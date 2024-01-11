@@ -22,6 +22,16 @@ module.exports = {
   posts: (collection) => {
     return collection.getFilteredByGlob('src/blog/**/*.md')
   },
+  postsWithoutPersonal: (collection) => {
+    return collection.getFilteredByGlob('src/blog/**/*.md').filter((item) => {
+      return !item.data.tags.includes('personal')
+    })
+  },
+  personalPosts: (collection) => {
+    return collection.getFilteredByGlob('src/blog/**/*.md').filter((item) => {
+      return item.data.tags.includes('personal')
+    })
+  },
   ramblings: (collection) => {
     return collection.getFilteredByGlob('src/ramblings/**/*.md')
   },
