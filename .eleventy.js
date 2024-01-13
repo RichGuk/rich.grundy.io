@@ -26,6 +26,7 @@ module.exports = (eleventyConfig) => {
   eleventyConfig.setServerOptions({
     watch: ["./dist/assets/css", "./dist/assets/js"],
     domDiff: false,
+    liveReload: true,
   });
 
   Object.keys(shortcodes).forEach((name) => {
