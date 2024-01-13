@@ -24,14 +24,14 @@ module.exports = {
 
   imageTag:
   (src, desc = '') => {
-    src = process.env.NODE_ENV !== 'production' ? `/assets/images/${src}` : `//media.rich.grundy.io/${src}`
+    src = `/assets/images/${src}`
     const file = `${path.dirname(src)}/${path.basename(src, path.extname(src))}`
 
     return minify(`
       <picture>
         <source srcset="${file}.avif" type="image/avif" loading="lazy">
         <source srcset="${file}.webp" type="image/webp" loading="lazy">
-        <img src="${src}" alt="${desc}" loading="lazy">
+        <img src="${file}.webp" alt="${desc}" loading="lazy">
       </picture>
     `)
   }
