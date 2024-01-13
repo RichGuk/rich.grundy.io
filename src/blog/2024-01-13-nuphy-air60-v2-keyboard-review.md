@@ -1,7 +1,7 @@
 ---
 hero: true
 title: "NuPhy Air60 v2 keyboard review"
-description: "Roll your own Ngrok alternative for free with Nginx and SSH."
+description: "A Nuphy Air60 v2 review: a solidly built keyboard offering excellent wireless versatility. Overall, it's a great board with minor niggles about the feet design and RGB performance"
 tags:
   - hardware
 ---
