@@ -2,8 +2,6 @@
 /dist
 /.vscode
 .DS_Store
-src/assets/images/blog
-!src/assets/images/blog/.gitkeep
 # Local Netlify folder
 .netlify
 .env
