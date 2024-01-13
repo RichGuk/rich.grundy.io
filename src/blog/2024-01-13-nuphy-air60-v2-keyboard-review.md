@@ -48,34 +48,82 @@ If you want wired, the Air60 has you covered, with USB-C. This added flexibility
     {% imageTag 'blog/nuphy-air60-v2-keyboard-review/DSC01868_2048.avif' %}
 </div>
 
-In terms of battery life, the Nuphy Air60 has proven to be exceptionally reliable. While the manufacturer boasts a claim of 150 hours without RGB lighting, I have yet to thoroughly test this specific duration. Throughout a month of rigorous testing, the need for a recharge has been minimal, albeit with the occasional cable use for QMK settings. Although I can't provide the exact number of hours due to sporadic cable connections, the overall battery performance of the Nuphy Air60 has been stellar in my experience 👌.  For users like me who value longevity over flashy RGB lighting, this wireless mechanical keyboard proves to be a reliable companion. It consistently delivers without the frequent interruptions of charging, making it a dependable choice.
+In terms of battery life, the Nuphy Air60 has proven to be exceptionally
+reliable. While the manufacturer boasts a claim of 150 hours without RGB
+lighting, I have yet to thoroughly test this specific duration. Throughout a
+month of rigorous testing, the need for a recharge has been minimal, albeit with
+the occasional cable use for QMK settings. Although I can't provide the exact
+number of hours due to sporadic cable connections, the overall battery
+performance of the Nuphy Air60 has been stellar in my experience 👌.  For users
+like me who value longevity over flashy RGB lighting, this wireless mechanical
+keyboard proves to be a reliable companion. It consistently delivers without the
+frequent interruptions of charging, making it a dependable choice.
 
-Talking RGB on the Nuphy Air60 – it's alright, not stellar. The default keycaps don't let the RGB shine through, and the lighting isn't as vivid as some other boards I've used. If you're all about that vibrant RGB life, this might not be your top pick. But, if like me, you're more into the keyboard's performance and reliability than flashy lights, the Air60 still holds its ground. It might not have the most dazzling RGB, but it's a solid choice for those who value function over extravagant lighting effects.
+Talking RGB on the Nuphy Air60 – it's alright, not stellar. The default keycaps
+don't let the RGB shine through, and the lighting isn't as vivid as some other
+boards I've used. If you're all about that vibrant RGB life, this might not be
+your top pick. But, if like me, you're more into the keyboard's performance and
+reliability than flashy lights, the Air60 still holds its ground. It might not
+have the most dazzling RGB, but it's a solid choice for those who value function
+over extravagant lighting effects.
+
 <div class="article__image-row -center">
     {% imageTag 'blog/nuphy-air60-v2-keyboard-review/DSC01870_2048.avif' %}
 </div>
 
-Let's talk about feet. The Air60 comes equipped with two-position foldable feet, touted as an improvement over the magnetic ones on the v1. However, despite the better design, this has become my biggest gripe. Not due to the positioning – the board feels comfortable, even without a wrist rest. The real issue arises from the rubber bottoms, intended to allow the board to sit on top of a laptop keyboard. Whenever you try to move the board backward, the feet almost fold closed on themselves. It's quite annoying, and the board doesn't glide easily, making it a bit of a hassle when you want to reposition it.
+Let's talk about feet. The Air60 comes equipped with two-position foldable feet,
+touted as an improvement over the magnetic ones on the v1. However, despite the
+better design, this has become my biggest gripe. Not due to the positioning –
+the board feels comfortable, even without a wrist rest. The real issue arises
+from the rubber bottoms, intended to allow the board to sit on top of a laptop
+keyboard. Whenever you try to move the board backward, the feet almost fold
+closed on themselves. It's quite annoying, and the board doesn't glide easily,
+making it a bit of a hassle when you want to reposition it.
 
 ## Typing experience
 
-Now, I'm not a mechanical keyboard expert, having mostly used Cherry MX Reds/Browns on standard height keycaps. This time opting for Nuphy's own Wisteria switches (somewhat akin to Gateron low-profile browns), this marks my first foray into low-profile territory. The switches come prelubed, and there's also the option for Gateron switches (also prelubed).
+Now, I'm not a mechanical keyboard expert, having mostly used Cherry MX
+Reds/Browns on standard height keycaps. This time opting for Nuphy's own
+Wisteria switches (somewhat akin to Gateron low-profile browns), this marks my
+first foray into low-profile territory. The switches come prelubed, and there's
+also the option for Gateron switches (also prelubed).
 
-The Wisteria switches on the Nuphy Air60 exhibit similarities with Gateron Browns (which I have on the Keycron), although, in my experience, they provide a more tactile and satisfying feel. Being my initial venture into low-profile mechanical keyboards, the typing experience is unique—reminiscent of typing on the MacBook M1 Pro keyboard in terms of low-profile design but with significantly improved feedback and tactility. The low-profile keys are perfectly spaced for me, allowing seamless gliding between them.
+The Wisteria switches on the Nuphy Air60 exhibit similarities with Gateron
+Browns (which I have on the Keycron), although, in my experience, they provide a
+more tactile and satisfying feel. Being my initial venture into low-profile
+mechanical keyboards, the typing experience is unique—reminiscent of typing on
+the MacBook M1 Pro keyboard in terms of low-profile design but with
+significantly improved feedback and tactility. The low-profile keys are
+perfectly spaced for me, allowing seamless gliding between them.
 
-The sound damping on this board is commendable. It's relatively quiet, and there's noticeable support. The stabilisers, impressive for a low-profile design, can even be removed if you fancy modding or changing them.
+The sound damping on this board is commendable. It's relatively quiet, and
+there's noticeable support. The stabilisers, impressive for a low-profile
+design, can even be removed if you fancy modding or changing them.
 
-Overall, typing on this keyboard has been a joy. I find myself averaging around 100 words per minute, a step up from my Ducky. The combination of the unique Wisteria switches, low-profile design, and sound damping makes for an enjoyable and efficient typing experience.
+Overall, typing on this keyboard has been a joy. I find myself averaging around
+100 words per minute, a step up from my Ducky. The combination of the unique
+Wisteria switches, low-profile design, and sound damping makes for an enjoyable
+and efficient typing experience.
 
 ## Final thoughts
 
-In wrapping up my experience with the Air60, it's clear Nuphy has done an excellent job with this keyboard. The two-position foldable feet, despite my initial gripe, don't overshadow the overall comfort of the board. The typing experience on low-profile keys has been great, and I'm not too sure I want to go back.
+In wrapping up my experience with the Air60, it's clear Nuphy has done an
+excellent job with this keyboard. The two-position foldable feet, despite my
+initial gripe, don't overshadow the overall comfort of the board. The typing
+experience on low-profile keys has been great, and I'm not too sure I want to go
+back.
 
-The RGB isn't the most dazzling, but for users like me who prioritise function over flashy lighting, it's a minor compromise. The battery life has proven reliable, requiring minimal recharging during a month of use.
+The RGB isn't the most dazzling, but for users like me who prioritise function
+over flashy lighting, it's a minor compromise. The battery life has proven
+reliable, requiring minimal recharging during a month of use.
 
 The wireless connectivity has been stable and reliable for me.
 
-For those seeking a departure from the norm, the Nuphy Air60 v2 stands out as a reliable and enjoyable wireless mechanical keyboard. Whether you're a seasoned mechanical keyboard enthusiast or diving into the wireless world for the first time, the Air60 v2 brings a distinctive blend of comfort, performance, and versatility from a prebuilt board.
+For those seeking a departure from the norm, the Nuphy Air60 v2 stands out as a
+reliable and enjoyable wireless mechanical keyboard. Whether you're a seasoned
+mechanical keyboard enthusiast or diving into the wireless world for the first
+time, the Air60 v2 brings a distinctive blend of comfort, performance, and
+versatility from a prebuilt board.
 
 <div class="review-approval">
     <div class="review-approval__rating">
