@@ -61,7 +61,7 @@ Let's talk about feet. The Air60 comes equipped with two-position foldable feet,
 
 Now, I'm no mechanical keyboard expert, having mostly used Cherry MX Reds/Browns on standard height keycaps. Opting for Nuphy's own Wisteria switches (similar to MX Browns, but with a mid-stroke bump), this marks my first venture into low-profile territory. The switches come prelubed, and there's also the option for Gateron switches.
 
-These Wisteria switches provide a unique feel – akin to typing on a MacBook keyboard but with more tactile feedback. The typing experience is a pleasant departure from the standard, offering a satisfying mid-stroke bump for those who enjoy a tactile response, while maintaining the easy transition between keys that low-profile seems to offer.
+These Wisteria switches provide a unique feel – akin to typing on a MacBook (M1 Pro) keyboard but with much nicer tactile feedback. The typing experience is a pleasant departure from the standard, offering a satisfying mid-stroke bump for those who enjoy a tactile response, while maintaining the easy transition between keys that low-profile seems to offer.
 
 The sound damping on this board is commendable. It's relatively quiet, and there's noticeable support. The stabilisers, impressive for a low-profile design, can even be removed if you fancy modding or changing them.
 

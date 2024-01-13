@@ -1,9 +1,13 @@
 .review-approval {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   margin-bottom: 3rem;
   border: 2px solid var(--main-div-color);
   background: #a6e3a1;
+
+  @media (min-width: 700px) {
+    flex-direction: row;
+  }
 
   &__icon {
     font-size: 2.5rem;
