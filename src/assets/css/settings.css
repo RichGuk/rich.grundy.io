@@ -24,6 +24,9 @@
   --blockquote-background: #f4f4f4;
   --article-header-color: var(--primary-color);
 
+  --text-color-green: #a6e3a1;
+  --text-color-red: #f38ba8;
+
   --microblog-background: #f9f9f9;
   --microblog-border-color: #e8e8e8;
 }
@@ -53,6 +56,9 @@
   --main-page-header-font-color: #ffffff;
   --article-intro-color: #ffffff;
   --blockquote-background: #111111;
+
+  --text-color-red: #f38ba8;
+  --text-color-green: #a6e3a1;
 
   --microblog-background: #1b2735;
   --microblog-border-color: #1b2735;

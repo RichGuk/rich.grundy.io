@@ -27,7 +27,6 @@
   },
   "homepage": "https://github.com/RichGuk/rich.grundy.io#readme",
   "devDependencies": {
-    "@squoosh/cli": "^0.7.2",
     "eslint": "^7.32.0",
     "eslint-config-preact": "^1.1.4",
     "eslint-config-standard": "^16.0.3",
@@ -61,6 +60,7 @@
     "postcss-preset-env": "^7.7.1",
     "preact": "^10.5.15",
     "sanitize.css": "^12.0.1",
+    "sharp-cli": "^4.2.0",
     "slugify": "^1.5.3"
   },
   "browserslist": [

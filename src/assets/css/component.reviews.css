@@ -1,0 +1,83 @@
+.review-approval {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 3rem;
+  border: 2px solid var(--main-div-color);
+  background: #a6e3a1;
+
+  &__icon {
+    font-size: 2.5rem;
+  }
+
+  &__avatar {
+    background: url("/assets/images/avatar-sunglasses.svg") no-repeat;
+    align-self: center;
+    width: 85px !important;
+    height: 85px;
+    background-size: 85px 85px;
+  }
+
+  &__rating {
+    display: black;
+    background: #a6e3a1;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 3rem;
+    color: black;
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+
+  &__text {
+    background-color: var(--main-background-color);
+    flex: 1;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem;
+    font-size: 1rem;
+    display: flex;
+
+    @media (min-width: 700px) {
+      flex-direction: row;
+      gap: 1.5rem;
+    }
+
+     > div {
+      flex: 1;
+    }
+
+    h4 {
+      margin-bottom: 1rem;
+    }
+
+    ul {
+      padding-left: 0;
+      list-style: none;
+      margin-bottom: 0;
+
+      li {
+        padding-left: 1rem;
+      }
+      
+      li.pros:before {
+        content: '\002B';
+        color: var(--text-color-green);
+        margin-left: -1rem;
+        margin-right: 0.5rem;
+      }
+
+      li.cons:before {
+        content: '\2212';
+        color: var(--text-color-red);
+        margin-right: 0.5rem;
+        margin-left: -1rem;
+      }
+    }
+    
+    h4 {
+      margin-top: 0;
+    }
+  }
+}
