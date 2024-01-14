@@ -2,6 +2,7 @@
 title: Be careful with useEffect
 description: "Be careful when using useEffect, you might not realise you're returning."
 heroIcon: "icon-react"
+heroColor: "var(--brand-color-react)"
 tags:
   - javascript
   - react
