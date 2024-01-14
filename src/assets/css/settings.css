@@ -38,7 +38,7 @@
   --main-font-color: #dbdddf;
   --main-link-color: #89b4fa;
   --main-link-color-hover: #addeff;
-  --main-div-color: #2f2f2f;
+  --main-div-color: #313244;
   --main-heading-color: #ffffff;
   --main-sub-heading-color: #b3b3b3;
   --primary-nav-color: white;
@@ -66,12 +66,13 @@
 
 :root {
   --brand-color-digitalocean: #0080ff;
+  --brand-color-git: #f05032;
   --brand-color-linode: #00a95c;
   --brand-color-netlify: #00c7b7;
   --brand-color-laravel: #ff2d20;
   --brand-color-php: #777bb4;
   --brand-color-vim: #019733;
-  --brand-color--archlinux: #1793d1;
+  --brand-color-archlinux: #1793d1;
   --brand-color-go: #00add8;
   --brand-color-rust: black;
   --brand-color-python: #3776ab;
@@ -81,4 +82,7 @@
   --brand-color-vuejs: #4fc08d;
   --brand-color-ruby: #cc342d;
   --brand-color-elixir: #4e2a8e;
+  --brand-color-chrome: #f05032;
+  --brand-color-firefox: #f05032;
+  --brand-color-cloudflare: #f05032;
 }

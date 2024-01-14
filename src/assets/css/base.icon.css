@@ -1,8 +1,8 @@
 @font-face {
   font-family: 'icomoon';
   src:
-  url('/assets/fonts/icomoon.woff2?l5650o') format('woff2'),
-  url('/assets/fonts/icomoon.woff?l5650o') format('woff');
+  url('/assets/fonts/icomoon.woff2?g087tm') format('woff2'),
+  url('/assets/fonts/icomoon.woff?g087tm') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -23,12 +23,24 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-cloudflare:before {
+  content: "\e91f";
+  color: var(--brand-color-cloudflare);
+}
 .icon-digitalocean:before {
   content: "\e914";
   color: var(--brand-color-digitalocean);
 }
 .icon-eleventy:before {
   content: "\e916";
+}
+.icon-git:before {
+  content: "\e91c";
+  color: var(--brand-color-git);
+}
+.icon-chrome:before {
+  content: "\e91d";
+  color: var(--brand-color-chrome);
 }
 .icon-laravel:before {
   content: "\e917";
@@ -38,9 +50,13 @@
   content: "\e915";
   color: var(--brand-color-linode);
 }
+.icon-firefox:before {
+  content: "\e91e";
+  color: var(--brand-color-firefox);
+}
 .icon-php:before {
   content: "\e918";
-  color: var(--brand-color-php;)
+  color: var(--brand-color-php);
 }
 .icon-vim:before {
   content: "\e919";
@@ -126,12 +142,6 @@
 .icon-instagram:before {
   content: "\ea92";
 }
-.icon-feed:before {
-  content: "\f09e";
-}
-.icon-rss:before {
-  content: "\f09e";
-}
 .icon-steam:before {
   content: "\eaad";
 }
@@ -143,6 +153,12 @@
 }
 .icon-linkedin:before {
   content: "\eac9";
+}
+.icon-feed:before {
+  content: "\f09e";
+}
+.icon-rss:before {
+  content: "\f09e";
 }
 .icon-circle-thin:before {
   content: "\e900";
