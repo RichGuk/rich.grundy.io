@@ -23,10 +23,10 @@ priority: 1
             background-image: url("{{post.data.heroBaseUrl}}/hero-small.jpg");
             background-image: image-set(url("{{post.data.heroBaseUrl}}/hero-small.avif") type("image/avif"), url("{{post.data.heroBaseUrl}}/hero-small.webp") type("image/webp"));
             {%- else -%}
-              background: black;
-              border-bottom: 3px solid {{post.data.heroColor | default("var(--default-hero-color)")}};
+              background: #181825;
               padding-top: 90px;
             {%- endif %}
+            border-bottom: 3px solid {{post.data.heroColor | default("var(--default-hero-color)")}};
           '>
             {% if not post.data.hero and post.data.heroIcon %}<i class="blog-card__hero-icon {{ post.data.heroIcon }}"></i>{% endif %}
           </div>
