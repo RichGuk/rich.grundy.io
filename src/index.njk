@@ -24,7 +24,7 @@ priority: 1
             background-image: image-set(url("{{post.data.heroBaseUrl}}/hero-small.avif") type("image/avif"), url("{{post.data.heroBaseUrl}}/hero-small.webp") type("image/webp"));
             {%- else -%}
               background: black;
-              border-bottom: 3px solid {{post.data.heroColor | default("black")}};
+              border-bottom: 3px solid {{post.data.heroColor | default("var(--default-hero-color)")}};
               padding-top: 90px;
             {%- endif %}
           '>

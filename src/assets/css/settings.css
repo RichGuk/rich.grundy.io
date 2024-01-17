@@ -29,6 +29,8 @@
 
   --microblog-background: #f9f9f9;
   --microblog-border-color: #e8e8e8;
+
+  --default-hero-color: #11111b;
 }
 
 [data-theme="dark"], .-force-dark {
@@ -62,6 +64,8 @@
 
   --microblog-background: #1b2735;
   --microblog-border-color: #1b2735;
+
+  --default-hero-color: #cba6f7;
 }
 
 :root {
