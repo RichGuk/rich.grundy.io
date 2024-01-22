@@ -85,6 +85,12 @@
 
     ul,ol {
       line-height: 1.3;
+
+      li strong { color: var(--article-list-title-color); }
+
+      li + li {
+        margin-top: 0.35rem;
+      }
     }
 
     >*:not(.-full,img,picture), .-keep-within {
