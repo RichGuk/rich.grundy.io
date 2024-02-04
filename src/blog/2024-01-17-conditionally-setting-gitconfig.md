@@ -1,6 +1,7 @@
 ---
 title: Conditionally setting gitconfig
 heroIcon: "icon-git"
+heroColor: var(--brand-color-git)
 description: "Effortlessly manage Git configurations for work and personal projects using conditional includes, preventing the risk of using the wrong email in your projects"
 ---
 

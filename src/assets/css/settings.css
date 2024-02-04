@@ -30,7 +30,11 @@
   --microblog-background: #f9f9f9;
   --microblog-border-color: #e8e8e8;
 
-  --default-hero-color: #11111b;
+  --default-hero-color: #cba6f7;
+
+  --tag-background-color: #1e1e2e;
+  --tag-text-color: white;
+  --tag-active-text-color: var(--secondary-color);
 }
 
 [data-theme="dark"], .-force-dark {
@@ -68,6 +72,10 @@
   --microblog-border-color: #1b2735;
 
   --default-hero-color: #cba6f7;
+
+  --tag-background-color: #1e1e2e;
+  --tag-text-color: white;
+  --tag-active-text-color: var(--secondary-color);
 }
 
 :root {
@@ -78,6 +86,7 @@
   --brand-color-laravel: #ff2d20;
   --brand-color-php: #777bb4;
   --brand-color-vim: #019733;
+  --brand-color-neovim: #81ba64;
   --brand-color-archlinux: #1793d1;
   --brand-color-go: #00add8;
   --brand-color-rust: black;

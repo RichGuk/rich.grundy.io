@@ -137,12 +137,15 @@ pre[class*="language-"] {
 }
 
 :not(pre) > code, kbd, samp {
-  font-family: "Fira Code", Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   color: var(--codeblock-color);
 }
 
+code, kbd, samp {
+  font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo,Consolas, Liberation Mono,monospace;
+}
+
 pre[class*="language-"], pre {
-  margin: -0.75rem 0 2rem 0;
+  margin: 0 0 2rem 0;
   padding: 2rem;
   padding: 1.8rem 1.25rem 1.5rem 1.3rem;
   overflow-x: auto;

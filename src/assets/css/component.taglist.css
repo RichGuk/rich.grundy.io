@@ -1,15 +1,4 @@
 .taglist {
-  --tag-background-color: #2e3039;
-  --tag-color: white;
-  --tag-active-color: var(--secondary-color);
-}
-
-[data-theme="dark"] .taglist, .-force-dark .taglist {
-  --tag-background-color: #2e3039;
-  --tag-color: white;
-}
-
-.taglist {
   display: flex;
   flex-wrap: wrap;
   list-style: none;
@@ -35,11 +24,11 @@
     background: var(--tag-background-color);
     border-radius: 15px;
     padding: 0.5rem 0.6rem;
-    color: var(--tag-color);
+    color: var(--tag-text-color);
     transition: all 250ms ease;
 
     &.-is-active {
-      color: var(--tag-active-color);
+      color: var(--tag-active-text-color);
       font-weight: bold;
     }
 

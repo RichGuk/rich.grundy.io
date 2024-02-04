@@ -97,6 +97,7 @@
       margin-left: auto;
       margin-right: auto;
       width: 95%;
+      text-wrap: pretty;
 
       &.full-bleed {
         width: 100vw;
