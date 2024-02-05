@@ -30,6 +30,7 @@
     <meta property="og:description" content="{{ description or site.description }}">
     <meta property="og:url" content="{{ site.baseUrl }}{{ page.url }}">
     <meta property="og:image" content="{% if hero %}https://{{ heroBaseUrl }}/hero.jpg{% else %}{{ site.baseUrl }}/assets/images/avatar.jpg{% endif %}">
+    <link rel="canonical" href="{{ site.baseUrl }}{{ page.url }}" />
     {% block head %}
     {% endblock %}
   </head>
