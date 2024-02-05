@@ -38,8 +38,3 @@ npm run dev
 ```
 
 The website is available at http://localhost:8080 by default.
-
-## Writing Posts
-
-All posts are written in Markdown and can be found in the src/blog/ directory.
-To create a new post, simply add a new Markdown file in this directory.
