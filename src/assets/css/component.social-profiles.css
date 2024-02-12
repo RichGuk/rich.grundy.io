@@ -31,6 +31,7 @@
   }
 
   &__link {
+    color: var(--main-font-color);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -42,11 +43,14 @@
   }
 
   &__icon {
-    font-size: 2.62rem;
-    color: var(--main-font-color);
+    display: inline-flex;
+    align-items: center;
+    width: 24px;
+    height: 24px;
     grid-area: icon;
     align-self: center;
   }
+
     &__link:hover &__icon { color: inherit; }
     &.-footer &__icon { font-size: 1.5rem; }
 

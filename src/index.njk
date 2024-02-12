@@ -28,7 +28,7 @@ priority: 1
             {%- endif %}
             border-bottom: 3px solid {{post.data.heroColor | default("var(--default-hero-color)")}};
           '>
-            {% if not post.data.hero and post.data.heroIcon %}<i class="blog-card__hero-icon {{ post.data.heroIcon }}"></i>{% endif %}
+{% if not post.data.hero and post.data.heroIcon %}<span class="blog-card__hero-icon">{% icon post.data.heroIcon %}</span>{% endif %}
           </div>
           <h3 class="blog-card__title h5">{{ post.data.title }}</h3>
           <p class="blog-card__desc">{{ post.data.description }}</p>
@@ -59,7 +59,7 @@ priority: 1
         <ul class="social-profiles">
         <li class="social-profiles__item">
           <a aria-label="Github" class="social-profiles__link" rel="nofollow" href="https://github.com/richguk/">
-            <i class="social-profiles__icon icon-github"></i>
+            <span class="social-profiles__icon">{% icon 'github' %}</span>
             <span class="social-profiles__label">code</span>
             <span class="social-profiles__link-text">github.com/<strong>richguk</strong></span>
           </a>
@@ -67,7 +67,7 @@ priority: 1
 
         <li class="social-profiles__item">
           <a aria-label="Email" class="social-profiles__link" href="mailto:rich@grundy.io">
-            <i class="social-profiles__icon icon-envelope"></i>
+            <span class="social-profiles__icon">{% icon 'envelope' %}</span>
             <span class="social-profiles__label">email</span>
             <span class="social-profiles__link-text">rich@grundy.io</span>
           </a>
@@ -75,7 +75,7 @@ priority: 1
 
         <li class="social-profiles__item">
           <a aria-label="GPG Public Key" rel="nofollow" class="social-profiles__link" href="/gpg.asc">
-            <i class="social-profiles__icon icon-key"></i>
+            <span class="social-profiles__icon">{% icon 'key' %}</span>
             <span class="social-profiles__label">gpg</span>
             <span class="social-profiles__link-text -gpg"><span>6C85</span><span>5408</span><span>C8D0</span><span>31F5</span></span>
           </a>

@@ -2,7 +2,7 @@
 title: Making an Array unique in JavaScript
 description: "So, you have an Array that you need to make unique in Javascript?"
 heroColor: "var(--brand-color-javascript)"
-heroIcon: "icon-javascript"
+heroIcon: "javascript"
 tags:
   - javascript
 

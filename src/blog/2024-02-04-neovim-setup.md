@@ -1,7 +1,7 @@
 ---
 title: My Neovim setup 2024
 description: "Explore the evolution of my decade-old Neovim setup! Uncover the daily options, mappings, and plugins that power my coding journey."
-heroIcon: "icon-neovim"
+heroIcon: "neovim"
 heroColor: "var(--brand-color-neovim)"
 draft: true
 tags:

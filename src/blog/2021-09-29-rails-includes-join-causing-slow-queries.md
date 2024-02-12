@@ -2,7 +2,7 @@
 title: Rails includes/join causing slow queries?
 description: "Is adding a .join(...) to an ActiveRecord query slowing the page down? You may be doing something unexpected."
 heroColor: "var(--brand-color-ruby)"
-heroIcon: "icon-ruby"
+heroIcon: "ruby"
 tags:
   - rails
 ---

@@ -1,7 +1,7 @@
 ---
 title: "Linux commands for backups: pv"
 description: "This post is about the using the Linux pipe viewer command, or pv."
-heroIcon: "icon-terminal"
+heroIcon: "terminal"
 tags:
   - linux
 ---

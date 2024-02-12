@@ -10,6 +10,13 @@
     color: var(--date-color);
   }
 
+  &__icon {
+    display: inline-flex;
+    align-self: center;
+    width: 18px;
+    height: 18px;
+  }
+
   &__tag-list {
     margin: 0 !important;
 

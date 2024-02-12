@@ -19,7 +19,7 @@ module.exports = (eleventyConfig) => {
 
   eleventyConfig
     .addPassthroughCopy({ "src/assets/images": "/assets/images" })
-    .addPassthroughCopy({ "src/assets/fonts": "/assets/fonts" })
+    .addPassthroughCopy({ "src/assets/icons": "/assets/icons" })
     .addPassthroughCopy({ "src/assets/vendor": "vendor" })
     .addPassthroughCopy({ "src/public": "/" });
 

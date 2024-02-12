@@ -1,7 +1,7 @@
 ---
 title: "Caching assets on Netlify"
 heroColor: "var(--brand-color-netlify)"
-heroIcon: "icon-netlify"
+heroIcon: "netlify"
 tags:
   - services
 ---

@@ -2,7 +2,7 @@
 title: "Konsole on KDE slow to start?"
 description: ""
 heroColor: "#1c94eb"
-heroIcon: "icon-terminal"
+heroIcon: "terminal"
 tags:
   - linux
 ---

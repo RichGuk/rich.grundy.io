@@ -34,5 +34,10 @@ module.exports = {
         <img src="${file}.webp" alt="${desc}" loading="lazy">
       </picture>
     `)
-  }
+  },
+
+  icon: (name) => {
+    const svgPath = path.resolve(__dirname, '..', 'src', 'assets', 'icons', `${name}.svg`)
+    return fs.readFileSync(svgPath, { encoding: 'utf8' })
+  },
 }

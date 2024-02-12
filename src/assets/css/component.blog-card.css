@@ -49,9 +49,10 @@
 
   &__hero-icon {
     position: absolute;
-    top: 1rem;
+    top: 0.85rem;
     right: 1rem;
-    font-size: 2rem;
+    width: 32px;
+    height: 32px;
   }
 
   &__title {

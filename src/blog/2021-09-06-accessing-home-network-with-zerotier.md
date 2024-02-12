@@ -2,7 +2,7 @@
 title: "Access your home network from anywhere with ZeroTier"
 description: "ZeroTier lets you create lightweight and easy to set up peer-to-peer VPNs."
 hero: "/assets/images/blog/access-your-home-network-from-anywhere-with-zerotier/hero-small.jpg"
-heroIcon: "icon-connection"
+heroIcon: "connection"
 tags:
   - networking
 ---
