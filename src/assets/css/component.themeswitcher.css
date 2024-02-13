@@ -1,6 +1,32 @@
 .theme-switcher {
   cursor: pointer;
 
+  &__sun, &__moon {
+  display: inline-flex;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+
+    @media (min-width: 700px) {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  &__moon {
+    display: none;
+  }
+
+  [data-theme="dark"] & {
+    &__sun {
+      display: none;
+    }
+
+    &__moon {
+      display: inline-flex;
+    }
+  }
+
   @media (max-width: 700px) {
     font-size: 1.5rem;
   }
@@ -8,16 +34,6 @@
   &.-is-disabled {
     color: #333;
     cursor: unset;
-  }
-
-  &:before {
-    content: "\e9d4";
-  }
-
-  [data-theme="dark"] & {
-    &:before {
-      content: "\e904"
-    }
   }
 }
 

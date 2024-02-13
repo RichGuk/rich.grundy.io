@@ -12,10 +12,9 @@
 
   &__themeswitcher {
     display: block;
-    margin-top: -4px;
 
     @media (max-width: 700px) {
-      margin-top: 1px;
+      margin-top: 4px;
     }
   }
 
