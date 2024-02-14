@@ -61,7 +61,7 @@
     "preact": "^10.5.15",
     "sanitize.css": "^12.0.1",
     "sharp-cli": "^4.2.0",
-    "slugify": "^1.5.3"
+    "slugify": "^1.6.6"
   },
   "browserslist": [
     "last 1 version",

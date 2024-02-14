@@ -28,7 +28,7 @@ priority: 1
             {%- endif %}
             border-bottom: 3px solid {{post.data.heroColor | default("var(--default-hero-color)")}};
           '>
-{% if not post.data.hero and post.data.heroIcon %}<span class="blog-card__hero-icon">{% icon post.data.heroIcon %}</span>{% endif %}
+{% if not post.data.hero and post.data.heroIcon %}<span class="blog-card__hero-icon" style="color: {{post.data.heroColor | default("var(--default-hero-color)")}}">{% icon post.data.heroIcon %}</span>{% endif %}
           </div>
           <h3 class="blog-card__title h5">{{ post.data.title }}</h3>
           <p class="blog-card__desc">{{ post.data.description }}</p>

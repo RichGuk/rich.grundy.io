@@ -171,3 +171,20 @@ img { max-width: 100%; }
 nav li:before {
   content: '';
 }
+
+table {
+  table-layout: fixed;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+}
+table, th, td {
+  border: 1px solid var(--main-div-color);
+}
+th, td {
+  padding: 0.5rem;
+  text-align: left;
+}
+th {
+  color: var(--main-heading-color);
+  font-weight: bold;
+}
