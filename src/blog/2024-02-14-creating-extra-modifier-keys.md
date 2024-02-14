@@ -10,13 +10,13 @@ tags:
 
 ---
 
-I like to repurpose keys I never use, like caps lock, into additional modifier
-keys. Often referred to as Hyper or MEH keys. On MacOS, you can achieve this
-using an app called [Karabiner]. However, recently, I acquired a QMK firmware keyboard
-with VIA support. This allows me to customise it directly on the board. In this
-article, I'll cover both methods.
+I like to repurpose keys I never use, such as caps lock, into additional
+modifier keys, often referred to as Hyper or MEH keys. On MacOS, you can
+achieve this using an app called [Karabiner]. However, recently, I acquired a
+QMK firmware keyboard with VIA support. This allows me to customise it directly
+on the board. In this article, I'll cover both methods.
 
-I've often thought my keyboard usage is rather unique. I rarely utilise
+I've often thought that my keyboard usage is rather unique. I rarely utilise
 function keys or media keys such as pause/play, and I have completely forsaken
 the numpad. Even my use of arrow keys has been replaced with `hjkl`. That's
 precisely why 60% keyboards are my jam!
@@ -32,8 +32,8 @@ Currently, my main keyboard is the NuPhy Air60 v2 (I wrote about it
 
 A significant portion of my desktop workflow revolves around changing
 workspaces or moving apps between them. Consequently, I tend to overload the
-number row for this, assigning each workspace a number. To help me
-reusing the number row, I use these Hyper/MEH modifiers.
+number row for this, assigning each workspace a number. To help me reuse the
+number row, I use these Hyper/MEH modifiers.
 
 My modifiers:
 
@@ -83,7 +83,7 @@ So, what do my mappings look like?
 
 On my keyboard, there are 8 configurable layers. A layer is like a saved layout
 of the keys, often activated by pressing a key from another layer. For example,
-the Fn key activates layer 1 (MO(1)).
+the Fn key activates layer 1 (`MO(1)`).
 
 
 > *Note: The NuPhy has a Win/Mac toggle, which toggles default layers: 0,1 for
@@ -95,7 +95,6 @@ I have `Tab` configured to send `Shift + Ctrl + Opt` when held, or the `Tab`
 if just tapped. To do this with QMK you can use the MT [modtap] key, like so:
 
 `MT(MOD_LCTL | MOD_LSFT | MOD_LALT,KC_TAB)`
-
 
 In VIA, you need to add a special `any` key to do this:
 
@@ -141,7 +140,14 @@ You can find more keycodes on the [modtap] or [keycodes] documentation.
 
 ### Karabiner
 
-Now lets configure the same in Karabiner, which I still use this for the built in MacBook keyboard.
+Now let's configure the same in Karabiner, which I still use for the built-in MacBook keyboard.
+
+In Karabiner, you can achieve similar functionality using complex modifiers.
+Here's the JSON configuration for replicating the mappings:
+
+<div class="article__image-row">
+    {% imageTag 'blog/keyboard-setup/SCR-20240214-hsco.avif' %}
+</div>
 
 `Caps`:
 
