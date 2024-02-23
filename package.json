@@ -11,7 +11,7 @@
     "build:js": "esbuild src/assets/js/*.js src/assets/js/*.jsx --jsx-factory=h --jsx-fragment=Fragment  --bundle --minify --outdir=./dist/assets/js",
     "build:site": "NODE_ENV=production eleventy",
     "dev": "npm-run-all clean --parallel dev:*",
-    "dev:site": "NODE_ENV=developmnt eleventy --serve",
+    "dev:site": "NODE_ENV=developmnt eleventy --serve --port ${PORT:-8080}",
     "dev:css": "postcss ./src/assets/css/app.css -o ./dist/assets/css/app.css --watch --verbose",
     "dev:js": "esbuild src/assets/js/*.{js,jsx} --jsx-factory=h --jsx-fragment=Fragment --bundle --watch --outdir=./dist/assets/js"
   },
