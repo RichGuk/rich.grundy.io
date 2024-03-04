@@ -40,7 +40,7 @@
     "@11ty/eleventy-plugin-syntaxhighlight": "^4.0.0",
     "@11ty/eleventy-upgrade-help": "^2.0.5",
     "@auth0/auth0-spa-js": "^1.19.1",
-    "@aws-sdk/client-s3": "^3.39.0",
+    "@aws-sdk/client-s3": "^3.513.0",
     "@aws-sdk/s3-request-presigner": "^3.39.0",
     "@octokit/auth-app": "^3.6.1",
     "@octokit/core": "^3.5.1",
