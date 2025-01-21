@@ -1,6 +1,6 @@
-const path = require('path')
+import path from 'path'
 
-module.exports = {
+export default {
   layout: 'layouts/blog-entry',
   tags: 'post',
   permalink:

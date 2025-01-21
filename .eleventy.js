@@ -1,14 +1,15 @@
-const shortcodes = require("./utils/shortcodes.js");
-const filters = require("./utils/filters.js");
-const collections = require("./utils/collections.js");
-const transforms = require("./utils/transforms.js");
+import shortcodes from "./utils/shortcodes.js";
+import filters from "./utils/filters.js";
+import collections from "./utils/collections.js";
+import transforms from "./utils/transforms.js";
 
-const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
-const pluginRss = require("@11ty/eleventy-plugin-rss");
-const UpgradeHelper = require("@11ty/eleventy-upgrade-help");
+import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
+import pluginRss from "@11ty/eleventy-plugin-rss";
 
-module.exports = (eleventyConfig) => {
-  eleventyConfig.addPlugin(UpgradeHelper);
+// import UpgradeHelper from "@11ty/eleventy-upgrade-help";
+
+export default async (eleventyConfig) => {
+  // eleventyConfig.addPlugin(UpgradeHelper);
   eleventyConfig.setDataDeepMerge(true);
 
   eleventyConfig.addPlugin(syntaxHighlight);

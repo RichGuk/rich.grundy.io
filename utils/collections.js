@@ -1,4 +1,4 @@
-const filters = require('./filters.js')
+import filters from './filters.js'
 
 const tagsWithPostCountAndSlug = (posts) => {
   const tags = [...posts].reduce((acc, item) => {
@@ -18,7 +18,7 @@ const tagsWithPostCountAndSlug = (posts) => {
   }, {})
 }
 
-module.exports = {
+export default {
   posts: (collection) => {
     return collection.getFilteredByGlob('src/blog/**/*.md')
   },

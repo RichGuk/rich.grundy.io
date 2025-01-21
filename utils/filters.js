@@ -1,5 +1,5 @@
-const slugify = require('slugify')
-const { DateTime } = require('luxon')
+import { DateTime } from 'luxon'
+import slugify from 'slugify'
 
 const slugFilter = (str) => {
   return slugify(str.replace(/\//g, '-'), {
@@ -13,7 +13,7 @@ const specialTags = new Set(['post', 'posts', 'ramblings'])
 const withoutSpecialTags = (tags) =>
   tags.filter((t) => t && !specialTags.has(t))
 
-module.exports = {
+export default {
   slug: slugFilter,
 
   readableDate: (dateObj) => {

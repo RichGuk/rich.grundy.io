@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   eleventyComputed: {
     title: 'My Writings for #{{ tag | slug }}',
     filteredPosts: (data) => {

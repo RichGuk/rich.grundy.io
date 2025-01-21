@@ -6,7 +6,7 @@ module.exports = {
     node: true
   },
   extends: [
-    'preact', 'standard'
+    'standard'
   ],
   parserOptions: {
     ecmaVersion: 12

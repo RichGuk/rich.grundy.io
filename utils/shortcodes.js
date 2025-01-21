@@ -1,6 +1,8 @@
-const fs = require('fs')
-const path = require('path')
-const htmlmin = require('html-minifier')
+import fs from 'fs'
+import path from 'path'
+import htmlmin from 'html-minifier'
+
+const __dirname = import.meta.dirname
 
 const minify = (content) => (
   htmlmin.minify(content, {
@@ -14,7 +16,7 @@ if (fs.existsSync(manifestPath)) {
   manifest = JSON.parse(fs.readFileSync(manifestPath, { encoding: 'utf8' }))
 }
 
-module.exports = {
+export default {
   assetUrl: (name) => {
     if (!manifest[name]) {
       return name
@@ -39,5 +41,5 @@ module.exports = {
   icon: (name) => {
     const svgPath = path.resolve(__dirname, '..', 'src', 'assets', 'icons', `${name}.svg`)
     return fs.readFileSync(svgPath, { encoding: 'utf8' })
-  },
+  }
 }
