@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import htmlmin from 'html-minifier'
+import htmlmin from 'html-minifier-terser'
 
 const __dirname = import.meta.dirname
 

@@ -1,4 +1,4 @@
-import htmlmin from 'html-minifier'
+import htmlmin from 'html-minifier-terser'
 
 // Minify HTML in for the prod build.
 export default {
