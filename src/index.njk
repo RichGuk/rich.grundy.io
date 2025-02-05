@@ -43,6 +43,7 @@ priority: 1
     </div>
   </div>
 
+  {% if collections.personalPosts.length > 0 %}
   <div>
     <h2 class="h3">More personal writings</h2>
     <ul class="blog-listings">
@@ -53,6 +54,7 @@ priority: 1
       {% endfor %}
     </ul>
   </div>
+  {% endif %}
 
   <div>
     <h2 class="h3">Me on the web</h2>

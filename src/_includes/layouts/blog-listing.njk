@@ -54,6 +54,7 @@ eleventyExcludeFromCollections: true
     </ul>
   </div>
 
+  {% if collections.personalPosts.length > 0 %}
   <div>
     <h2 class="blog-title">Personal writing</h2>
     <ul class="blog-listings">
@@ -73,5 +74,6 @@ eleventyExcludeFromCollections: true
       {% endfor %}
     </ul>
   </div>
+  {% endif %}
 </div>
 {% endif %}
