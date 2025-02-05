@@ -4,11 +4,11 @@ import htmlmin from 'html-minifier-terser'
 
 const __dirname = import.meta.dirname
 
-const minify = (content) => (
+const minify = (content) =>
   htmlmin.minify(content, {
-    removeComments: true, collapseWhitespace: true
+    removeComments: true,
+    collapseWhitespace: true,
   })
-)
 
 const manifestPath = path.resolve(__dirname, '..', 'dist', 'assets-manifest.json')
 let manifest = {}
@@ -24,8 +24,7 @@ export default {
     return manifest[name]
   },
 
-  imageTag:
-  (src, desc = '') => {
+  imageTag: (src, desc = '') => {
     src = `/assets/images/${src}`
     const file = `${path.dirname(src)}/${path.basename(src, path.extname(src))}`
 
@@ -41,5 +40,5 @@ export default {
   icon: (name) => {
     const svgPath = path.resolve(__dirname, '..', 'src', 'assets', 'icons', `${name}.svg`)
     return fs.readFileSync(svgPath, { encoding: 'utf8' })
-  }
+  },
 }
