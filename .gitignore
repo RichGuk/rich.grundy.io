@@ -6,3 +6,4 @@
 .netlify
 .env
 .wrangler
+.dev.vars

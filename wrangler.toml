@@ -1,0 +1,6 @@
+name = "hooks"
+compatibility_date = "2024-02-06"
+
+[[kv_namespaces]]
+binding = "OAUTH_TOKEN_KV"
+id = "9abbbb55804d469980411a8014bf3fe9"
