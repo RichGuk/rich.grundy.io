@@ -17,7 +17,7 @@ metadata:
   <subtitle>{{ metadata.subtitle }}</subtitle>
   <link href="{{ site.feedUrl }}" rel="self" type="application/atom+xml"/>
   <link href="{{ site.baseUrl }}" rel="alternate" type="text/html"/>
-  <updated>{{ collections.post | rssLastUpdatedDate }}</updated>
+  <updated>{{ collections.post | getNewestCollectionItemDate | dateToRfc3339 }}</updated>
   <id>{{ site.baseUrl }}</id>
   <author>
     <name>{{ metadata.author.name }}</name>
@@ -28,7 +28,7 @@ metadata:
   <entry>
     <title>{{ post.data.title }}</title>
     <link href="{{ absolutePostUrl }}"/>
-    <updated>{{ post.date | rssDate }}</updated>
+    <updated>{{ post.date | dateToRfc3339 }}</updated>
     <id>{{ absolutePostUrl }}</id>
     <content type="html">{{ post.templateContent | htmlToAbsoluteUrls(absolutePostUrl) }}</content>
   </entry>
