@@ -35,7 +35,6 @@ eleventyExcludeFromCollections: true
 {% else %}
 <div class="blog-listings-wrapper">
   <div>
-    <h2 class="blog-title">Technical writing</h2>
     <ul class="blog-listings">
       {% set currentYear = "" %}
       {% for post in collections.postsWithoutPersonal | reverse %}
@@ -53,27 +52,5 @@ eleventyExcludeFromCollections: true
       {% endfor %}
     </ul>
   </div>
-
-  {% if collections.personalPosts.length > 0 %}
-  <div>
-    <h2 class="blog-title">Personal writing</h2>
-    <ul class="blog-listings">
-      {% set currentYear = "" %}
-      {% for post in collections.personalPosts | reverse %}
-      {% set postYear = post.date.getFullYear() %}
-      {% if currentYear != postYear %}
-      {% set currentYear = postYear %}
-      <h3>{{ postYear }}</h3>
-      {% endif %}
-      <li class="blog-list-item">
-        <span class="blog-list-item__title h4"><a href="{{ post.url }}">{{ post.data.title }}</a></span>
-        <span class="blog-list-item__meta">
-          <time datetime="{{ post.date | htmlDateString }}" class="blog-meta__date">{{ post.date | formatDate('d LLL') }}</time>
-        </span>
-      </li>
-      {% endfor %}
-    </ul>
-  </div>
-  {% endif %}
 </div>
 {% endif %}
