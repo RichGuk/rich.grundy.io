@@ -7,6 +7,22 @@ tags:
   - linux
 ---
 
+<div class="article-update"> 
+    <h3 class="article-update__title">👋 A 2025 Update</h3>
+    <div class="article-update__content">
+        <p>
+            While a lot of this guide is still relevant (I reference it from time to time), there are a few things I do differently now.
+        </p>
+        <p>
+            I'm now a tiling window person (Hyprland), which means I use a few different tools / configurations.
+        </p>
+        <p>
+            Rather than churn out the same post again, I've decided to create a TL;DR version for my new setup.
+        </p>
+        <p><a href="/blog/my-2025-archlinux-hyprland-setup/">My 2025 Hyprland Archlinux</a></p>
+    </div>
+</div>
+
 I've been a Linux user since the 2000s starting on Mandrake with KDE2, however,
 it never became my main desktop. I always stuck with Windows XP, Windows 7 and
 then Mac OSX; Linux was still my love for anything server side, but not desktop.

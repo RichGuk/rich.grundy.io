@@ -21,11 +21,11 @@ body {
 
 ::selection {
   background:var(--secondary-color);
-  color:#fff
+  color: var(--color-mantle);
 }
 ::-moz-selection {
   background:var(--secondary-color);
-  color:#fff
+  color: var(--color-mantle);
 }
 
 a {

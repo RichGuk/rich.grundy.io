@@ -23,6 +23,7 @@
   --date-color: #30363e;
   --blockquote-background: #f4f4f4;
   --article-header-color: var(--primary-color);
+  --color-mantle: #e6e9ef;
 
   --text-color-green: #a6e3a1;
   --text-color-red: #f38ba8;
@@ -64,6 +65,7 @@
   --article-intro-color: #cdd6f4;
   --article-list-title-color: #cdd6f4;
   --blockquote-background: #111111;
+  --color-mantle: #1e2030;
 
   --text-color-red: #f38ba8;
   --text-color-green: #a6e3a1;

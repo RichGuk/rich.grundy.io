@@ -1,7 +1,7 @@
 ---
 title: Maintaining my GPG setup
 description: ""
-heroColor: "#0593dd"
+heroColor: "#94e2d5"
 heroIcon: "key"
 tags:
     - linux

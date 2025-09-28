@@ -4,8 +4,8 @@ import htmlmin from 'html-minifier-terser'
 
 const __dirname = import.meta.dirname
 
-const minify = (content) =>
-  htmlmin.minify(content, {
+const  minify = async (content) =>
+  await htmlmin.minify(content, {
     removeComments: true,
     collapseWhitespace: true,
   })
@@ -24,7 +24,7 @@ export default {
     return manifest[name]
   },
 
-  imageTag: (src, desc = '') => {
+  imageTag: async (src, desc = '') => {
     src = `/assets/images/${src}`
     const file = `${path.dirname(src)}/${path.basename(src, path.extname(src))}`
 
