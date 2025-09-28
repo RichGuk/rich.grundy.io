@@ -19,7 +19,7 @@ tags:
         <p>
             Rather than churn out the same post again, I've decided to create a TL;DR version for my new setup.
         </p>
-        <p><a href="blog/arch-linux-with-hyprland-2025-edition/">My 2025 Hyprland Archlinux</a></p>
+        <p><a href="/blog/archlinux-with-hyprland-2025-edition/">My 2025 Hyprland Archlinux</a></p>
     </div>
 </div>
 

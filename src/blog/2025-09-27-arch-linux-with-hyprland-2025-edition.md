@@ -218,7 +218,7 @@ dust edk2-ovmf exfat-utils eza fastfetch fd ffmpeg ffmpegthumbnailer \
 firefox fontconfig fzf gcc14 git github-cli gnome-calculator gnome-keyring \
 gnome-themes-extra gvfs-mtp gvfs-smb helm hypridle hyprland hyprland-qtutils \
 hyprlock hyprpicker hyprshot hyprsunset imagemagick imv inetutils iwd jq \
-kubectl kvantum-qt5 less libqalculate llvm luarocks mako man mariadb-libs mpv \
+kitty kubectl kvantum-qt5 less libqalculate llvm luarocks mako man mariadb-libs mpv \
 mpv-mpris nautilus noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra \
 nss-mdns pacman-contrib pipewire-alsa pipewire-audio pipewire-pulse \
 playerctl plocate polkit-gnome poppler postgresql-libs python-gobject \
